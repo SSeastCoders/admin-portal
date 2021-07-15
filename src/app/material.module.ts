@@ -9,4 +9,4 @@ exports: [MatButtonModule,MatToolbarModule],
  
 })
  
-export  class  MyMaterialModule { }
+export  class  MaterialModule { }
