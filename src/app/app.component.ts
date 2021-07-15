@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { MatToolbarModule } from '@angular/material/toolbar';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +6,5 @@ import { MatToolbarModule } from '@angular/material/toolbar';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'admin-portal';
+  title = 'Admin-Portal';
 }
