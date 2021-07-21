@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -13,6 +13,15 @@ export class EmployeeService {
   constructor(private http: HttpClient) {}
 
   public getEmployees(): Observable<Employee[]> {
-    return this.http.get<Employee[]>(`${this.api}/users`);
+    let t = 'nfwnie;rewi;ure'; //put token here
+
+    let headersWt = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + t,
+    });
+
+    return this.http.get<Employee[]>(`${this.api}/users`, {
+      headers: headersWt,
+    });
   }
 }
