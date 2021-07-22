@@ -1,21 +1,21 @@
-export interface User {
-    id: number;
-    userRole: {
+export class User {
+    id: number | undefined ;
+    userRole : {
         id: number;
         title: string;
-    };
-    firstName: string;
-    lastName: string;
-    dob: string;
-    email: string;
-    phone: string;
+    } | undefined ;
+    firstName: string | undefined ;
+    lastName: string | undefined ;
+    dob: string  | undefined ;
+    email: string | undefined ;
+    phone: string | undefined ;
     address: {
         streetAddres: string;
         city: string;
         zip: number;
         state: string;
-    };
-    dateJoined: string;
-    activeStatus: boolean;
-    username: string;
+    } | undefined ;
+    dateJoined: string | undefined ;
+    activeStatus: boolean | undefined ;
+    username: string | undefined ;
 }
