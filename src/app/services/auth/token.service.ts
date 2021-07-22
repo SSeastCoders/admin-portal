@@ -19,7 +19,14 @@ export class TokenService {
  
   public getResponseHeaders(credentials: LoginUserClass) {
     let loginUrl = API_URL + '/login';
+    //console.log("get token");
     return this.http.post(loginUrl, credentials, httpOptions);
   }
+
+  public logout() {
+    let logoutUrl = API_URL + '/login';
+    return this.http.get(logoutUrl, {responseType: 'text'});
+  }
+
 }
 
