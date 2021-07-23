@@ -26,4 +26,8 @@ export class UserService {
   public save(user: CreateUser) {
     return this.http.post<CreateUser>(this.usersUrl, user);
   }
+
+  public createUser(user: CreateUser) {
+    return this.http.post<CreateUser>(this.usersUrl, user);
+  }
 }

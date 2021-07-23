@@ -1,5 +1,5 @@
 export class CreateUser {
-    id: number | undefined;
+    //id: number | undefined;
     userRole: string | undefined;
     firstName: string | undefined;
     lastName: string | undefined;

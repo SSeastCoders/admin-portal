@@ -1,0 +1,28 @@
+<form #createUserForm="ngForm">
+    <div class="form-group">
+        <label for="username">Username:</label>
+        <input id="username" class="form-control" type="text"
+        placeholder="Username" name="username"
+        [(ngModel)]="user.username" #username="ngModel">
+    </div>
+
+    <div class="form-group">
+        <label for="password">Password:</label>
+        <input id="password" class="form-control" type="text"
+        placeholder="Password" name="password" required
+        [(ngModel)]="user.password" #password="ngModel">
+    </div>
+
+    <div class="form-group">
+        <label for="userRole">Role Title:</label>
+        <input id="userRole" class="form-control" type="text"
+        placeholder="Role Title" name="userRole" required
+        [(ngModel)]="user.userRole" #userRole="ngModel">
+    </div>
+</form>
+
+<button class="btn btn-warning"
+    (click)="createUser()"
+    [disabled]="!createUserForm.form.valid">
+    <span class="ml-1">Make New User</span>
+</button>
