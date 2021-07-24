@@ -1,4 +1,61 @@
 <form #createUserForm="ngForm">
+
+    <div class="form-group">
+        <label for="userRole">Role Title:</label>
+        <input id="userRole" class="form-control" type="text"
+        placeholder="Role Title" name="userRole" required
+        [(ngModel)]="user.userRole" #userRole="ngModel">
+    </div>
+
+    <div class="form-group">
+        <label for="firstName">First Name:</label>
+        <input id="firstName" class="form-control" type="text"
+        placeholder="First Name" name="firstName" required
+        [(ngModel)]="user.firstName" #firstName="ngModel">
+    </div>
+
+    <div class="form-group">
+        <label for="lastName">Last Name:</label>
+        <input id="lastName" class="form-control" type="text"
+        placeholder="Last Name" name="lastName" required
+        [(ngModel)]="user.lastName" #lastName="ngModel">
+    </div>
+
+    <div class="form-group">
+        <label for="dob">Date of Birth:</label>
+        <input id="dob" class="form-control" type="text"
+        placeholder="MM/DD/YYY" name="dob" required
+        [(ngModel)]="user.dob" #dob="ngModel">
+    </div>
+
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <input id="email" class="form-control" type="text"
+        placeholder="Email" name="email"
+        [(ngModel)]="user.email" #email="ngModel">
+    </div>
+
+    <div class="form-group">
+        <label for="phone">Phone Number:</label>
+        <input id="phone" class="form-control" type="text"
+        placeholder="Phone Number" name="phone" required
+        [(ngModel)]="user.phone" #phone="ngModel">
+    </div>
+
+    <div class="form-group">
+        <label for="dateJoined">Date Joined:</label>
+        <input id="dateJoined" class="form-control" type="text"
+        placeholder="Date Joined" name="dateJoined"
+        [(ngModel)]="user.dateJoined" #dateJoined="ngModel">
+    </div>
+
+    <div class="form-group">
+        <label for="activeStatus">Active Status:</label>
+        <input id="activeStatus" class="form-control" type="text"
+        placeholder="Active Status" name="activeStatus" required
+        [(ngModel)]="user.activeStatus" #activeStatus="ngModel">
+    </div>
+
     <div class="form-group">
         <label for="username">Username:</label>
         <input id="username" class="form-control" type="text"
@@ -13,12 +70,6 @@
         [(ngModel)]="user.password" #password="ngModel">
     </div>
 
-    <div class="form-group">
-        <label for="userRole">Role Title:</label>
-        <input id="userRole" class="form-control" type="text"
-        placeholder="Role Title" name="userRole" required
-        [(ngModel)]="user.userRole" #userRole="ngModel">
-    </div>
 </form>
 
 <button class="btn btn-warning"

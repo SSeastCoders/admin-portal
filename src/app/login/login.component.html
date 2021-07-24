@@ -27,3 +27,30 @@
     [disabled]="!loginForm.form.valid">
     <span class="ml-1">Log in</span>
 </button>
+<!-- 
+<div>
+<form #loginForm="ngForm">
+  <div class="card-body">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="username" class="form-control" id="username" placeholder="Username" required
+      [(ngModel)]="credentials.username" #username="ngModel">
+      <div [hidden]="username.valid || username.pristine" class="text-danger">
+        Username is required </div>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="password" placeholder="Password" required
+      [(ngModel)]="credentials.password" #password="ngModel">
+      <div [hidden]="password.valid || password.pristine" class="text-danger">
+        Password is required </div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <button type="submit" class="btn btn-primary" 
+    (click)="login()"
+    [disabled]="!loginForm.form.valid">
+    Log in</button>
+  </div>
+</form>
+</div> -->

@@ -1,7 +1,9 @@
 import { Injectable } from "@angular/core";
-import { HttpInterceptor, HttpHandler, HttpRequest, HttpEvent } from "@angular/common/http";
+import { HttpInterceptor, HttpHandler, HttpRequest, HttpEvent, HttpErrorResponse } from "@angular/common/http";
 import { AuthService } from "../auth/auth.service";
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
+import { Router } from "@angular/router";
+import {catchError} from 'rxjs/operators'; 
 
 
 @Injectable()
@@ -9,7 +11,7 @@ export class JwtTokenInterceptor implements HttpInterceptor {
 
     bearer: string;
  
-  constructor(public auth: AuthService) {
+  constructor(public auth: AuthService, private router: Router) {
       this.bearer = 'Bearer '
   }
  
@@ -21,6 +23,18 @@ export class JwtTokenInterceptor implements HttpInterceptor {
     });
  
     //console.log(this.bearer +`${this.auth.getToken()}`)
-    return next.handle(interceptedRequest);
+    return next.handle(interceptedRequest).pipe(catchError((x: HttpErrorResponse) => this.handleErrors(x)));
+  }
+
+  private handleErrors(err: HttpErrorResponse): Observable<any> {
+    if (err.status === 401) {
+      //this.auth.redirectToUrl = this.router.url;
+      //this.router.navigate(['/login']);
+      return of(err.message);
+    }
+    if (err.status === 404) {
+      return of(err.message);
+    }
+    return of(err.message);
   }
 }
