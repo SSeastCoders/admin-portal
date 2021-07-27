@@ -3,22 +3,24 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { EmployeesComponent } from './employees/employees.component';
-import { EmployeeService } from './services/employee.service';
+
+import { UsersComponent } from './users/users.component';
+import { UserService } from './services/user.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
-  declarations: [AppComponent, EmployeesComponent],
+  declarations: [UsersComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     NoopAnimationsModule,
     MatPaginatorModule,
+    MatTableModule,
   ],
-  providers: [EmployeeService],
-  bootstrap: [AppComponent],
+  providers: [UserService],
+  bootstrap: [UsersComponent],
 })
 export class AppModule {}
