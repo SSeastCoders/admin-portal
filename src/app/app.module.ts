@@ -14,6 +14,8 @@ import { AuthService } from './services/auth/auth.service';
 import { JwtTokenInterceptor } from './services/interceptor/jwt.token.interceptor';
 import { HeaderComponent } from './layout/header/header.component';
 import { CreateUserComponent } from './create-user/create-user.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { CreateUserComponent } from './create-user/create-user.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     UserService, 

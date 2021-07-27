@@ -1,6 +1,27 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-info">
-    <a routerLink="/users" class="navbar-brand">admin-portal</a>
-    <a routerLink="" class="text-white" [ngClass]="{'hidden': !authService.isLoggedIn() }"
+
+<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+  <a class="navbar-brand" routerLink="/home">
+    <img src="assets/SimpleBankLogo.png" width="30" height="30" class="d-inline-block align-bottom" alt="Simple Bank Logo">
+    Eastcoders Bank
+  </a>
+  <div class="navbar-nav-scroll">
+    <ul class="navbar-nav bd-navbar-nav flex-row">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/logout" [ngClass]="{'hidden': !authService.isLoggedIn() }"
+        (click)="logout()"> Logout <span class="sr-only">(current)</span> </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/login" [ngClass]="{'hidden': authService.isLoggedIn() }"
+        routerLinkActive="active">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/registration" routerLinkActive="active"
+        (click)="createUserForm()">New User</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+    <!--a routerLink="/logout" class="text-white" [ngClass]="{'hidden': !authService.isLoggedIn() }"
     (click)="logout()">
     <span class="ml-1">Log out</span>
   </a>
@@ -8,9 +29,9 @@
   routerLinkActive="active">
     <span class="ml-1">Login</span>
   </a>
-  <a routerLink="/users" class="text-white"
+  <a routerLink="/registration" class="text-white"
   routerLinkActive="active"
   (click)="createUserForm()">
     <span class="ml-1">Add User</span>
   </a>
-  </nav>
+  </nav-->

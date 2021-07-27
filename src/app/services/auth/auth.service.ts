@@ -25,7 +25,7 @@ export class AuthService {
         //console.log("authservice");
         this.saveToken(res.headers.get('authorization') || '');
         this.router.navigate([this.redirectToUrl]);
-        console.log(this.redirectToUrl);
+        //console.log(this.redirectToUrl);
         //console.log("Auth");
         //console.log(res.headers.get('authorization'));
       });

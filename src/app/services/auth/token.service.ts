@@ -14,17 +14,23 @@ const API_URL = environment.apiUrl;
     providedIn: 'root'
   })
 export class TokenService {
+
+  private loginUrl: string;
+  private logoutUrl: string;
  
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    this.loginUrl = "/login";
+    this.logoutUrl = "/logout";
+  }
  
   public getResponseHeaders(credentials: LoginUserClass) {
-    let loginUrl = API_URL + '/login';
+    let loginUrl = API_URL + this.loginUrl;
     //console.log("get token");
     return this.http.post(loginUrl, credentials, httpOptions);
   }
 
   public logout() {
-    let logoutUrl = API_URL + '/logout';
+    let logoutUrl = API_URL + this.logoutUrl;
     return this.http.get(logoutUrl, {responseType: 'text'});
   }
 

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CreateUserComponent } from 'src/app/create-user/create-user.component';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { UserService } from 'src/app/services/user-service.service';
+import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +12,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(public authService: AuthService, private router: Router) { }
+  constructor(public authService: AuthService, private router: Router, public userService: UserService) { }
 
   ngOnInit() {
   }
@@ -20,7 +23,7 @@ export class HeaderComponent implements OnInit {
   }
 
   public createUserForm():void{
-
+    
   }
 
 }

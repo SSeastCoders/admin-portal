@@ -29,10 +29,11 @@ export class JwtTokenInterceptor implements HttpInterceptor {
   private handleErrors(err: HttpErrorResponse): Observable<any> {
     if (err.status === 401) {
       //this.auth.redirectToUrl = this.router.url;
-      //this.router.navigate(['/login']);
+      this.router.navigate(['/login']);
       return of(err.message);
     }
-    if (err.status === 404) {
+    if (err.status === 403) {
+      this.router.navigate(['/home']);
       return of(err.message);
     }
     return of(err.message);
