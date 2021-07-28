@@ -15,6 +15,9 @@ import { JwtTokenInterceptor } from './services/interceptor/jwt.token.intercepto
 import { HeaderComponent } from './layout/header/header.component';
 import { CreateUserComponent } from './create-user/create-user.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgControl } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { PhoneMaskDirective } from './create-user/validators/phone-mask.directive';
 
 
 @NgModule({
@@ -24,7 +27,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     UserListComponent,
     UserFormComponent,
     HeaderComponent,
-    CreateUserComponent
+    CreateUserComponent,
+    PhoneMaskDirective
   ],
   imports: [
     BrowserModule,
@@ -32,11 +36,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
   ],
   providers: [
     UserService, 
     TokenService, 
-    AuthService, 
+    AuthService,
     { 
       provide: HTTP_INTERCEPTORS, 
       useClass: JwtTokenInterceptor, 

@@ -14,6 +14,7 @@ export class UserService {
 
   private users: string;
   private usersUrl: string;
+  private allUsers: User[];
 
   constructor(private http: HttpClient, private router: Router) {
     this.users = "/users";
@@ -21,8 +22,18 @@ export class UserService {
   }
 
   public findAll(): Observable<User[]> {
-    console.log(this.usersUrl);
+    //console.log(this.usersUrl);
     return this.http.get<User[]>(this.usersUrl);
+  }
+
+  public findAllUsernames(): string[] {
+    //console.log(this.usersUrl);
+    this.http.get<User[]>(this.usersUrl).subscribe(data => {
+      this.allUsers = data});
+    if (this.allUsers) {
+    return this.allUsers.map(user => user.username);
+    }
+    return null;
   }
 
   public save(user: CreateUser) {

@@ -1,6 +1,6 @@
 export class CreateUser {
     //id: number | undefined;
-    userRole: string | undefined;
+    role: string | undefined;
     firstName: string | undefined;
     lastName: string | undefined;
     dob: string | undefined;
