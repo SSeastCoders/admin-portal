@@ -1,9 +1,11 @@
 <h2>Users</h2>
+
 <div>
-  <div *ngIf="dataSource">
-    <mat-table [dataSource]="dataSource">
+  <mat-table [dataSource]="dataSource">
+    <div *ngIf="dataSource" class="mat-elevation-z8">
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let user; columns: displayedColumns"></mat-row>
+
       <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
         <mat-cell *matCellDef="let user">{{ user.id }}</mat-cell>
@@ -33,16 +35,16 @@
         <mat-header-cell *matHeaderCellDef>Active?</mat-header-cell>
         <mat-cell *matCellDef="let user">{{ user.isActive }}</mat-cell>
       </ng-container>
-    </mat-table>
-  </div>
+    </div>
+  </mat-table>
   <div>
     <mat-paginator
-      [length]="this.dataSource.length"
-      [pageSize]="pageSize"
+      [length]="totalUsers"
       [pageSizeOptions]="[5, 10, 25, 100]"
-      (page)="OnPageChange($event)"
       showFirstLastButtons
     >
     </mat-paginator>
   </div>
 </div>
+
+<!--  -->

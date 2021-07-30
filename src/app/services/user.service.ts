@@ -9,7 +9,7 @@ import { UserPage } from '../models/userPage';
   providedIn: 'root',
 })
 export class UserService {
-  private api = environment.baseUrl;
+  private api = environment.baseUrl + '/users';
 
   constructor(private http: HttpClient) {}
 
@@ -20,9 +20,13 @@ export class UserService {
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + t,
     });
-
-    return this.http.get<UserPage<User>>(`${this.api}/users`, {
-      headers: headersWt,
-    });
+    return this.http.get<UserPage<User>>(
+      `${this.api}?page=${page}&size=${size}`,
+      {
+        headers: headersWt,
+      }
+    );
   }
 }
+
+//?page=${page}&size=${size}

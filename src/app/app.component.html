@@ -1,13 +1,1 @@
-<h2>Users</h2>
 
-<div *ngFor="let user of this.users">
-  <p>User {{ user.firstName }}</p>
-
-  <mat-paginator
-    [length]="this.users.length"
-    [pageSize]="10"
-    [pageSizeOptions]="[5, 10, 25]"
-    (page)="OnPageChange($event)"
-  >
-  </mat-paginator>
-</div>
