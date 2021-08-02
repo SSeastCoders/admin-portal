@@ -1,4 +1,10 @@
-<form #loginForm="ngForm">
+<head>
+  <meta charset="UTF-8">
+  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+</head>
+
+<!-- <form #loginForm="ngForm">
     <div class="form-group">
         <label for="username">Username:</label>
         <input id="username" class="form-control" type="text"
@@ -26,7 +32,9 @@
     (click)="login()"
     [disabled]="!loginForm.form.valid">
     <span class="ml-1">Log in</span>
-</button>
+</button> -->
+
+
 <!-- 
 <div>
 <form #loginForm="ngForm">
@@ -54,3 +62,68 @@
   </div>
 </form>
 </div> -->
+<div class="card card-outline card-primary">
+  <div class="card-header text-center">
+      <a [routerLink]="['/']" class="h1"><b>EastCoders</b> Bank</a>
+  </div>
+  <div class="card-body">
+      <p class="login-box-msg">Sign in to start your session</p>
+
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
+          <div class="input-group mb-3">
+              <input
+                  formControlName="username"
+                  type="username"
+                  class="form-control"
+                  placeholder="Username"
+                  [(ngModel)]="credentials.username" 
+              />
+              <div class="input-group-append">
+                  <div class="input-group-text">
+                      <span class="fas fa-envelope"></span>
+                  </div>
+              </div>
+          </div>
+          <div class="input-group mb-3">
+              <input
+                  formControlName="password"
+                  type="password"
+                  class="form-control"
+                  placeholder="Password"
+                  [(ngModel)]="credentials.password"
+              />
+              <div class="input-group-append">
+                  <div class="input-group-text">
+                      <span class="fas fa-lock"></span>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-7">
+                  <div class="icheck-primary">
+                      <input type="checkbox" id="remember" />
+                      <label for="remember"> Remember Me </label>
+                  </div>
+              </div>
+              <!-- /.col -->
+              <div class="col-5">
+                  <app-button
+                      [type]="'submit'"
+                      [block]="true"
+                      [loading]="isAuthLoading"
+                  >
+                      Sign In
+                  </app-button>
+              </div>
+              <!-- /.col -->
+          </div>
+      </form>
+
+      <p class="mb-1">
+          <a [routerLink]="['/forgot-password']">I forgot my password</a>
+      </p>
+    
+  </div>
+  <!-- /.login-card-body -->
+</div>
+

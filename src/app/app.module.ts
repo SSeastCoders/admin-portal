@@ -18,6 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgControl } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PhoneMaskDirective } from './create-user/validators/phone-mask.directive';
+import { AppButtonComponent } from './layout/app-button/app-button.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { PhoneMaskDirective } from './create-user/validators/phone-mask.directiv
     UserFormComponent,
     HeaderComponent,
     CreateUserComponent,
-    PhoneMaskDirective
+    PhoneMaskDirective,
+    AppButtonComponent
   ],
   imports: [
     BrowserModule,
