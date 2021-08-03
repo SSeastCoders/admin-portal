@@ -2,25 +2,19 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { User } from '../models/user';
-import { UserPage } from '../models/userPage';
+
 import { UserService } from '../services/user.service';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css'],
 })
 export class UsersComponent implements OnInit {
-  USER_DATA: User[] = [];
-  //dataSource: User[] = [];
-  //dataSource = new MatTableDataSource<User>(this.USER_DATA);
-  //USER_DATA: User[] = [];
-  //dataSource: User[] = [];
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatPaginator) dataSource!: MatTableDataSource<User>;
-  //dataSource = new MatTableDataSource<User>(this.USER_DATA);
+  users: User[] = [];
 
   displayedColumns: string[] = [
     'id',
@@ -31,45 +25,56 @@ export class UsersComponent implements OnInit {
     'isActive',
   ];
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private route: ActivatedRoute
+  ) {}
 
   totalUsers!: number;
-  currentPage!: UserPage<User>;
-  pageSize!: number;
-  pageNumber!: number;
-  numberOfElements!: number;
+
+  pageSize: number = 10;
+  pageNumber: number = 1;
+  totalElements!: number;
 
   ngOnInit() {
-    this.getUsers(0, this.pageSize);
-    this.dataSource = new MatTableDataSource(this.USER_DATA);
-    this.dataSource.paginator = this.paginator;
+    this.route.paramMap.subscribe(() => {
+      this.listUsers();
+    });
   }
 
+  listUsers() {
+    this.handleUsersList();
+  }
+
+  processResult() {
+    console.log('in processResult');
+    return (data) => {
+      console.log(data);
+      this.users = data.content;
+      this.pageNumber = data.pageable.pageNumber + 1;
+      this.pageSize = data.pageable.pageSize;
+      this.totalElements = data.totalElements;
+      console.log(this.pageNumber);
+      console.log(this.pageSize);
+      console.log(this.totalElements);
+      console.log(this.users);
+    };
+  }
   //
-  getUsers(page: number, size: number): void {
-    this.userService.getUsers(page, size).subscribe(
-      (response: UserPage<User>) => {
-        console.log(response);
-        console.log('^^^^^^^');
-        this.currentPage = response;
-        this.pageNumber = response.number + 1;
-        this.USER_DATA = response.content;
-        this.totalUsers = response.totalElements;
-        console.log(this.currentPage);
-        console.log(this.pageNumber);
-        console.log(this.dataSource);
-        console.log(this.totalUsers);
-      },
+  handleUsersList() {
+    console.log(`in handleUsersList ${this.pageNumber} + ${this.pageSize}`);
+    this.userService
+      .getUsersPage(this.pageNumber - 1, this.pageSize)
+      .subscribe(this.processResult());
 
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-      }
-    );
+    // (error: HttpErrorResponse) => {
+    //   alert(error.message);
+    // };
   }
 
-  // OnPageChange(event: PageEvent) {
-  //   console.log('page event');
-  //   console.log(event);
-  //   this.getUsers(event.pageSize, event.pageIndex);
-  // }
+  updatePageSize(pageSize: number) {
+    this.pageSize = pageSize;
+    this.pageNumber = 1;
+    this.listUsers();
+  }
 }

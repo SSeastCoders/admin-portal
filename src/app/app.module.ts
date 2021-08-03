@@ -7,8 +7,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { UsersComponent } from './users/users.component';
 import { UserService } from './services/user.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatTableModule } from '@angular/material/table';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { Routes } from '@angular/router';
+
+const routes: Routes = [{ path: 'users', component: UsersComponent }];
 
 @NgModule({
   declarations: [UsersComponent],
@@ -17,8 +19,7 @@ import { MatTableModule } from '@angular/material/table';
     AppRoutingModule,
     HttpClientModule,
     NoopAnimationsModule,
-    MatPaginatorModule,
-    MatTableModule,
+    NgbModule,
   ],
   providers: [UserService],
   bootstrap: [UsersComponent],

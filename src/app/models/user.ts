@@ -8,7 +8,7 @@ export interface User {
   lastName: string;
   username: string;
 
-  phone: string;
+  email: string;
   isActive: boolean;
 }
 

@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../models/user';
-import { UserPage } from '../models/userPage';
 
 @Injectable({
   providedIn: 'root',
@@ -13,14 +12,18 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  public getUsers(page: number, size: number): Observable<UserPage<User>> {
-    let t = ''; //put token here
+  public getUsersPage(
+    page: number,
+    size: number
+  ): Observable<GetResponseUsers> {
+    let t = '';
+    //put token here
 
     let headersWt = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + t,
     });
-    return this.http.get<UserPage<User>>(
+    return this.http.get<GetResponseUsers>(
       `${this.api}?page=${page}&size=${size}`,
       {
         headers: headersWt,
@@ -29,4 +32,14 @@ export class UserService {
   }
 }
 
+interface GetResponseUsers {
+  content: User[];
+
+  page: {
+    size: number;
+    totalElements: number;
+    totalPages: number;
+    number: number;
+  };
+}
 //?page=${page}&size=${size}
