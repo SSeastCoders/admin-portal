@@ -8,7 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { UserListComponent } from './observables/user-list/user-list.component';
 import { UserFormComponent } from './observables/user-list/user-form/user-form.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { UserService } from './services/user-service.service';
+import { UserService } from './services/user.service';
 import { TokenService } from './services/auth/token.service';
 import { AuthService } from './services/auth/auth.service';
 import { JwtTokenInterceptor } from './services/interceptor/jwt.token.interceptor';

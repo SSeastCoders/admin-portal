@@ -51,7 +51,6 @@ export class UserService {
     //return this.http.post(this.usersUrl, user);
   //}
 
-
   public getNewUser(this: any, user: CreateUser) {
     return this.http.post(this.usersUrl, user);
     //throw new Error('Function not implemented.');

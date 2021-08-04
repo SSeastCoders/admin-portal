@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserService } from 'src/app/services/user-service.service';
+import { UserService } from 'src/app/services/user.service';
 import { User } from '../../user';
 import { CreateUser } from '../../createUser';
 import { FormsModule } from '@angular/forms';

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CreateUser } from '../observables/createUser';
-import { UserService } from '../services/user-service.service';
+import { UserService } from '../services/user.service';
 import { AbstractControl, AsyncValidatorFn, FormControl, FormGroup, ValidationErrors } from "@angular/forms";
 import { CreateUserSchema } from './createUserSchema';
 import { Validators } from '@angular/forms';
