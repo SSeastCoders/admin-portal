@@ -15,8 +15,9 @@ export class LoginComponent implements OnInit{
   credentials: LoginUserClass = new LoginUserClass('','');
   @HostBinding('class') class = 'login-box';
   public loginForm: FormGroup;
-  public isAuthLoading = false;
+  public serverError = false;
   show: boolean = false;
+  errorMessage: "invalid credentials"
 
 
   constructor(
@@ -37,37 +38,16 @@ export class LoginComponent implements OnInit{
   }
 
   public login(loginForm) {
-    if (loginForm){
-      this.isAuthLoading = true;
+    if (this.loginForm.valid){
       this.authService
         .login(this.credentials)
-        .pipe(
-          finalize(() => {
-            this.isAuthLoading = false;
-          })
-        )
-        .subscribe(response => {
-          console.log(response);
-          if (response instanceof HttpErrorResponse) {
-            console.log('error');
-            const validationErrors = response.error;
-
-            if(response.status == 401) {
-              Object.keys(validationErrors).forEach(prop => {
-                const formControl = this.loginForm.get(prop);
-                if (formControl) {
-                  // activate the error message
-                  formControl.setErrors({
-                    serverError: validationErrors[prop]
-                  });
-                }
-              });
-            }
+        .subscribe(
+          (res) => {
+            console.log('success')},
+          (error : HttpErrorResponse) => {
+            this.serverError = true;
           }
-        });
-    //console.log("username " + this.credentials.username);
-    //console.log("password " + this.credentials.password);
-    //this.authService.login(this.credentials);
-      }
+        )
     }
+  }
 }

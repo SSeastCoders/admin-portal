@@ -72,10 +72,11 @@
       <p class="login-box-msg">Sign in to start your session</p>
 
       <form [formGroup]="loginForm" (ngSubmit)="login(loginForm)">
+        <small *ngIf="serverError"  class="text-danger">
+            {{errorMessage}}</small>
+   
         <small [hidden]="loginForm.get('username').valid || loginForm.get('username').pristine"
         class="text-danger">Username is required</small>
-        <small *ngIf="loginForm.get('username').errors?.serverError"  class="text-danger">
-         {{ loginForm.get('username').errors?.serverError  }}</small>
 
           <div class="input-group mb-3">
               <input
@@ -127,7 +128,6 @@
                   <app-button
                       [type]="'submit'"
                       [block]="true"
-                      [loading]="isAuthLoading"
                       [disabled]="!loginForm.valid"
                   >
                       Sign In
