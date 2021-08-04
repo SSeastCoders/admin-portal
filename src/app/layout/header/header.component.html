@@ -1,4 +1,4 @@
-
+<!-- 
 <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
   <a class="navbar-brand" routerLink="/home">
     <img src="assets/SimpleBankLogo.png" width="30" height="30" class="d-inline-block align-bottom" alt="Simple Bank Logo">
@@ -20,7 +20,7 @@
       </li>
     </ul>
   </div>
-</nav>
+</nav> -->
 
 
 
@@ -55,7 +55,7 @@
         <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
         <div class="input-group-append">
           <button class="btn btn-navbar" type="submit">
-            <i class="fas fa-search"></i>
+            <i class="fa fa-search"></i>
           </button>
         </div>
       </div>
@@ -66,7 +66,7 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a class="nav-link" routerLink="/registration" [ngClass]="{'hidden': !authService.isLoggedIn() }"
         (click)="createUserForm()">New User
-          <i class="fas fa-comments"></i>
+          <i class="fa fa-comments"></i>
           <span class="badge badge-danger navbar-badge"></span>
         </a>
       </li>

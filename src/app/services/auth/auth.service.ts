@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { LoginUserClass } from 'src/app/observables/loginUserClass';
 import { TokenService } from './token.service';
 import { environment } from "src/environments/environment";
+import { Observable, of } from 'rxjs';
 
 const API_URL = environment.apiUrl;
 
@@ -19,7 +20,7 @@ export class AuthService {
     //this.redirectToUrl = '/users';
   }
 
-  public login(credentials: LoginUserClass): void {
+  public login(credentials: LoginUserClass) {
     this.tokenService.getResponseHeaders(credentials)
       .subscribe((res: HttpResponse<any>) => {
         //console.log("authservice");
@@ -29,6 +30,7 @@ export class AuthService {
         //console.log("Auth");
         //console.log(res.headers.get('authorization'));
       });
+    return of(this.tokenService.getResponseHeaders(credentials)); 
   }
 
   private saveToken(token: string) {

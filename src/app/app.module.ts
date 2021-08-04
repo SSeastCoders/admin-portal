@@ -19,6 +19,8 @@ import { NgControl } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PhoneMaskDirective } from './create-user/validators/phone-mask.directive';
 import { AppButtonComponent } from './layout/app-button/app-button.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 
 
 @NgModule({
@@ -30,7 +32,8 @@ import { AppButtonComponent } from './layout/app-button/app-button.component';
     HeaderComponent,
     CreateUserComponent,
     PhoneMaskDirective,
-    AppButtonComponent
+    AppButtonComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -39,6 +42,7 @@ import { AppButtonComponent } from './layout/app-button/app-button.component';
     FormsModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    FontAwesomeModule
   ],
   providers: [
     UserService, 

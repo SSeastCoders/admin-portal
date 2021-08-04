@@ -26,7 +26,7 @@ export class TokenService {
   public getResponseHeaders(credentials: LoginUserClass) {
     let loginUrl = API_URL + this.loginUrl;
     //console.log("get token");
-    return this.http.post(loginUrl, credentials, httpOptions);
+    return this.http.post(loginUrl, credentials, httpOptions);//, {observe: 'response'};
   }
 
   public logout() {

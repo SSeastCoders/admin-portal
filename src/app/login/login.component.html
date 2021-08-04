@@ -1,7 +1,9 @@
 <head>
   <meta charset="UTF-8">
-  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
-  <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+  <!--link src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+  <link src="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet"-->
 </head>
 
 <!-- <form #loginForm="ngForm">
@@ -69,7 +71,12 @@
   <div class="card-body">
       <p class="login-box-msg">Sign in to start your session</p>
 
-      <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <form [formGroup]="loginForm" (ngSubmit)="login(loginForm)">
+        <small [hidden]="loginForm.get('username').valid || loginForm.get('username').pristine"
+        class="text-danger">Username is required</small>
+        <small *ngIf="loginForm.get('username').errors?.serverError"  class="text-danger">
+         {{ loginForm.get('username').errors?.serverError  }}</small>
+
           <div class="input-group mb-3">
               <input
                   formControlName="username"
@@ -77,24 +84,34 @@
                   class="form-control"
                   placeholder="Username"
                   [(ngModel)]="credentials.username" 
+                  required
               />
               <div class="input-group-append">
                   <div class="input-group-text">
-                      <span class="fas fa-envelope"></span>
+                      <span class="fa fa-envelope"></span>
                   </div>
               </div>
+        
           </div>
+          <small [hidden]="loginForm.get('password').valid || loginForm.get('password').pristine"
+                class="text-danger">Password is required</small>
           <div class="input-group mb-3">
               <input
                   formControlName="password"
-                  type="password"
+                  type="{{show ? 'text' : 'password'}}"
                   class="form-control"
                   placeholder="Password"
                   [(ngModel)]="credentials.password"
+                  required
               />
               <div class="input-group-append">
+                <div class="input-group-text">
+              <i (click) = "togglePass()" class="{{show ? 'fa fa-eye' : 'fa fa-eye-slash'}}" id="togglePassword"></i>
+            </div>
+        </div>
+              <div class="input-group-append">
                   <div class="input-group-text">
-                      <span class="fas fa-lock"></span>
+                      <span class="fa fa-lock"></span>
                   </div>
               </div>
           </div>
@@ -111,6 +128,7 @@
                       [type]="'submit'"
                       [block]="true"
                       [loading]="isAuthLoading"
+                      [disabled]="!loginForm.valid"
                   >
                       Sign In
                   </app-button>
