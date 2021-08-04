@@ -21,4 +21,9 @@ describe('UsersComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('', () => {
+    expect().nothing();
+  }) 
+
 });

@@ -18,7 +18,10 @@
       <td>{{ user.lastName }}</td>
       <td>{{ user.username }}</td>
       <td>{{ user.email }}</td>
-      <td>{{ user.isActive }}</td>
+      <td>
+        <div *ngIf="user.isActive; else elseBlock">active</div>
+        <ng-template #elseBlock>inactive</ng-template>
+      </td>
       <td></td>
     </tr>
   </tbody>
@@ -53,40 +56,3 @@
     </ngb-pagination>
   </div>
 </div>
-
-<!--
-  <div *ngIf="users" class="mat-elevation-z8">
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let user; columns: displayedColumns"></mat-row>
-
-    <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
-      <mat-cell *matCellDef="let user">{{ user.id }}</mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="role">
-      <mat-header-cell *matHeaderCellDef>Role</mat-header-cell>
-      <mat-cell *matCellDef="let user">{{ user.role.title }}</mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="firstName">
-      <mat-header-cell *matHeaderCellDef>First Name</mat-header-cell>
-      <mat-cell *matCellDef="let user">{{ user.firstName }}</mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="lastName">
-      <mat-header-cell *matHeaderCellDef>Last Name</mat-header-cell>
-      <mat-cell *matCellDef="let user">{{ user.lastName }}</mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="username">
-      <mat-header-cell *matHeaderCellDef>Username</mat-header-cell>
-      <mat-cell *matCellDef="let user">{{ user.username }}</mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="isActive">
-      <mat-header-cell *matHeaderCellDef>Active?</mat-header-cell>
-      <mat-cell *matCellDef="let user">{{ user.isActive }}</mat-cell>
-    </ng-container>
-  </div>
-</mat-table> -->
