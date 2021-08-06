@@ -66,8 +66,6 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a class="nav-link" routerLink="/registration" [ngClass]="{'hidden': !authService.isLoggedIn() }"
         (click)="createUserForm()">New User
-          <i class="fa fa-comments"></i>
-          <span class="badge badge-danger navbar-badge"></span>
         </a>
       </li>
     </ul>

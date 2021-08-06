@@ -1,4 +1,4 @@
-import { HttpResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginUserClass } from 'src/app/observables/loginUserClass';
@@ -21,16 +21,28 @@ export class AuthService {
   }
 
   public login(credentials: LoginUserClass) {
-    this.tokenService.getResponseHeaders(credentials)
-      .subscribe((res: HttpResponse<any>) => {
+    //console.log("hello");
+    return this.tokenService.getResponseHeaders(credentials)
+      .subscribe((res) => {
+        console.log(res);
         //console.log("authservice");
         this.saveToken(res.headers.get('authorization') || '');
         this.router.navigate([this.redirectToUrl]);
         //console.log(this.redirectToUrl);
         //console.log("Auth");
         //console.log(res.headers.get('authorization'));
+        //console.log("hello");
+        //console.log(res);
+        //if (res.status == 401){
+        //  console.log("401 error oops");
+        //  throw HttpErrorResponse;
+        //}
+      },
+      (error)=>{
+        console.log("error");
+        console.log(error);
       });
-    return of(this.tokenService.getResponseHeaders(credentials)); 
+    //return this.tokenService.getResponseHeaders(credentials); 
   }
 
   private saveToken(token: string) {

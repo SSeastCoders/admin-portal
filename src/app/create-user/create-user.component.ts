@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CreateUser } from '../observables/createUser';
 import { UserService } from '../services/user.service';
-import { AbstractControl, AsyncValidatorFn, FormControl, FormGroup, ValidationErrors } from "@angular/forms";
+import { AbstractControl, AsyncValidatorFn, FormBuilder, FormControl, FormGroup, ValidationErrors } from "@angular/forms";
 import { CreateUserSchema } from './createUserSchema';
 import { Validators } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
@@ -10,6 +10,8 @@ import { Role } from './role';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { ConfirmedValidator } from './validators/passwordConfirmation';
+
 
 @Component({
   selector: 'app-create-user',
@@ -27,22 +29,26 @@ export class CreateUserComponent implements OnInit {
   today = new Date(); 
   minorCutOff: string = (this.today.getFullYear()-18)+'-'+( this.today.getMonth()+1)+'-'+ this.today.getDate();
   takenUsernames = this.userService.findAllUsernames();
+  show: boolean = false;
+  form = new FormGroup({});
 
-  form = new FormGroup(
-    {
-      username: new FormControl('', {validators: [Validators.required, Validators.pattern("[a-z0-9A-Z]+"), Validators.minLength(1), Validators.maxLength(20)]}),
-      //asyncValidators: [this.usernameValidator()]}),
-      password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]),
-      email: new FormControl('',[Validators.required, Validators.email]),    
-      role: new FormControl(),
-      firstName: new FormControl(),
-      lastName: new FormControl(),
-      phone: new FormControl('', [Validators.pattern(/^\(\d{3}\)\s\d{3}-\d{4}$/)]),
-      dob: new FormControl()
-    },
-  );
+  constructor(private userService: UserService, private router: Router, private fb: FormBuilder) {
 
-  constructor(private userService: UserService, private router: Router) { }
+    this.form = fb.group({
+        username: ['', {validators: [Validators.required, Validators.pattern("[a-z0-9A-Z]+"), Validators.minLength(5), Validators.maxLength(20)]}],
+        //asyncValidators: [thi.usernameValidator()]}),
+        password: ['', {validators: [Validators.required, Validators.minLength(7), Validators.maxLength(20), Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{7,}$/)]}],
+        confirmPassword: ['', {validators: [Validators.required]}],
+        email: ['', {validators: [Validators.required, Validators.email]}],    
+        role: [''],
+        firstName: [''],
+        lastName: [''],
+        phone:['', {validators: [Validators.pattern(/^\(\d{3}\)\s\d{3}-\d{4}$/)]}],
+        dob: ['']
+      }, {
+      validator: ConfirmedValidator('password', 'confirmPassword')
+       });
+   }
 
     // Form validator
     //const { register, handleSubmit, getValues, formState: { errors: formErrors } } = useForm<FormValues>({
@@ -111,5 +117,15 @@ export class CreateUserComponent implements OnInit {
     };
   }
 
+  checkPasswords(fGroup: FormGroup) {
+    return fGroup.get('password').value === fGroup.get('confirmPassword').value
+      ? null : {'mismatch': true};
+  }
 
+  public togglePass(){
+    this.show = !this.show;
+  }
 }
+
+
+

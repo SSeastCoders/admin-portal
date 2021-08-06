@@ -1,7 +1,8 @@
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpHandler } from '@angular/common/http';
 import { Component, HostBinding, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { finalize } from 'rxjs/operators';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+import { catchError, finalize } from 'rxjs/operators';
 import { LoginUserClass } from '../observables/loginUserClass';
 import { AuthService } from '../services/auth/auth.service';
 
@@ -39,15 +40,22 @@ export class LoginComponent implements OnInit{
 
   public login(loginForm) {
     if (this.loginForm.valid){
+      if(this.authService
+        .login(this.credentials)){}
+      else{
+        this.serverError = true;
+      } /* => {
+          (x => console.log('success'),
+          err => {this.serverError = true;
+          console.log('error');}
+        )//; */
+    };
+  }
+
+  public login2(loginForm, next: HttpHandler) {
+    if (this.loginForm.valid){
       this.authService
         .login(this.credentials)
-        .subscribe(
-          (res) => {
-          },//console.log('success')},
-          (error : HttpErrorResponse) => {
-            this.serverError = true;
-          }
-        )
-    }
+    }   
   }
 }
