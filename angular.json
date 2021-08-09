@@ -10,11 +10,14 @@
           "strict": true
         }
       },
+      
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {
+        
         "build": {
+          
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/admin-portal",
@@ -84,6 +87,7 @@
             "browserTarget": "admin-portal:build"
           }
         },
+
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
