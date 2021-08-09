@@ -2,9 +2,9 @@ import { HttpHeaders, HttpClient, HttpResponse, HttpErrorResponse } from "@angul
 import { analyzeAndValidateNgModules } from "@angular/compiler";
 import { CATCH_ERROR_VAR } from "@angular/compiler/src/output/output_ast";
 import { Injectable } from "@angular/core";
-import { throwError } from "rxjs";
+import { of, throwError } from "rxjs";
 import { connectableObservableDescriptor } from "rxjs/internal/observable/ConnectableObservable";
-import { catchError } from "rxjs/operators";
+import { catchError, tap } from "rxjs/operators";
 import { LoginUserClass } from "src/app/observables/loginUserClass";
 import { environment } from "src/environments/environment";
  
@@ -31,7 +31,11 @@ export class TokenService {
   public getResponseHeaders(credentials: LoginUserClass) {
     let loginUrl = API_URL + this.loginUrl;
     //console.log("get token");
-    return this.http.post(loginUrl, credentials, httpOptions);//.pipe(catchError(e => throwError(e)));//this.handleError(e)));
+    //return this.http.post(loginUrl, credentials, httpOptions);//.pipe(catchError(e => throwError(e)));//this.handleError(e)));
+    return this.http.post(loginUrl, credentials, httpOptions);
+    //.pipe(
+    //  tap((res) => {console.log("Great success")},
+    //      (err) => {console.log("Oops")}));
       //.subscribe(
       //  (res: HttpResponse<any>) => {console.log(res)},
       //  (err: HttpErrorResponse) => {console.log(err.status)});
@@ -39,11 +43,12 @@ export class TokenService {
   }
 
   private handleError(error: HttpErrorResponse) {
-    console.log("Heelelefoinhergbeiuhb");
+    console.log("Handle Error");
+    //return throwError;
     return throwError(error);
   }
     /* console.log("get here");
-    if (error.status === 0) {
+    if (error.status === 0) {)
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error);
     } else {

@@ -73,10 +73,12 @@
 
       <form [formGroup]="loginForm" (ngSubmit)="login(loginForm)">
         <small *ngIf="serverError"  class="text-danger">
-            {{errorMessage}}</small>
-   
+           {{errorMessage}}
+        </small>
+
         <small [hidden]="loginForm.get('username').valid || loginForm.get('username').pristine"
-        class="text-danger">Username is required</small>
+        class="text-danger">Username is required
+        </small>
 
           <div class="input-group mb-3">
               <input

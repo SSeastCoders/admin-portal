@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit{
   public loginForm: FormGroup;
   public serverError = false;
   show: boolean = false;
-  errorMessage: "invalid credentials"
+  errorMessage: string;
 
 
   constructor(
@@ -28,10 +28,12 @@ export class LoginComponent implements OnInit{
 
 
   ngOnInit(): void{
+  this.serverError = false;
   this.loginForm = new FormGroup({
       username: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required)
   });
+  this.errorMessage = "Invalid credentials";
   }
 
   public togglePass(){
@@ -40,22 +42,22 @@ export class LoginComponent implements OnInit{
 
   public login(loginForm) {
     if (this.loginForm.valid){
-      if(this.authService
-        .login(this.credentials)){}
-      else{
+      this.authService.login(this.credentials).subscribe((res) => {
+        this.serverError = false;
+      },
+      (err: HttpErrorResponse)=>{
         this.serverError = true;
-      } /* => {
+        //console.log(this.serverError);
+      });
+    }
+  }
+      
+      //else{
+      //  this.serverError = true;
+       /* }=> {
           (x => console.log('success'),
           err => {this.serverError = true;
           console.log('error');}
         )//; */
-    };
-  }
 
-  public login2(loginForm, next: HttpHandler) {
-    if (this.loginForm.valid){
-      this.authService
-        .login(this.credentials)
-    }   
-  }
 }

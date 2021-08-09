@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CreateUser } from '../observables/createUser';
 import { UserService } from '../services/user.service';
@@ -9,8 +9,9 @@ import { FormsModule } from '@angular/forms';
 import { Role } from './role';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { ConfirmedValidator } from './validators/passwordConfirmation';
+import { CheckBirthdate } from './validators/birthdateChecker';
 
 
 @Component({
@@ -18,7 +19,7 @@ import { ConfirmedValidator } from './validators/passwordConfirmation';
   templateUrl: './create-user.component.html',
   styleUrls: ['./create-user.component.css']
 })
-export class CreateUserComponent implements OnInit {
+export class CreateUserComponent implements OnInit, OnDestroy{
 
   user: CreateUser = new CreateUser();
   redirectToUrl: string = '/login';
@@ -38,17 +39,21 @@ export class CreateUserComponent implements OnInit {
         username: ['', {validators: [Validators.required, Validators.pattern("[a-z0-9A-Z]+"), Validators.minLength(5), Validators.maxLength(20)]}],
         //asyncValidators: [thi.usernameValidator()]}),
         password: ['', {validators: [Validators.required, Validators.minLength(7), Validators.maxLength(20), Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{7,}$/)]}],
-        confirmPassword: ['', {validators: [Validators.required]}],
-        email: ['', {validators: [Validators.required, Validators.email]}],    
+        //confirmPassword: ['', {validators: [Validators.required]}],
+        email: ['', {validators: [Validators.required, Validators.email, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[.][a-zA-Z]{2,4}$/)]}],    
         role: [''],
         firstName: [''],
         lastName: [''],
         phone:['', {validators: [Validators.pattern(/^\(\d{3}\)\s\d{3}-\d{4}$/)]}],
         dob: ['']
       }, {
-      validator: ConfirmedValidator('password', 'confirmPassword')
+      //validators: [ConfirmedValidator('password', 'confirmPassword')],
        });
    }
+
+  ngOnDestroy(): void {
+    
+  }
 
     // Form validator
     //const { register, handleSubmit, getValues, formState: { errors: formErrors } } = useForm<FormValues>({
@@ -56,6 +61,14 @@ export class CreateUserComponent implements OnInit {
     //});
 
   ngOnInit(): void {
+    this.form.get('role').valueChanges.pipe(
+      tap((role: string) => {
+        if (role == 'Admin') {
+          this.form.get('email').setValidators([Validators.required, Validators.email, Validators.pattern(/^[A-Za-z0-9](\.?|_?[A-Za-z0-9]){5,}@smoothstack\.com$/)])
+        }
+        this.form.get('email').updateValueAndValidity();
+      })
+    ).subscribe()
   }
 
   get username() {
@@ -64,6 +77,10 @@ export class CreateUserComponent implements OnInit {
 
   get password() {
     return this.form.get("password");
+  }
+
+  get confirmPassword() {
+    return this.form.get("confirmPassword");
   }
 
   get email() {
@@ -98,28 +115,28 @@ export class CreateUserComponent implements OnInit {
     return this.user;
   }
 
-  public checkIfUsernameExists(username: string): Observable<boolean> {
-    if (this.takenUsernames) {
-      return of(this.takenUsernames.includes(username));
-    }
-    return new Observable<false>();
-  }
-
-  usernameValidator(): AsyncValidatorFn {
-    return (control): Observable<ValidationErrors | null> => {
-      return this.checkIfUsernameExists(control.value).pipe(
-        map(res => {
-          // if res is true, username exists, return true
-          return res ? { usernameExists: true } : null;
-          // NB: Return null if there is no error
-        })
-      );
-    };
-  }
-
   checkPasswords(fGroup: FormGroup) {
     return fGroup.get('password').value === fGroup.get('confirmPassword').value
       ? null : {'mismatch': true};
+  }
+
+  checkBirthdate(fGroup: FormGroup) {
+    try{
+      const inputDate = Date.parse(fGroup.get('dob').value);
+      const minorCutOff = Date.parse(this.minorCutOff);
+      const tooOld = Date.parse('1900-01-01');
+
+      if (inputDate < minorCutOff){
+        return true;
+      } else if (inputDate > tooOld){
+        return true;
+      }
+      else{
+        return false;
+      }
+    }catch(err) {
+      return false;
+    }
   }
 
   public togglePass(){

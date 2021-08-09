@@ -42,8 +42,13 @@ export class UserService {
 
   public createUser(user: CreateUser): void {
     this.getNewUser(user)
-    .subscribe()
+    .subscribe((res) =>{
       this.router.navigate(["/home"]);
+    },
+    (err) =>{
+      console.log(err);
+    }
+    ) 
     //return this.http.post<CreateUser>(this.usersUrl, user);
   }
 

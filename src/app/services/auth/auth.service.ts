@@ -1,12 +1,18 @@
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginUserClass } from 'src/app/observables/loginUserClass';
 import { TokenService } from './token.service';
 import { environment } from "src/environments/environment";
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
+import { error } from '@angular/compiler/src/util';
+import { map } from 'rxjs/operators';
 
 const API_URL = environment.apiUrl;
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  observe: 'response' as 'response'
+};
 
 @Injectable({
   providedIn: 'root'
@@ -15,16 +21,21 @@ export class AuthService {
 
   static readonly TOKEN_STORAGE_KEY = 'token';
   redirectToUrl: string = '/users';
+  loginError = false;
+  loginUrl: string;
+  
 
-  constructor(private router: Router, private tokenService: TokenService) {
+  constructor(private router: Router, private tokenService: TokenService, private http: HttpClient) {
     //this.redirectToUrl = '/users';
+    this.loginError = false;
+    this.loginUrl = "/login";
   }
 
-  public login(credentials: LoginUserClass) {
+  public login(credentials: LoginUserClass){
     //console.log("hello");
-    return this.tokenService.getResponseHeaders(credentials)
+    this.tokenService.getResponseHeaders(credentials)
       .subscribe((res) => {
-        console.log(res);
+        //console.log(res);
         //console.log("authservice");
         this.saveToken(res.headers.get('authorization') || '');
         this.router.navigate([this.redirectToUrl]);
@@ -38,11 +49,13 @@ export class AuthService {
         //  throw HttpErrorResponse;
         //}
       },
-      (error)=>{
-        console.log("error");
-        console.log(error);
+      (err: HttpErrorResponse)=>{
+        return this.tokenService.getResponseHeaders(credentials);
+          //throw throwError;
+        //console.log("error");
+        //console.log(err);
       });
-    //return this.tokenService.getResponseHeaders(credentials); 
+    return this.tokenService.getResponseHeaders(credentials); 
   }
 
   private saveToken(token: string) {
