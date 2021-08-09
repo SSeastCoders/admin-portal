@@ -10,6 +10,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Routes } from '@angular/router';
 
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+
 const routes: Routes = [{ path: 'users', component: UsersComponent }];
 
 @NgModule({
@@ -22,6 +24,7 @@ const routes: Routes = [{ path: 'users', component: UsersComponent }];
     NgbModule,
   ],
   providers: [UserService],
+
   bootstrap: [UsersComponent],
 })
 export class AppModule {}

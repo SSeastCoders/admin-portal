@@ -1,7 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
+import { Component, OnInit } from '@angular/core';
+
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { User } from '../models/user';
@@ -26,20 +25,16 @@ export class UsersComponent implements OnInit {
   ];
 
   constructor(
-    private userService: UserService,
-    private route: ActivatedRoute
+    private userService: UserService //private route: ActivatedRoute
   ) {}
 
   totalUsers!: number;
-
   pageSize: number = 10;
   pageNumber: number = 1;
   totalElements!: number;
 
   ngOnInit() {
-    this.route.paramMap.subscribe(() => {
-      this.listUsers();
-    });
+    this.listUsers();
   }
 
   listUsers() {
@@ -47,34 +42,39 @@ export class UsersComponent implements OnInit {
   }
 
   processResult() {
-    console.log('in processResult');
     return (data) => {
       console.log(data);
       this.users = data.content;
       this.pageNumber = data.pageable.pageNumber + 1;
       this.pageSize = data.pageable.pageSize;
       this.totalElements = data.totalElements;
-      console.log(this.pageNumber);
-      console.log(this.pageSize);
-      console.log(this.totalElements);
-      console.log(this.users);
     };
   }
   //
   handleUsersList() {
-    console.log(`in handleUsersList ${this.pageNumber} + ${this.pageSize}`);
     this.userService
       .getUsersPage(this.pageNumber - 1, this.pageSize)
       .subscribe(this.processResult());
-
-    // (error: HttpErrorResponse) => {
-    //   alert(error.message);
-    // };
   }
 
   updatePageSize(pageSize: number) {
-    this.pageSize = pageSize;
-    this.pageNumber = 1;
-    this.listUsers();
+    try {
+      this.pageSize = pageSize;
+      this.pageNumber = 1;
+      this.listUsers();
+    } catch {
+      throw new Error("couldn't update page size");
+    }
   }
+
+  // NOT YET IMPLEMENTED
+  // onSort(event: Event) {
+  //   console.log('event here');
+  //   console.log(event);
+  //   this.userService.getSortedUsersPage(
+  //     this.pageNumber,
+  //     this.pageSize,
+  //     'sortable'
+  //   );
+  // }
 }

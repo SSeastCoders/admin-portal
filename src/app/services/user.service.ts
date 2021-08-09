@@ -42,4 +42,3 @@ interface GetResponseUsers {
     number: number;
   };
 }
-//?page=${page}&size=${size}
