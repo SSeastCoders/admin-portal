@@ -14,9 +14,9 @@ export class ViewAccountComponent implements OnInit {
   constructor(private accountService: AccountService) { }
 
   ngOnInit(): void {
-      this.accountService.findAll().subscribe(data => {
-      this.account = data[0];
-    });
+      //this.accountService.findAll().subscribe(data => {
+      //this.account = data[0];
+    //});
   }
 
   

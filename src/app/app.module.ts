@@ -14,13 +14,15 @@ import { AuthService } from './services/auth/auth.service';
 import { JwtTokenInterceptor } from './services/interceptor/jwt.token.interceptor';
 import { HeaderComponent } from './layout/header/header.component';
 import { CreateUserComponent } from './create-user/create-user.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NgControl } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PhoneMaskDirective } from './create-user/validators/phone-mask.directive';
 import { AppButtonComponent } from './layout/app-button/app-button.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ChangeDetectorRef } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NoopAnimationPlayer } from '@angular/animations';
 
 
 @NgModule({
@@ -33,6 +35,7 @@ import { ChangeDetectorRef } from '@angular/core';
     CreateUserComponent,
     PhoneMaskDirective,
     AppButtonComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -42,6 +45,8 @@ import { ChangeDetectorRef } from '@angular/core';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FontAwesomeModule,
+    NgbModule,
+    NoopAnimationsModule
   ],
   providers: [
     UserService, 

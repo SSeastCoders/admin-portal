@@ -1,6 +1,6 @@
 export class User {
     id: number | undefined ;
-    userRole : {
+    role : {
         id: number;
         title: string;
     } | undefined ;

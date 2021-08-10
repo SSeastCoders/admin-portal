@@ -17,8 +17,8 @@ export class AccountService {
   private allAccounts: Account[];
 
   constructor(private http: HttpClient, private router: Router) {
-    this.account = "/users";
-    this.accountUrl = API_URL + this.account;
+    //this.account = "/accounts";
+    this.accountUrl = API_URL;// + this.account;
   }
 
   public findAll(): Observable<Account[]> {

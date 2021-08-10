@@ -10,6 +10,8 @@ import { AuthService } from './auth/auth.service';
 import { ChangeDetectorRef } from '@angular/core';
 
 const API_URL = environment.apiUrl;
+const api = environment.apiUrl + '/users';
+
 
 @Injectable()
 export class UserService {
@@ -50,6 +52,7 @@ export class UserService {
   }
 
   public createUser(user: CreateUser) {
+    this.userCreated = false;
     this.serverError = false;
     return this.getNewUser(user)
       .subscribe((res) =>{
@@ -87,5 +90,37 @@ export class UserService {
     this.serverError = false;
   }
 
+
+  public getUsersPage(
+    page: number,
+    size: number
+  ): Observable<GetResponseUsers> {
+    let t = '';
+    //put token here
+
+    let headersWt = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + t,
+    });
+    return this.http.get<GetResponseUsers>(
+      `${api}?page=${page}&size=${size}`,
+      {
+        headers: headersWt,
+      }
+    );
+  }
 }
+
+interface GetResponseUsers {
+  content: User[];
+
+  page: {
+    size: number;
+    totalElements: number;
+    totalPages: number;
+    number: number;
+  };
+}
+
+
 

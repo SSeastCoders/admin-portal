@@ -70,7 +70,7 @@ export class CreateUserComponent implements OnInit, OnDestroy{
     this.form.get('role').valueChanges.pipe(
       tap((role: string) => {
         if (role == 'Admin') {
-          this.form.get('email').setValidators([Validators.required, Validators.email, Validators.pattern(/^[A-Za-z0-9](\.?|_?[A-Za-z0-9]){5,}@smoothstack\.com$/)])
+          this.form.get('email').setValidators([Validators.required, Validators.pattern(/^[A-Za-z0-9](\.?|_?[A-Za-z0-9]){5,}@smoothstack\.com$/)])
         }
         this.form.get('email').updateValueAndValidity();
       })
@@ -97,6 +97,10 @@ export class CreateUserComponent implements OnInit, OnDestroy{
     return this.form.get("phone");
   }
 
+  get role() {
+    return this.form.get('role');
+  }
+
   public createUser(): void {
     if (this.form.valid) {
 
@@ -116,7 +120,13 @@ export class CreateUserComponent implements OnInit, OnDestroy{
     }
   }
 
-
+  changeRole(e) {
+    console.log(e.value)
+    this.role.setValue(e.target.value, {
+      onlySelf: true
+    });
+    this.user.role = e.target.value;
+  }
 
     //this.router.navigate([this.redirectToUrl]);
   
@@ -125,7 +135,7 @@ export class CreateUserComponent implements OnInit, OnDestroy{
     this.user.password = this.form.get('password').value;
     this.user.username = this.form.get('username').value;
     this.user.email = this.form.get('email').value;
-    if (this.form.get('role').value) {this.user.role = this.form.get('role').value.roleTitle;}
+ //this.user.role = ;
     if (this.form.get('firstName').value) {this.user.firstName = this.form.get('firstName').value;}
     if (this.form.get('lastName').value) {this.user.lastName = this.form.get('lastName').value;}
     if (this.form.get('phone').value) {this.user.phone = this.form.get('phone').value.replace(/[()-\s]/g,'');}

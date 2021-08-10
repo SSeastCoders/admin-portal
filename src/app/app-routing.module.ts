@@ -11,6 +11,7 @@ import { UserFormComponent } from './observables/user-list/user-form/user-form.c
 import { UserListComponent } from './observables/user-list/user-list.component';
 import { AuthGuard } from './services/guard/guard.guard';
 import { UserService } from './services/user.service';
+import { AccountListComponent } from './observables/user-list/account-list/account-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -25,6 +26,7 @@ const routes: Routes = [
   {path: 'registration', component: CreateUserComponent},
   //{path: 'users', component: UserFormComponent},
   {path: 'users', component: UserService},
+  {path: 'accounts', component: AccountListComponent},
   {path: 'accounts', component: ViewAccountComponent},
   {path: 'accounts', component: CreateAccountComponent},
 ];

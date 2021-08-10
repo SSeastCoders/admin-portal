@@ -8,6 +8,8 @@ import { Observable, of, throwError } from 'rxjs';
 import { error } from '@angular/compiler/src/util';
 import { map } from 'rxjs/operators';
 
+import jwt_decode from 'jwt-decode';
+
 const API_URL = environment.apiUrl;
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -39,7 +41,9 @@ export class AuthService {
         //console.log("authservice");
         this.loginError = false;
         this.saveToken(res.headers.get('authorization') || '');
+
         this.router.navigate([this.redirectToUrl]);
+
         //console.log(this.redirectToUrl);
         //console.log("Auth");
         //console.log(res.headers.get('authorization'));
@@ -81,4 +85,12 @@ export class AuthService {
     return !!this.getToken();
   }
 
+  public getRole(jwtString: string){
+    let token = jwt_decode(jwtString);
+    if(token['role'] == 'Admin'){
+      return true;
+    } else{
+      return false
+    };
+  }
 }

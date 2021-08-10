@@ -1,7 +1,5 @@
-
-
-export class Account {
-    id: number;
+export class CreateAccount {
+    //id: number;
     accountType: string | undefined;
     account_users: 
         [{
