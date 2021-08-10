@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Account } from '../observables/account';
 
-const API_URL = environment.apiUrl;
+const API_URL = environment.accountUrl;
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +23,10 @@ export class AccountService {
 
   public findAll(): Observable<Account[]> {
     return this.http.get<Account[]>(this.accountUrl);
+  }
+
+  public find(accountId: number): Observable<Account> {
+    return this.http.get<Account>(this.accountUrl+"/"+accountId);
   }
 
 }

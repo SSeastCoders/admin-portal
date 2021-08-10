@@ -30,7 +30,7 @@
 
         <!-- /.card-header -->
         <!-- form start -->
-        <form [formGroup]="form" (ngSubmit)="createUser()">
+        <form [formGroup]="form" >
           <div class="card-body">
 
             <div class="form-group" data-select2-id="29">
@@ -158,23 +158,51 @@
                 </div>
               </div>
             </div>
-            <div class="form-check">
-              <input type="checkbox" class="form-check-input" id="exampleCheck1">
-              <label class="form-check-label" for="exampleCheck1">Check me out</label>
-            </div>
           
           <!-- /.card-body -->
         </div>
 
           <div class="card-footer">
             <button 
-            [type]="'submit'"
             class="btn btn-primary"
-            [disabled]="!form.valid">
+            [disabled]="!form.valid"
+            [type]="'data-toggle'"
+            data-toggle="modal"
+            data-target="#confirmModal"
+            (click)="userService.clear()">
             <span class="ml-1">Make New User</span>
              </button>
           </div>
-        </form>
+          
+          <!-- Modal -->
+        <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">Confirmation:</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" *ngIf='!userService.userCreated'>
+                Are you sure you want to make a new user?
+                <div class="text-danger" *ngIf="userService.serverError">
+                    Errors in new user: {{userService.serverErrorMessage}}
+                </div>
+            </div>
+            <div class="modal-body" *ngIf='userService.userCreated'>
+                User Successfully Created
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" *ngIf='!userService.userCreated'>Return</button>
+                <button type="button" class="btn btn-primary" (click)="createUser()" [type]="'submit'" *ngIf='!userService.userCreated'>Confirm</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" *ngIf='userService.userCreated' (click)="redirect()">View Users</button>
+            </div>
+            </div>
+        </div>
+        </div>
 
-      </div>
+    </form>
+
+</div>
 

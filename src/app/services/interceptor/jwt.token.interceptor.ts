@@ -23,9 +23,9 @@ export class JwtTokenInterceptor implements HttpInterceptor {
     });
  
     //console.log(this.bearer +`${this.auth.getToken()}`)
-    if ((request.url.search("/login") === -1 )){
-      return next.handle(interceptedRequest).pipe(catchError((x: HttpErrorResponse) => this.handleErrors(x)));
-    }
+    //if ((request.url.search("/login") === -1 ) || (request.url.search("/users") === -1 )){
+    //  return next.handle(interceptedRequest).pipe(catchError((x: HttpErrorResponse) => this.handleErrors(x)));
+    //}
     return next.handle(interceptedRequest);
   }
 
@@ -43,10 +43,11 @@ export class JwtTokenInterceptor implements HttpInterceptor {
     }
     if ((err.status === 400) || (err.status === 409)) {
       //this.router.navigate(['/home']);
-      console.log("400");
+      console.log("400/9");
       console.log(err);
       return of(err.message);
     }
+    console.log(err);
     return of(err.message);
   }
 }

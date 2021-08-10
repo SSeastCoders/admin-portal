@@ -12,6 +12,9 @@ import { of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { ConfirmedValidator } from './validators/passwordConfirmation';
 import { CheckBirthdate } from './validators/birthdateChecker';
+import { HttpErrorResponse } from '@angular/common/http';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ChangeDetectorRef } from '@angular/core';
 
 
 @Component({
@@ -29,11 +32,14 @@ export class CreateUserComponent implements OnInit, OnDestroy{
   ]
   today = new Date(); 
   minorCutOff: string = (this.today.getFullYear()-18)+'-'+( this.today.getMonth()+1)+'-'+ this.today.getDate();
-  takenUsernames = this.userService.findAllUsernames();
+  //takenUsernames = this.userService.findAllUsernames();
   show: boolean = false;
   form = new FormGroup({});
+  serverError = false;
+  serverErrorMessage: string;
 
-  constructor(private userService: UserService, private router: Router, private fb: FormBuilder) {
+
+  constructor(public userService: UserService, private router: Router, private fb: FormBuilder,private modalService: NgbModal) {
 
     this.form = fb.group({
         username: ['', {validators: [Validators.required, Validators.pattern("[a-z0-9A-Z]+"), Validators.minLength(5), Validators.maxLength(20)]}],
@@ -96,11 +102,24 @@ export class CreateUserComponent implements OnInit, OnDestroy{
 
       this.user = this.createUserFromForm();
 
-
       this.userService.createUser(this.user);
-    //this.router.navigate([this.redirectToUrl]);
+
+      //.subscribe(
+        //(res) => {
+        //  this.serverError = false;
+          //this.router.navigate([this.redirectToUrl]);
+        //}, (err: HttpErrorResponse) => {
+        //  this.serverError = true;
+         // this.serverErrorMessage = err.error.message;
+        //}
+      //);
     }
   }
+
+
+
+    //this.router.navigate([this.redirectToUrl]);
+  
 
   public createUserFromForm() {
     this.user.password = this.form.get('password').value;
@@ -142,6 +161,11 @@ export class CreateUserComponent implements OnInit, OnDestroy{
   public togglePass(){
     this.show = !this.show;
   }
+
+  public redirect(){
+    this.router.navigate(['/users']);
+  }
+
 }
 
 

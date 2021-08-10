@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHandler, HttpHeaders } from '@angular/common/http';
 import { CreateUser } from '../observables/createUser';
 import { User } from '../observables/user';
 import { Observable } from 'rxjs';
 import { environment } from "src/environments/environment";
 import { HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { AuthService } from './auth/auth.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 const API_URL = environment.apiUrl;
 
@@ -15,10 +17,17 @@ export class UserService {
   private users: string;
   private usersUrl: string;
   private allUsers: User[];
+  bearer: string;
+  redirectToUrl: string = '/users';
+  serverError = false;
+  serverErrorMessage: string;
+  userCreated: boolean;
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, public auth: AuthService) {
     this.users = "/users";
     this.usersUrl = API_URL + this.users;
+    this.bearer = 'Bearer ';
+    this.userCreated = false;
   }
 
   public findAll(): Observable<User[]> {
@@ -40,25 +49,43 @@ export class UserService {
     return this.http.post<CreateUser>(this.usersUrl, user);
   }
 
-  public createUser(user: CreateUser): void {
-    this.getNewUser(user)
-    .subscribe((res) =>{
-      this.router.navigate(["/home"]);
-    },
-    (err) =>{
-      console.log(err);
-    }
-    ) 
-    //return this.http.post<CreateUser>(this.usersUrl, user);
+  public createUser(user: CreateUser) {
+    this.serverError = false;
+    return this.getNewUser(user)
+      .subscribe((res) =>{
+        //this.router.navigate(["/home"]);
+        this.userCreated = true;
+        //this.router.navigate([this.redirectToUrl]);
+      },(err) =>{
+        console.log(err);
+        this.serverError = true;
+        this.serverErrorMessage = err.error.message;
+      }
+    ); 
+    //return this.getNewUser(user);
   }
 
   //public getNewUser(user: CreateUser) {
     //return this.http.post(this.usersUrl, user);
   //}
 
-  public getNewUser(this: any, user: CreateUser) {
+  public getNewUser(user: CreateUser) {
     return this.http.post(this.usersUrl, user);
     //throw new Error('Function not implemented.');
   }
+
+  public getServerError() {
+    return this.serverError;
+  }
+
+  public getServerErrorMessage() {
+    return this.serverErrorMessage;
+  }
+
+
+  public clear(): void {
+    this.serverError = false;
+  }
+
 }
 

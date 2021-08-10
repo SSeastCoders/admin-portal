@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { UserFormComponent } from './observables/user-list/user-form/user-form.component';
 import { UserListComponent } from './observables/user-list/user-list.component';
 import { AuthGuard } from './services/guard/guard.guard';
+import { UserService } from './services/user.service';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -19,8 +20,9 @@ const routes: Routes = [
   {path: 'login', component: HeaderComponent},
   {path: 'home', component: HeaderComponent},
   //{path: 'registration', component: HeaderComponent},
-  {path: 'registration', component: CreateUserComponent}
-  //{path: 'users', component: UserFormComponent}
+  {path: 'registration', component: CreateUserComponent},
+  //{path: 'users', component: UserFormComponent},
+  {path: 'users', component: UserService}
 ];
 
 @NgModule({

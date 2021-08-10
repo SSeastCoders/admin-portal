@@ -20,6 +20,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { PhoneMaskDirective } from './create-user/validators/phone-mask.directive';
 import { AppButtonComponent } from './layout/app-button/app-button.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ChangeDetectorRef } from '@angular/core';
 
 
 
@@ -33,7 +34,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     CreateUserComponent,
     PhoneMaskDirective,
     AppButtonComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -42,7 +42,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     FormsModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
   ],
   providers: [
     UserService, 
@@ -52,7 +52,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
       provide: HTTP_INTERCEPTORS, 
       useClass: JwtTokenInterceptor, 
       multi: true 
-    }
+    },
   ],
   bootstrap: [AppComponent]
 })

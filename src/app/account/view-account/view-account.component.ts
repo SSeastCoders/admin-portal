@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Account } from 'src/app/observables/account';
+import { AccountService } from 'src/app/services/account.service';
 
 @Component({
   selector: 'app-view-account',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewAccountComponent implements OnInit {
 
-  constructor() { }
+  account: Account;
+
+  constructor(private accountService: AccountService) { }
 
   ngOnInit(): void {
+      this.accountService.findAll().subscribe(data => {
+      this.account = data[0];
+    });
   }
+
+  
+  
 
 }
