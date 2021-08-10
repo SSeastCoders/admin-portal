@@ -59,12 +59,12 @@
         Email
       </label>
       <div className="col-sm-10">
-        <textarea
+        <textarea>
           className="form-control"
           id="inputExperience"
         placeholder={user.email}
           defaultValue=""
-        />
+        </textarea>
       </div>
     </div>
     <div className="form-group row">
@@ -94,17 +94,16 @@
           />
           <label htmlFor="agreeTerms">
             <span>I agree to the </span>
-            <Link to="/">terms and condition</Link>
+            <Link to="/" terms and condition >
           </label>
         </div>
       </div>
     </div>
     <div className="form-group row">
       <div className="offset-sm-2 col-sm-10">
-        <ButtonSpinner type="submit" theme="danger">
+        <!--ButtonSpinner type="submit" theme="danger">
           Submit
-        </ButtonSpinner>
+        </ButtonSpinner-->
       </div>
     </div>
   </form>
-);

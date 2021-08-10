@@ -72,7 +72,7 @@
       <p class="login-box-msg">Sign in to start your session</p>
 
       <form [formGroup]="loginForm" (ngSubmit)="login(loginForm)">
-        <small *ngIf="serverError"  class="text-danger">
+        <small *ngIf="authService.loginError"  class="text-danger">
            {{errorMessage}}
         </small>
 

@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit{
 
 
   constructor(
-    private authService: AuthService, 
+    public authService: AuthService, 
     private renderer: Renderer2,
     ) { }
 
@@ -42,14 +42,14 @@ export class LoginComponent implements OnInit{
 
   public login(loginForm) {
     if (this.loginForm.valid){
-      this.authService.login(this.credentials).subscribe((res) => {
-        this.serverError = false;
-      },
-      (err: HttpErrorResponse)=>{
-        this.serverError = true;
+      this.authService.login(this.credentials);//.subscribe((res) => {
+        //this.serverError = false;
+      //},
+      //(err: HttpErrorResponse)=>{
+        //this.serverError = true;
         //console.log(this.serverError);
-      });
-    }
+      //});
+    };
   }
       
       //else{

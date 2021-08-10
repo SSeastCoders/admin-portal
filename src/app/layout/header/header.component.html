@@ -68,10 +68,19 @@
       </li>
       </div>
 
-      <li class="nav-item d-none d-sm-inline-block">
-        <a class="nav-link" routerLink="/" [ngClass]="{'hidden': !authService.isLoggedIn() }"
-        > Accounts <span class="sr-only">(current)</span> </a>
-      </li>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown" [ngClass]="{'hidden': !authService.isLoggedIn() }">
+        <li class="nav-item dropdown" [ngClass]="{'hidden': !authService.isLoggedIn() }">
+          <a class="nav-link dropdown-toggle"  
+          id="Users" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+  
+          > Accounts <span class="sr-only">(current)</span> </a>
+          <div class="dropdown-menu" aria-labelledby="Users">
+            <a class="dropdown-item" routerLink="/accounts">View Accounts</a>
+            <a class="dropdown-item" routerLink="/accounts">New Account</a>
+          </div>
+        </li>
+      </div>
+      
       <li class="nav-item d-none d-sm-inline-block">
         <a class="nav-link" routerLink="/" [ngClass]="{'hidden': !authService.isLoggedIn() }"
         > Branches... <span class="sr-only">(current)</span> </a>

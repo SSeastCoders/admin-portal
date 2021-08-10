@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CreateAccountComponent } from './account/create-account/create-account.component';
+import { ViewAccountComponent } from './account/view-account/view-account.component';
 import { AppModule } from './app.module';
 import { CreateUserComponent } from './create-user/create-user.component';
 import { HomeComponent } from './home/home.component';
@@ -22,7 +24,9 @@ const routes: Routes = [
   //{path: 'registration', component: HeaderComponent},
   {path: 'registration', component: CreateUserComponent},
   //{path: 'users', component: UserFormComponent},
-  {path: 'users', component: UserService}
+  {path: 'users', component: UserService},
+  {path: 'accounts', component: ViewAccountComponent},
+  {path: 'accounts', component: CreateAccountComponent},
 ];
 
 @NgModule({

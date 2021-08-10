@@ -33,10 +33,11 @@ export class AuthService {
 
   public login(credentials: LoginUserClass){
     //console.log("hello");
-    this.tokenService.getResponseHeaders(credentials)
+    return this.tokenService.getResponseHeaders(credentials)
       .subscribe((res) => {
         //console.log(res);
         //console.log("authservice");
+        this.loginError = false;
         this.saveToken(res.headers.get('authorization') || '');
         this.router.navigate([this.redirectToUrl]);
         //console.log(this.redirectToUrl);
@@ -50,12 +51,14 @@ export class AuthService {
         //}
       },
       (err: HttpErrorResponse)=>{
-        return this.tokenService.getResponseHeaders(credentials);
+        console.log(err);
+        this.loginError = true;
+        //return this.tokenService.getResponseHeaders(credentials);
           //throw throwError;
         //console.log("error");
         //console.log(err);
       });
-    return this.tokenService.getResponseHeaders(credentials); 
+    //return this.tokenService.getResponseHeaders(credentials); 
   }
 
   private saveToken(token: string) {
