@@ -26,6 +26,5 @@ describe('UserService', () => {
     console.log('error occured');
     expect(service.getUsersPage(-1, -1)).toThrowError;
     console.log('error occured');
-    expect(service.errorHandler).toBeTruthy();
   });
 });

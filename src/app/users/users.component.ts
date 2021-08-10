@@ -67,14 +67,10 @@ export class UsersComponent implements OnInit {
     }
   }
 
-  // NOT YET IMPLEMENTED
-  // onSort(event: Event) {
-  //   console.log('event here');
-  //   console.log(event);
-  //   this.userService.getSortedUsersPage(
-  //     this.pageNumber,
-  //     this.pageSize,
-  //     'sortable'
-  //   );
-  // }
+  //NOT YET IMPLEMENTED
+  onSort(event: Event) {
+    console.log('event here');
+    console.log(event);
+    this.userService.getSortedUsersPage(this.pageNumber, this.pageSize);
+  }
 }
