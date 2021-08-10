@@ -23,7 +23,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ChangeDetectorRef } from '@angular/core';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
