@@ -6,7 +6,7 @@ export const environment = {
   //apiUrl: 'http://localhost:8080',
   apiUrl: 'https://localhost:8443',
   accountUrl: '',
-  //apiUrl: 'https://localhost:8443',
+  baseUrl: 'https://localhost:8443',
   production: false,
   //NODE_TLS_REJECT_UNAUTHORIZED=0
 };
