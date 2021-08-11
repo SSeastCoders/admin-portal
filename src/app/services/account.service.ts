@@ -15,6 +15,7 @@ export class AccountService {
   private account: string;
   private accountUrl: string;
   private allAccounts: Account[];
+  public currentAccount: Account;
 
   constructor(private http: HttpClient, private router: Router) {
     //this.account = "/accounts";
@@ -27,6 +28,12 @@ export class AccountService {
 
   public find(accountId: number): Observable<Account> {
     return this.http.get<Account>(this.accountUrl+"/"+accountId);
+  }
+
+  public findCurrentAccount(accountId: number): void {
+    this.http.get<Account>(this.accountUrl+"/"+accountId).subscribe(data => {
+      this.currentAccount = data;
+    });;
   }
 
 }

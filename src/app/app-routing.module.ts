@@ -26,9 +26,10 @@ const routes: Routes = [
   {path: 'registration', component: CreateUserComponent},
   //{path: 'users', component: UserFormComponent},
   {path: 'users', component: UserService},
-  {path: 'accounts', component: AccountListComponent},
+  //{path: 'accounts', component: AccountListComponent},
   {path: 'accounts', component: ViewAccountComponent},
-  {path: 'accounts', component: CreateAccountComponent},
+  {path: 'account-registration', component: CreateAccountComponent},
+  {path: 'accounts/detail-view', component: ViewAccountComponent}
 ];
 
 @NgModule({

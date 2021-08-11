@@ -23,6 +23,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ChangeDetectorRef } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NoopAnimationPlayer } from '@angular/animations';
+import { CommonModule } from '@angular/common';
+import { AccountListComponent } from './observables/user-list/account-list/account-list.component';
+import { ViewAccountComponent } from './account/view-account/view-account.component';
+import { CreateAccount } from './observables/createAccount';
+import { CreateAccountComponent } from './account/create-account/create-account.component';
 
 
 @NgModule({
@@ -35,7 +40,9 @@ import { NoopAnimationPlayer } from '@angular/animations';
     CreateUserComponent,
     PhoneMaskDirective,
     AppButtonComponent,
-    
+    AccountListComponent,
+    ViewAccountComponent,
+    CreateAccountComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +53,8 @@ import { NoopAnimationPlayer } from '@angular/animations';
     ReactiveFormsModule,
     FontAwesomeModule,
     NgbModule,
-    NoopAnimationsModule
+    NoopAnimationsModule,
+    CommonModule
   ],
   providers: [
     UserService, 

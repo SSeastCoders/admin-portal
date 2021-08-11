@@ -8,6 +8,7 @@
             <th scope="col">Type</th>
             <th scope="col">Balance</th>
             <th scope="col">Date Opened</th>
+            <th scope="col">View/Edit</th>
           </tr>
         </thead>
         <tbody>
@@ -15,7 +16,8 @@
             <td>{{ account.id }}</td>
             <td>{{ account.accountType }}</td>
             <td>{{ account.balance }}</td>
-            <td>{{ account.dateOpened }}</td>
+            <td>{{ account.openDate }}</td>
+            <td><i (click) = 'viewAccount(account)' class="fa fa-edit" id="editAccount"></i></td>
           </tr>
         </tbody>
       </table>

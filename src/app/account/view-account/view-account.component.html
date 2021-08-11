@@ -1,109 +1,48 @@
-<p>view-account works!</p>
-<form className="form-horizontal">
-    <div class="card-header text-center">
-        <a class="h6"><b>Account {{account.id}}</b></a>
+
+<div class="card my-5" *ngIf='show'>
+  <div class="card-body">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Type</th>
+          <th scope="col">Balance</th>
+          <th scope="col">Date Opened</th>
+          <th scope="col">View/Edit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let account of accounts">
+          <td>{{ account.id }}</td>
+          <td>{{ account.accountType }}</td>
+          <td>{{ account.balance }}</td>
+          <td>{{ account.openDate }}</td>
+          <td><i (click) = 'viewAccount(account)' class="fa fa-edit" id="editAccount"></i></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="card my-5" *ngIf='!show'>
+    <div class="card-body">
+      <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Type</th>
+            <th scope="col">Balance</th>
+            <th scope="col">Date Opened</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ account.id }}</td>
+            <td>{{ account.accountType }}</td>
+            <td>{{ account.balance }}</td>
+            <td>{{ account.openDate }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <div className="form-group row">
-      <label
-        htmlFor="inputName"
-        className="col-sm-2 col-form-label"
-      >
-        First Name
-      </label>
-      <div className="col-sm-10">
-        <input
-          type="email"
-          className="form-control"
-          id="inputName"
-        placeholder={user.firstName}
-        />
-      </div>
-    </div>
-    <div className="form-group row">
-      <label
-        htmlFor="inputEmail"
-        className="col-sm-2 col-form-label"
-      >
-        Last Name
-      </label>
-      <div className="col-sm-10">
-        <input
-          type="text"
-          className="form-control"
-          id="inputEmail"
-        placeholder={user.lastName}
-        />
-      </div>
-    </div>
-    <div className="form-group row">
-      <label
-        htmlFor="inputName2"
-        className="col-sm-2 col-form-label"
-      >
-        Username
-      </label>
-      <div className="col-sm-10">
-        <input
-          type="text"
-          className="form-control"
-          id="inputName2"
-          placeholder={user.username}
-        />
-      </div>
-    </div>
-    <div className="form-group row">
-      <label
-        htmlFor="inputExperience"
-        className="col-sm-2 col-form-label"
-      >
-        Email
-      </label>
-      <div className="col-sm-10">
-        <textarea>
-          className="form-control"
-          id="inputExperience"
-        placeholder={user.email}
-          defaultValue=""
-        </textarea>
-      </div>
-    </div>
-    <div className="form-group row">
-      <label
-        htmlFor="inputSkills"
-        className="col-sm-2 col-form-label"
-      >
-        Date Joined
-      </label>
-      <div className="col-sm-10">
-        <input
-          type="text"
-          className="form-control"
-          id="inputSkills"
-        placeholder={user.dateJoined}
-        />
-      </div>
-    </div>
-    <div className="form-group row">
-      <div className="offset-sm-2 col-sm-10">
-        <div className="icheck-primary">
-          <input
-            type="checkbox"
-            id="agreeTerms"
-            name="terms"
-            defaultValue="agree"
-          />
-          <label htmlFor="agreeTerms">
-            <span>I agree to the </span>
-            <Link to="/" terms and condition >
-          </label>
-        </div>
-      </div>
-    </div>
-    <div className="form-group row">
-      <div className="offset-sm-2 col-sm-10">
-        <!--ButtonSpinner type="submit" theme="danger">
-          Submit
-        </ButtonSpinner-->
-      </div>
-    </div>
-  </form>
+  </div>

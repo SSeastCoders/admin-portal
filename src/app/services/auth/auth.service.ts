@@ -75,10 +75,10 @@ export class AuthService {
   }
 
   public logout(): void {
-    this.tokenService.logout()
-      .subscribe(() => {
+    //this.tokenService.logout()
+      //.subscribe(() => {
         localStorage.removeItem(AuthService.TOKEN_STORAGE_KEY);
-      });
+     // });
   }
 
   public isLoggedIn(): boolean {
