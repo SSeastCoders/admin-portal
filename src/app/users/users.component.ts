@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -15,13 +15,18 @@ import { UserService } from '../services/user.service';
 export class UsersComponent implements OnInit {
   users: User[] = [];
 
-  displayedColumns: string[] = [
-    'id',
-    'role',
-    'firstName',
-    'lastName',
-    'username',
-    'isActive',
+  // @Input() sort!: string;
+  // @Input() asc!: boolean;
+
+  fields = [
+    { name: 'id', displayName: '#', class: 'col-1' },
+    { name: 'role', displayName: 'Role', class: 'col-1' },
+    { name: 'firstName', displayName: 'First Name', class: 'col-1' },
+    { name: 'lastName', displayName: 'Last Name', class: 'col-2' },
+    { name: 'username', displayName: 'Username', class: 'col-3' },
+    { name: 'email', displayName: 'Email', class: 'col-3' },
+
+    { name: 'activeStatus', displayName: 'Status', class: 'col-3' },
   ];
 
   constructor(
@@ -32,6 +37,8 @@ export class UsersComponent implements OnInit {
   pageSize: number = 10;
   pageNumber: number = 1;
   totalElements!: number;
+  asc: boolean = false;
+  sort: string = '';
 
   ngOnInit() {
     this.listUsers();
@@ -66,6 +73,20 @@ export class UsersComponent implements OnInit {
       throw new Error("couldn't update page size");
     }
   }
+  setSort(property: string) {
+    if (this.asc && this.sort === property) {
+      this.asc = false;
+    } else {
+      this.sort = property;
+      this.asc = true;
+    }
+    console.log('in setSort');
+    console.log(property);
+    console.log(this.asc);
+    this.userService
+      .getSortedUsersPage(this.pageNumber, this.pageSize, this.sort, this.asc)
+      .subscribe(this.processResult);
+  }
 
   // NOT YET IMPLEMENTED
   // onSort(event: Event) {
@@ -74,7 +95,8 @@ export class UsersComponent implements OnInit {
   //   this.userService.getSortedUsersPage(
   //     this.pageNumber,
   //     this.pageSize,
-  //     'sortable'
+  //     'sortable',
+  //     true
   //   );
   // }
 }

@@ -16,7 +16,8 @@ export class UserService {
     page: number,
     size: number
   ): Observable<GetResponseUsers> {
-    let t = '';
+    let t =
+      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwicm9sZSI6IkFkbWluIiwiZXhwIjoxNjI4ODE5NDQ5LCJ1c2VybmFtZSI6ImhhemVsIn0.V9jCiH-IIiTG_Cbj7f48B_fiUmqu8HBmGr405jiRc2YRbmvt90wU1Koz38U9W_PGXoIp0EaTdnwc8WEkANtKyA';
     //put token here
 
     let headersWt = new HttpHeaders({
@@ -29,6 +30,31 @@ export class UserService {
         headers: headersWt,
       }
     );
+  }
+
+  public getSortedUsersPage(
+    page: number,
+    size: number,
+    sort?: string,
+    asc?: boolean
+  ): Observable<GetResponseUsers> {
+    let t =
+      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwicm9sZSI6IkFkbWluIiwiZXhwIjoxNjI4ODE5NDQ5LCJ1c2VybmFtZSI6ImhhemVsIn0.V9jCiH-IIiTG_Cbj7f48B_fiUmqu8HBmGr405jiRc2YRbmvt90wU1Koz38U9W_PGXoIp0EaTdnwc8WEkANtKyA';
+    //put token here
+
+    let headersWt = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + t,
+    });
+
+    const result = this.http.get<GetResponseUsers>(
+      `${this.api}?page=${page}&size=${size}&sort=${sort}&asc=${!!asc}`,
+      {
+        headers: headersWt,
+      }
+    );
+    console.log(result);
+    return result;
   }
 }
 
