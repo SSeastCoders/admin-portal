@@ -84,7 +84,7 @@ export class UsersComponent {
     console.log(property);
     console.log(this.asc);
     this.userService
-      .getSortedUsersPage(this.pageNumber, this.pageSize, this.sort, this.asc)
+      .getSortedUsersPage(this.pageNumber, this.pageSize, this.asc, this.sort)
       .subscribe(this.processResult);
   }
 

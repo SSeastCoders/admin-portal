@@ -49,16 +49,17 @@ export class UserService {
   //   return throwError('server error.');
   // }
 
-  // public getSortedUsersPage(
-  //   page: number,
-  //   size: number
-  //   // sort: string
-  // ): Observable<GetResponseUsers> {
-  //   return this.http.get<GetResponseUsers>(
-  //     `${this.api}?page=${page}&size=${size}`
-  //   );
-  //   // .pipe(catchError(this.errorHandler));
-  // }
+  public getSortedUsersPage(
+    page: number,
+    size: number,
+    asc: boolean,
+    sort: string
+  ): Observable<GetResponseUsers> {
+    return this.http.get<GetResponseUsers>(
+      `${this.api}?page=${page}&size=${size}`
+    );
+    // .pipe(catchError(this.errorHandler));
+  }
 
   public findAll(): Observable<User[]> {
     //console.log(this.usersUrl);
