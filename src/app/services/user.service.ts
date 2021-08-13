@@ -2,14 +2,12 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 //import { User } from '../models/user';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHandler } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { CreateUser } from '../observables/createUser';
 import { User } from '../observables/user';
 
-import { HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from './auth/auth.service';
-import { ChangeDetectorRef } from '@angular/core';
 
 const API_URL = environment.apiUrl;
 @Injectable({
@@ -51,16 +49,16 @@ export class UserService {
   //   return throwError('server error.');
   // }
 
-  public getSortedUsersPage(
-    page: number,
-    size: number
-    // sort: string
-  ): Observable<GetResponseUsers> {
-    return this.http.get<GetResponseUsers>(
-      `${this.api}?page=${page}&size=${size}`
-    );
-    // .pipe(catchError(this.errorHandler));
-  }
+  // public getSortedUsersPage(
+  //   page: number,
+  //   size: number
+  //   // sort: string
+  // ): Observable<GetResponseUsers> {
+  //   return this.http.get<GetResponseUsers>(
+  //     `${this.api}?page=${page}&size=${size}`
+  //   );
+  //   // .pipe(catchError(this.errorHandler));
+  // }
 
   public findAll(): Observable<User[]> {
     //console.log(this.usersUrl);
@@ -119,6 +117,29 @@ export class UserService {
   public clear(): void {
     this.serverError = false;
   }
+
+  // public getSortedUsersPage(
+  //   page: number,
+  //   size: number,
+  //   sort?: string,
+  //   asc?: boolean
+  // ): Observable<GetResponseUsers> {
+  //   let t = 'fyufyufkykfyk';
+
+  //   let headersWt = new HttpHeaders({
+  //     'Content-Type': 'application/json',
+  //     Authorization: 'Bearer ' + t,
+  //   });
+
+  //   const result = this.http.get<GetResponseUsers>(
+  //     `${this.api}?page=${page}&size=${size}&sort=${sort}&asc=${!!asc}`,
+  //     {
+  //       headers: headersWt,
+  //     }
+  //   );
+  //   console.log(result);
+  //   return result;
+  // }
 }
 
 interface GetResponseUsers {
