@@ -38,28 +38,30 @@ export class UserService {
 
   public getUsersPage(
     page: number,
-    size: number
+    size: number,
+    asc: boolean,
+    sort: string
   ): Observable<GetResponseUsers> {
-    return this.http.get<GetResponseUsers>(
-      `${this.api}?page=${page}&size=${size}`
-    );
+    let request = `${this.api}?page=${page}&size=${size}`;
+    console.log(request);
+    return this.http.get<GetResponseUsers>(request);
   }
 
   // errorHandler(error: HttpErrorResponse) {
   //   return throwError('server error.');
   // }
 
-  public getSortedUsersPage(
-    page: number,
-    size: number,
-    asc: boolean,
-    sort: string
-  ): Observable<GetResponseUsers> {
-    return this.http.get<GetResponseUsers>(
-      `${this.api}?page=${page}&size=${size}`
-    );
-    // .pipe(catchError(this.errorHandler));
-  }
+  // public getSortedUsersPage(
+  //   page: number,
+  //   size: number,
+  //   asc: boolean,
+  //   sort: string
+  // ): Observable<GetResponseUsers> {
+  //   return this.http.get<GetResponseUsers>(
+  //     `${this.api}?page=${page}&size=${size}`
+  //   );
+  //   // .pipe(catchError(this.errorHandler));
+  // }
 
   public findAll(): Observable<User[]> {
     //console.log(this.usersUrl);
@@ -119,28 +121,7 @@ export class UserService {
     this.serverError = false;
   }
 
-  // public getSortedUsersPage(
-  //   page: number,
-  //   size: number,
-  //   sort?: string,
-  //   asc?: boolean
-  // ): Observable<GetResponseUsers> {
-  //   let t = 'fyufyufkykfyk';
-
-  //   let headersWt = new HttpHeaders({
-  //     'Content-Type': 'application/json',
-  //     Authorization: 'Bearer ' + t,
-  //   });
-
-  //   const result = this.http.get<GetResponseUsers>(
   //     `${this.api}?page=${page}&size=${size}&sort=${sort}&asc=${!!asc}`,
-  //     {
-  //       headers: headersWt,
-  //     }
-  //   );
-  //   console.log(result);
-  //   return result;
-  // }
 }
 
 interface GetResponseUsers {

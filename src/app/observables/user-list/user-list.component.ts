@@ -14,6 +14,19 @@ export class UserListComponent implements OnInit {
   pageSize: number = 10;
   pageNumber: number = 1;
   totalElements!: number;
+  asc: boolean = false;
+  sort: string = '';
+
+  fields = [
+    { name: 'id', displayName: '#', class: 'col-1' },
+    { name: 'role', displayName: 'Role', class: 'col-1' },
+    { name: 'firstName', displayName: 'First Name', class: 'col-1' },
+    { name: 'lastName', displayName: 'Last Name', class: 'col-2' },
+    { name: 'username', displayName: 'Username', class: 'col-3' },
+    { name: 'email', displayName: 'Email', class: 'col-3' },
+
+    { name: 'activeStatus', displayName: 'Status', class: 'col-3' },
+  ];
 
   constructor(private userService: UserService) {}
 
@@ -27,7 +40,7 @@ export class UserListComponent implements OnInit {
 
   handleUsersList() {
     this.userService
-      .getUsersPage(this.pageNumber - 1, this.pageSize)
+      .getUsersPage(this.pageNumber - 1, this.pageSize, this.asc, this.sort)
       .subscribe(this.processResult());
   }
 
@@ -50,4 +63,31 @@ export class UserListComponent implements OnInit {
       throw new Error("couldn't update page size");
     }
   }
+
+  setSort(property: string) {
+    if (this.asc && this.sort === property) {
+      this.asc = false;
+    } else {
+      this.sort = property;
+      this.asc = true;
+    }
+    console.log('in setSort');
+    console.log(property);
+    console.log(this.asc);
+    this.userService
+      .getUsersPage(this.pageNumber, this.pageSize, this.asc, this.sort)
+      .subscribe(this.processResult);
+  }
+
+  //NOT YET IMPLEMENTED
+  // onSort(event: Event) {
+  //   console.log('event here');
+  //   console.log(event);
+  //   this.userService.getSortedUsersPage(
+  //     this.pageNumber,
+  //     this.pageSize,
+  //     'sortable',
+  //     true
+  //   );
+  // }
 }

@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { UsersComponent } from './users/users.component';
-//import { UserService } from './services/user.service';
+
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -36,7 +35,6 @@ import { ChangeDetectorRef } from '@angular/core';
     CreateUserComponent,
     PhoneMaskDirective,
     AppButtonComponent,
-    //UsersComponent
   ],
   imports: [
     BrowserModule,
