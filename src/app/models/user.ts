@@ -1,13 +1,13 @@
-export interface User {
-  id: number;
-  role: {
-    id: number;
-    title: string;
-  };
-  firstName: string;
-  lastName: string;
-  username: string;
+// export interface User {
+//   id: number;
+//   role: {
+//     id: number;
+//     title: string;
+//   };
+//   firstName: string;
+//   lastName: string;
+//   username: string;
 
-  email: string;
-  activeStatus: boolean;
-}
+//   email: string;
+//   activeStatus: boolean;
+// }

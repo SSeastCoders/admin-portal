@@ -39,12 +39,18 @@ export class UserService {
   public getUsersPage(
     page: number,
     size: number,
-    asc: boolean,
-    sort: string
+    sort?: string,
+    asc?: boolean
   ): Observable<GetResponseUsers> {
-    let request = `${this.api}?page=${page}&size=${size}`;
-    console.log(request);
-    return this.http.get<GetResponseUsers>(request);
+    let req;
+    if (sort !== undefined) {
+      req = `${this.api}?page=${page}&size=${size}&sort=${sort}&asc=${!!asc}`;
+    } else {
+      req = `${this.api}?page=${page}&size=${size}`;
+    }
+    console.log('this is the request');
+    console.log(req);
+    return this.http.get<GetResponseUsers>(req);
   }
 
   // errorHandler(error: HttpErrorResponse) {
@@ -68,16 +74,16 @@ export class UserService {
     return this.http.get<User[]>(this.usersUrl);
   }
 
-  public findAllUsernames(): string[] {
-    //console.log(this.usersUrl);
-    this.http.get<User[]>(this.usersUrl).subscribe((data) => {
-      this.allUsers = data;
-    });
-    if (this.allUsers) {
-      return this.allUsers.map((user) => user.username);
-    }
-    return null;
-  }
+  // public findAllUsernames(): string[] {
+  //   //console.log(this.usersUrl);
+  //   // this.http.get<User[]>(this.usersUrl).subscribe((data) => {
+  //   //   this.allUsers = data;
+  //   // });
+  //   // if (this.allUsers) {
+  //   //   return this.allUsers.map((user) => user.username);
+  //   // }
+  //   // return null;
+  // }
 
   public save(user: CreateUser) {
     return this.http.post<CreateUser>(this.usersUrl, user);
@@ -120,8 +126,6 @@ export class UserService {
   public clear(): void {
     this.serverError = false;
   }
-
-  //     `${this.api}?page=${page}&size=${size}&sort=${sort}&asc=${!!asc}`,
 }
 
 interface GetResponseUsers {

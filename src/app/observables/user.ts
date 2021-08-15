@@ -21,5 +21,6 @@ export interface User {
     | undefined;
   dateJoined: string | undefined;
   activeStatus: boolean | undefined;
+
   username: string | undefined;
 }

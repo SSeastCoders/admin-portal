@@ -15,14 +15,14 @@ export class UserListComponent implements OnInit {
   pageNumber: number = 1;
   totalElements!: number;
   asc: boolean = false;
-  sort: string = '';
+  sort: string;
 
   fields = [
     { name: 'id', displayName: '#', class: 'col-1' },
     { name: 'role', displayName: 'Role', class: 'col-1' },
     { name: 'firstName', displayName: 'First Name', class: 'col-1' },
     { name: 'lastName', displayName: 'Last Name', class: 'col-2' },
-    { name: 'username', displayName: 'Username', class: 'col-3' },
+    { name: 'credential.username', displayName: 'Username', class: 'col-3' },
     { name: 'email', displayName: 'Email', class: 'col-3' },
 
     { name: 'activeStatus', displayName: 'Status', class: 'col-3' },
@@ -40,17 +40,20 @@ export class UserListComponent implements OnInit {
 
   handleUsersList() {
     this.userService
-      .getUsersPage(this.pageNumber - 1, this.pageSize, this.asc, this.sort)
+      .getUsersPage(this.pageNumber - 1, this.pageSize, this.sort, this.asc)
       .subscribe(this.processResult());
   }
 
   processResult() {
+    console.log('this is the data in process result');
     return (data) => {
+      console.log('this is the data in process result');
       console.log(data);
       this.users = data.content;
-      this.pageNumber = data.pageable.pageNumber + 1;
+      //this.pageNumber = data.pageable.pageNumber + 1;
       this.pageSize = data.pageable.pageSize;
-      this.totalElements = data.totalElements;
+      //this.totalElements = data.totalElements;
+      //this.asc = data.sort.sorted;
     };
   }
 
@@ -71,23 +74,12 @@ export class UserListComponent implements OnInit {
       this.sort = property;
       this.asc = true;
     }
-    console.log('in setSort');
-    console.log(property);
-    console.log(this.asc);
-    this.userService
-      .getUsersPage(this.pageNumber, this.pageSize, this.asc, this.sort)
-      .subscribe(this.processResult);
+    this.listUsers();
+    // console.log('in setSort');
+    // console.log(property);
+    // console.log(this.asc);
+    // this.userService
+    //   .getUsersPage(this.pageNumber, this.pageSize, this.sort, this.asc)
+    //   .subscribe(this.processResult);
   }
-
-  //NOT YET IMPLEMENTED
-  // onSort(event: Event) {
-  //   console.log('event here');
-  //   console.log(event);
-  //   this.userService.getSortedUsersPage(
-  //     this.pageNumber,
-  //     this.pageSize,
-  //     'sortable',
-  //     true
-  //   );
-  // }
 }
