@@ -8,8 +8,6 @@ import { LoginComponent } from './login/login.component';
 import { UserListComponent } from './observables/user-list/user-list.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserService } from './services/user/user.service';
-import { TokenService } from './services/auth/token.service';
-import { AuthService } from './services/auth/auth.service';
 import { JwtTokenInterceptor } from './services/interceptor/jwt.token.interceptor';
 import { HeaderComponent } from './layout/header/header.component';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -23,7 +21,8 @@ import { CreateAccountComponent } from './account/create-account/create-account.
 import { RegisterComponent } from './register/register.component';
 import { PhoneMaskDirective } from './services/validation/phone-mask.directive';
 import { HomeComponent } from './home/home.component';
-
+import { StorageService } from './services/storage/storage.service';
+import { AuthService } from './services/auth/auth.service';
 
 @NgModule({
   declarations: [
@@ -52,7 +51,7 @@ import { HomeComponent } from './home/home.component';
   ],
   providers: [
     UserService,
-    TokenService,
+    StorageService,
     AuthService,
     {
       provide: HTTP_INTERCEPTORS,

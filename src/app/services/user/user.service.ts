@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHandler, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from "src/environments/environment";
 import { HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { AuthService } from '../auth/auth.service';
 import { CreateUser } from '../../models/createUser';
 import { User } from '../../models/user';
 import { HttpService } from '../http/http.service';
@@ -17,18 +16,13 @@ const api = environment.userUrl + UserEndPoints.MAIN;
 @Injectable()
 export class UserService {
 
-  private users: string;
-  private usersUrl: string;
-  private allUsers: User[];
   bearer: string;
   redirectToUrl: string = '/users';
   creationError: boolean;
   creationErrorMessage: string;
   userCreated: boolean;
 
-  constructor(private https: HttpClient, private router: Router, public auth: AuthService, private http: HttpService) {
-    this.users = "/users";
-    this.usersUrl = API_URL + this.users;
+  constructor(private https: HttpClient, private router: Router, private http: HttpService) {
     this.bearer = 'Bearer ';
     this.userCreated = false;
     this.creationError = false;
