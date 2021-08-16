@@ -1,8 +1,8 @@
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Account } from 'src/app/observables/account';
-import { AccountService } from 'src/app/services/account.service';
+import { Account } from 'src/app/models/account';
+import { AccountService } from 'src/app/services/account/account.service';
 
 @Component({
   selector: 'app-view-account',
@@ -15,7 +15,7 @@ export class ViewAccountComponent implements OnInit {
   accounts!: Account[];
   show = true;
 
-  constructor(private accountService: AccountService, private router: Router) { 
+  constructor(private accountService: AccountService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -39,7 +39,7 @@ export class ViewAccountComponent implements OnInit {
     (err) => console.error(err),
     () => {
       this.show = false;
-      //this.router.navigate(['/accounts/detail-view']);
+      this.router.navigate(['/accounts/detail-view']);
     });
   }
 
@@ -50,7 +50,7 @@ export class ViewAccountComponent implements OnInit {
 
 }
 
-  
-  
+
+
 
 

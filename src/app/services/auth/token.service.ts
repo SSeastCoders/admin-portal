@@ -5,15 +5,15 @@ import { Injectable } from "@angular/core";
 import { of, throwError } from "rxjs";
 import { connectableObservableDescriptor } from "rxjs/internal/observable/ConnectableObservable";
 import { catchError, tap } from "rxjs/operators";
-import { LoginUserClass } from "src/app/observables/loginUserClass";
+import { LoginUser } from "src/app/models/loginUser";
 import { environment } from "src/environments/environment";
- 
+
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   observe: 'response' as 'response'
 };
-const API_URL = environment.apiUrl;
+const API_URL = environment.userUrl;
 
 @Injectable({
     providedIn: 'root'
@@ -22,13 +22,13 @@ export class TokenService {
 
   private loginUrl: string;
   private logoutUrl: string;
- 
-  constructor(private http: HttpClient) { 
+
+  constructor(private http: HttpClient) {
     this.loginUrl = "/login";
     this.logoutUrl = "/logout";
   }
- 
-  public getResponseHeaders(credentials: LoginUserClass) {
+
+  public getResponseHeaders(credentials: LoginUser) {
     let loginUrl = API_URL + this.loginUrl;
     //console.log("get token");
     //return this.http.post(loginUrl, credentials, httpOptions);//.pipe(catchError(e => throwError(e)));//this.handleError(e)));

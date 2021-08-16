@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CreateUserComponent } from 'src/app/create-user/create-user.component';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { UserService } from 'src/app/services/user.service';
+import { UserService } from 'src/app/services/user/user.service';
 import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
 import 'bootstrap/dist/js/bootstrap.bundle';
 
@@ -24,7 +23,7 @@ export class HeaderComponent implements OnInit {
   }
 
   public createUserForm():void{
-    
+
   }
 
 }

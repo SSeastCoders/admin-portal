@@ -5,13 +5,13 @@ import { LoginUserClass } from 'src/app/observables/loginUserClass';
 import { environment } from 'src/environments/environment';
 import { createLogicalNot } from 'typescript';
 
-import { TokenService } from './token.service';
+import { TokenService } from './storage.service';
 
 describe('TokenService', () => {
   let injector: TestBed;
   let service: TokenService;
   let httpMock: HttpTestingController;
-  let apiUrl = environment.userUrl;
+  let apiUrl = environment.apiUrl;
   let HttpResponseMock: HttpResponse<any> = {
     body: null,
     type: null,
