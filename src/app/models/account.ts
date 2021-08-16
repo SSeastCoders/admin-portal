@@ -6,7 +6,7 @@ export class Account {
     id!: number;
     accountType: AccountType;
     usersIds!:
-        Set<number>;
+        number[];
     interestRate!: AccountInterest;
     openDate: string | undefined ;
     balance!: number;

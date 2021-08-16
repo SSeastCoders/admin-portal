@@ -4,7 +4,7 @@ import { User } from "./user";
 export class CreateAccount {
     //id: number;
     accountType: AccountType;
-    usersIds: Set<number>;
+    usersIds: number[];
     interestRate!: number;
     openDate: number | undefined ;
     balance!: number;

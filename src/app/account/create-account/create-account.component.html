@@ -22,15 +22,15 @@
 
               <div class="form-group">
                   <label for="users">User on Account</label>
+                  <small *ngIf="accountForm.get('users')?.invalid && accountForm.get('users')?.touched" class="text-danger">All users must be listed as ID number</small>
                   <span float="right"><i center="right" class ='fa fa-plus' (click)="addUser()"></i></span>
                   <div class="input-group" formArrayName="users">
                   <section *ngFor="let user of users().controls; let i = index;" [formGroupName]="i">
                     <button type="button" class="btn btn-danger btn-sm" (click)="removeUser(i)">Remove User</button>
                     <input [class.is-invalid] = "accountForm.get('users')?.invalid && accountForm.get('users')?.touched"
-                    id="user" class="form-control" type="text"
+                    id="user" class="form-control" type="text" pattern="^[0-9]{1,15}$"
                     placeholder="Users on Account" name="user_{{i}}" formControlName="user">
                   </section>
-                  <small *ngIf="accountForm.get('users')?.invalid && accountForm.get('users')?.touched" class="text-danger">{{errorMessages('invalidUser')}}</small>
                   </div>
               </div>
 

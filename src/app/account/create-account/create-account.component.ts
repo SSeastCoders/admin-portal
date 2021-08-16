@@ -65,13 +65,22 @@ export class CreateAccountComponent implements OnInit {
     this.account.activeStatus = true;
     //let tempArray= this.accountForm.get('users').value;
     let tempArray = this.accountForm.get('users').value;//new Set(this.accountForm.get('users').value);
+    let tempNumArray = [];
     for (let i = 0; i <  tempArray.length; i++) {
-      this.account.usersIds.add(tempArray.at(i).user);
+      console.log(tempArray.at(i).user);
+      tempNumArray.push(tempArray.at(i).user);
+      //this.account.usersIds.add(tempArray.at(i).user);
     }
+    this.account.usersIds = this.removeDuplicate(tempNumArray);
     //tempArray.forEach((element)=> {
     //  this.account.usersIds.add(element);
     //});;
     return this.account;
+  }
+
+  removeDuplicate(array: number[]): number[]{
+    let tempSet = (new Set(array));
+    return [...tempSet];
   }
 
   newUser() {
