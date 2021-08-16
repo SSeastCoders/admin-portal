@@ -1,17 +1,90 @@
-import { HttpHeaders, HttpResponse } from '@angular/common/http';
+import { StorageService } from "./storage.service";
+import { TestBed } from '@angular/core/testing';
+import { HttpService } from "../http/http.service";
+import { HttpClientTestingModule } from "@angular/common/http/testing";
+import { HttpClient, HttpHandler } from "@angular/common/http";
+
+describe('StorageService', () => {
+  let service: StorageService;
+  let mockHttp: jasmine.SpyObj<HttpService>;
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      providers: [HttpService, StorageService,]
+    });
+    service = TestBed.get(StorageService);
+    let store = {};
+    const mockLocalStorage = {
+      getItem: (key: string): string => {
+        return key in store ? store[key] : null;
+      },
+      setItem: (key: string, value: string) => {
+        store[key] = `${value}`;
+      },
+      removeItem: (key: string) => {
+        delete store[key];
+      },
+      clear: () => {
+        store = {};
+      }
+    };
+    spyOn(localStorage, 'getItem')
+      .and.callFake(mockLocalStorage.getItem);
+    spyOn(localStorage, 'setItem')
+      .and.callFake(mockLocalStorage.setItem);
+    spyOn(localStorage, 'removeItem')
+      .and.callFake(mockLocalStorage.removeItem);
+    spyOn(localStorage, 'clear')
+      .and.callFake(mockLocalStorage.clear);
+  });
+
+  it('should be created', () => {
+    const service: StorageService = TestBed.get(StorageService);
+    expect(service).toBeTruthy();
+  });
+
+  describe('setLocalObject', () => {
+    it('should store the item in localStorage',
+      () => {
+        service.setLocalObject('somekey','sometoken');
+        expect(localStorage.getItem('somekey')).toEqual('sometoken');
+    });
+  });
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { getTestBed, inject, TestBed } from '@angular/core/testing';
-import { LoginUserClass } from 'src/app/observables/loginUserClass';
+import { getTestBed, TestBed } from '@angular/core/testing';
 import { environment } from 'src/environments/environment';
-import { createLogicalNot } from 'typescript';
+import { StorageService } from './storage.service';
 
-import { TokenService } from './storage.service';
 
-describe('TokenService', () => {
+describe('StorageService', () => {
   let injector: TestBed;
-  let service: TokenService;
+  let service: StorageService;
   let httpMock: HttpTestingController;
-  let apiUrl = environment.apiUrl;
   let HttpResponseMock: HttpResponse<any> = {
     body: null,
     type: null,
@@ -25,11 +98,11 @@ describe('TokenService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [TokenService],
+      providers: [StorageService],
       imports: [HttpClientTestingModule]
     });
     injector = getTestBed();
-    service = injector.get(TokenService);//TestBed.inject(TokenService);
+    service = injector.get(StorageService);
     httpMock = injector.get(HttpTestingController);
   });
 
@@ -38,7 +111,7 @@ describe('TokenService', () => {
   });
 
   it('should be created', () => {
-    const service: TokenService = TestBed.get(TokenService);
+    const service: StorageService = TestBed.get(StorageService);
     expect(service).toBeTruthy();
   });
 
@@ -62,4 +135,4 @@ describe('TokenService', () => {
     req.flush("");
   });
 
-});
+}); */

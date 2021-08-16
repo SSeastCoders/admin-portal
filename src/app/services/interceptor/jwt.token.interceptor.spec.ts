@@ -4,8 +4,8 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthService } from '../authOld/auth.service';
 import { JwtTokenInterceptor } from './jwt.token.interceptor';
+import { AuthService } from '../auth/auth.service';
 
 describe(`AuthHttpInterceptor`, () => {
   let service: AuthService;
