@@ -51,7 +51,7 @@ export class AuthService {
     );
   }
 
-  private saveToken(token: string) {
+  public saveToken(token: string) {
     this.storage.saveToken(token);
   }
 

@@ -22,6 +22,7 @@ describe('CreateAccountComponent', () => {
   let fixture: ComponentFixture<CreateAccountComponent>;
   let service: AccountService;
   let serviceDependency: HttpService;
+  let fb: FormBuilder;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -44,9 +45,27 @@ describe('CreateAccountComponent', () => {
     fixture = TestBed.createComponent(CreateAccountComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+
+    fb = new FormBuilder();
+    component.accountForm = fb.group({
+      accountType:      ['', []],
+      users:   fb.array([]),
+    });
+
+    component.accountForm.patchValue({"accountType": "1: SAVING"});
+    component.accountForm.patchValue([{"users": [{"user": 34}, {"user": 34}, {"user": 2}]}]);
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should generate account', () => {
+    component.account = component.generateAccount();
+    expect(component.account.interestRate).toEqual(0.01);
+    expect(component.account.openDate).toEqual(Date.parse((new Date().getFullYear())+'-'+(new Date().getMonth())+'-'+new Date().getDate()));
+    expect(component.account.balance).toEqual(0);
+    expect(component.account.activeStatus).toEqual(true);
+  });
+
 });
