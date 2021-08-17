@@ -28,7 +28,8 @@ export class UserService {
     this.creationError = false;
   }
 
-  public save(user: CreateUser) {
+  //CURRENTLY NOT BEING USED
+  /*public save(user: CreateUser) {
     return this.http.requestCall(UserEndPoints.MAIN, ApiMethod.POST, CreateUser, user).subscribe(
       (res: HttpResponse<any>) => {
         if (res.status == 201){
@@ -56,7 +57,7 @@ export class UserService {
         this.creationErrorMessage = err.error.message;
         return err;
       });
-  }
+  }*/
 
   public createUser(user: CreateUser) {
     return this.https.post(api, user)
