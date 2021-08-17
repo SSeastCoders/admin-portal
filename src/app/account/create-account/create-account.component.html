@@ -21,6 +21,14 @@
               </div>
 
               <div class="form-group">
+                <label for="firstName">Account Nickname</label>
+                <input [class.is-invalid] = "accountForm.get('nickname')?.invalid && accountForm.get('nickname')?.touched"
+                id="lastName" class="form-control" type="text"
+                placeholder="Account nickname" name="lastName" formControlName = "lastName">
+                <small *ngIf="nickname?.errors && nickname.touched" class="text-danger">Nickname needs to be 4-20 alphanumeric characters</small>
+            </div>
+
+              <div class="form-group">
                 <small *ngIf="(acctService.creationError)" class="text-danger">
                   Please verify User account numbers</small>
                   <label for="users">User on Account</label>

@@ -40,11 +40,16 @@ export class CreateAccountComponent implements OnInit {
     this.accountForm = this.formBuilder.group({
         accountType:      ['', [ Validators.required]],
         users:   this.formBuilder.array([]),
+        nickname: ['', ValidationService.usernameValidator]
     });
   }
 
   get accountType() {
     return this.accountForm.get('accountType');
+  }
+
+  get nickname() {
+    return this.accountForm.get('nickname');
   }
 
   users() {
@@ -68,6 +73,7 @@ export class CreateAccountComponent implements OnInit {
     this.account.openDate = Date.parse((new Date().getFullYear())+'-'+(new Date().getMonth())+'-'+new Date().getDate()) ;
     this.account.balance = 0;
     this.account.activeStatus = true;
+    if (this.accountForm.get('nickname').value) {this.account.nickname = this.accountForm.get('nickname').value;}
     let tempArray = this.accountForm.get('users').value;
     let tempNumArray = [];
     for (let i = 0; i <  tempArray.length; i++) {

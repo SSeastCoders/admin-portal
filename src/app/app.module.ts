@@ -16,13 +16,12 @@ import { AppButtonComponent } from './layout/app-button/app-button.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
-import { ViewAccountComponent } from './account/view-account/view-account.component';
-import { CreateAccountComponent } from './account/create-account/create-account.component';
 import { RegisterComponent } from './register/register.component';
 import { PhoneMaskDirective } from './services/validation/phone-mask.directive';
-import { HomeComponent } from './home/home.component';
 import { StorageService } from './services/storage/storage.service';
 import { AuthService } from './services/auth/auth.service';
+import { CreateAccountComponent } from './account/create-account/create-account.component';
+
 
 @NgModule({
   declarations: [
@@ -32,10 +31,8 @@ import { AuthService } from './services/auth/auth.service';
     HeaderComponent,
     PhoneMaskDirective,
     AppButtonComponent,
-    ViewAccountComponent,
     CreateAccountComponent,
     RegisterComponent,
-    HomeComponent
   ],
   imports: [
     BrowserModule,
