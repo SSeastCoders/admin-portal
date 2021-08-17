@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit{
 
 
   ngOnInit() {
+    this.authService.clear();
     this.buildForm();
   }
 
