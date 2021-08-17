@@ -23,8 +23,8 @@
               <div class="form-group">
                 <label for="firstName">Account Nickname</label>
                 <input [class.is-invalid] = "accountForm.get('nickname')?.invalid && accountForm.get('nickname')?.touched"
-                id="lastName" class="form-control" type="text"
-                placeholder="Account nickname" name="lastName" formControlName = "lastName">
+                id="nickname" class="form-control" type="text"
+                placeholder="Account nickname" name="nickname" formControlName = "nickname">
                 <small *ngIf="nickname?.errors && nickname.touched" class="text-danger">Nickname needs to be 4-20 alphanumeric characters</small>
             </div>
 
