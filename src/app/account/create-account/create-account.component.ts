@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_INPUT_VALUE_ACCESSOR } from '@angular/material/input';
+import { Subscription } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { AccountInterest, AccountType } from 'src/app/models/const';
 import { CreateAccount } from 'src/app/models/createAccount';
 import { User } from 'src/app/models/user';
@@ -22,11 +24,14 @@ export class CreateAccountComponent implements OnInit {
   errorMessages = ValidationService.getValidatorErrorMessage;
   serverErrorMessages = ConstraintError;
   accounts = [AccountType.CHECKING, AccountType.SAVING];
+  errorSubscription: Subscription;
+
 
   constructor(private formBuilder: FormBuilder,
     public acctService: AccountService){}
 
   ngOnInit(): void {
+    this.acctService.clear();
     this.buildForm();
     this.users().push(this.newUser());
   }

@@ -32,18 +32,19 @@ export class RegisterComponent implements OnInit, OnChanges, OnDestroy{
 
 
     ngOnInit() {
-        this.buildForm();
-        this.roleSubscription = this.registerForm.get('role').valueChanges.pipe(
-          tap((role: string) => {
-            if (role == 'Admin') {
-              this.registerForm.get('email').setValidators([Validators.required, ValidationService.adminEmailValidator])
-            }
-            if (role == 'Customer') {
-              this.registerForm.get('email').setValidators([Validators.required, ValidationService.emailValidator])
-            }
-            this.registerForm.get('email').updateValueAndValidity();
-          })
-        ).subscribe();
+      this.userService.clear();
+      this.buildForm();
+      this.roleSubscription = this.registerForm.get('role').valueChanges.pipe(
+        tap((role: string) => {
+          if (role == 'Admin') {
+            this.registerForm.get('email').setValidators([Validators.required, ValidationService.adminEmailValidator])
+          }
+          if (role == 'Customer') {
+            this.registerForm.get('email').setValidators([Validators.required, ValidationService.emailValidator])
+          }
+          this.registerForm.get('email').updateValueAndValidity();
+        })
+      ).subscribe();
     }
 
     ngOnChanges() {}
