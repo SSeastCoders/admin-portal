@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { AccountComponent } from './account.component';
 import { AuthGuard } from '../services/guard/guard.guard';
+import { AccountDetailComponent } from './account-detail/account-detail.component';
 
 const routes: Routes = [
   {
@@ -31,5 +32,5 @@ const routes: Routes = [
   providers: [AuthGuard],//, CanDeactivateGuard],
 })
 export class AccountRoutingModule {
-  static components = [AccountComponent];
+  static components = [AccountComponent, AccountDetailComponent];
  }

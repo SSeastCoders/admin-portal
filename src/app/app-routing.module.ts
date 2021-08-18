@@ -2,18 +2,21 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CreateAccountComponent } from './account/create-account/create-account.component';
 import { HomeComponent } from './home/home.component';
+import { AccountComponent } from './account/account.component';
+import { AccountDetailComponent } from './account/account-detail/account-detail.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { LoginComponent } from './login/login.component';
 import { UserListComponent } from './observables/user-list/user-list.component';
+import { RegisterComponent } from './register/register.component';
 import { AuthGuard } from './services/guard/guard.guard';
 import { UserService } from './services/user/user.service';
-import { RegisterComponent } from './register/register.component';
 
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'accounts/details', component: AccountDetailComponent },
   { path: 'accounts/:id', data: { preload: true }, loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
-  { path: 'home', component: HomeComponent },
+  { path: 'home', component: AccountComponent },
   {path: 'login', component: LoginComponent},
   {path: 'users', component: UserListComponent},
   { canActivate: [AuthGuard], path: 'cookies', component: UserListComponent },

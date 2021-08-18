@@ -1,0 +1,25 @@
+<p>account-detail works!</p>
+<div class="container">
+  <div class="row" *ngIf="account">
+    <div class="col-md-2">
+      <img src="assets/images/{{account.accountType}}.png" class="details-image" />
+    </div>
+    <div class="col-md-10">
+      <h4>
+        Account: {{ account.id }} {{ account.accountType }}
+      </h4>
+      <br />
+      Current balance: {{ account.balance }}
+      <br />
+      Current interest rate: {{ account.interestRate }}
+      <br />
+      Open since: {{ account.openDate | date: 'dd/MM/yyyy' }}
+      <br />
+      Current interest rate: {{ account.interestRate }}
+    </div>
+  </div>
+  <br /><br />
+</div>
+<div *ngIf="!account" class="container">
+   No account found
+</div>

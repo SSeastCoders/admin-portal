@@ -72,7 +72,7 @@ export class ValidationService {
     }
 
     static usernameValidator(control: AbstractControl) {
-      if ((control.value.match(/^[a-z0-9A-Z]{6,20}$/)) || (!control.touched)){
+      if (control.value.match(/^[a-z0-9A-Z]{6,20}$/)){
           return null;
       } else {
           return { 'invalidUsername': true };

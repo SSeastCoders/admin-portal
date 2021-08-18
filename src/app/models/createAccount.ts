@@ -9,6 +9,6 @@ export class CreateAccount {
     openDate: number | undefined ;
     balance!: number;
     activeStatus: boolean | undefined ;
-    nickname?: string;
+    nickName?: string;
     //transactionLimit: number;
 }
