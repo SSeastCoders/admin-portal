@@ -13,6 +13,7 @@
           {{ asc ? " ↑" : " ↓" }}
         </span>
       </th>
+      <th>Options</th>
     </tr>
   </thead>
   <tbody>
@@ -27,6 +28,16 @@
         <div *ngIf="user.activeStatus; else elseBlock">active</div>
         <ng-template #elseBlock>inactive</ng-template>
       </td>
+      <button
+        class="btn btn-primary tooltips"
+        data-placement="top"
+        data-original-title="Edit"
+        routerLink="/users/{{ user.id }}/edit"
+      >
+        <i class="fas fa-pencil-alt"></i>
+      </button>
+      <!-- TODO: pass user in here  -->
+      <!-- (click)="onOpenModal(employee, 'edit') -->
     </tr>
   </tbody>
 </table>

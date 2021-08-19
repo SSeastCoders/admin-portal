@@ -10,14 +10,16 @@ import { HeaderComponent } from './layout/header/header.component';
 import { LoginComponent } from './login/login.component';
 import { UserFormComponent } from './observables/user-list/user-form/user-form.component';
 import { UserListComponent } from './observables/user-list/user-list.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
 import { AuthGuard } from './services/guard/guard.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'users/:id/edit', component: EditUserComponent },
   { path: 'users', component: UserListComponent },
-  //{ path: 'users', component: UsersComponent },
+
   { canActivate: [AuthGuard], path: 'cookies', component: UserListComponent },
   { path: 'logoout', component: HeaderComponent },
   { path: 'login', component: HeaderComponent },

@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-import { UsersComponent } from '../users/users.component';
+import { UserListComponent } from '../observables/user-list/user-list.component';
 
 import { UserService } from './user.service';
 

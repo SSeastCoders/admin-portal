@@ -49,7 +49,6 @@ describe('UserListComponent', () => {
 
       expect(thing).toThrowError();
     } catch (err) {
-      console.log(err);
       expect(err).toBeTruthy();
     }
     // expect(component).toBeTruthy();
@@ -59,5 +58,23 @@ describe('UserListComponent', () => {
     component.updatePageSize(5);
     component.pageNumber = 1;
     expect(component.pageNumber).toEqual(1);
+  });
+
+  // it('makes a new request when setPage, setResultsPerPage, setSort, or setSearch is called', () => {
+  //   component.
+  //   expect(mockService.getUsers).toHaveBeenCalledTimes(2);
+  //   component.setResultsPerPage(50);
+  //   expect(mockService.getUsers).toHaveBeenCalledTimes(3);
+  //   component.setSort("lastName");
+  //   expect(mockService.getUsers).toHaveBeenCalledTimes(4);
+  //   component.setSearch("some search");
+  //   expect(mockService.getUsers).toHaveBeenCalledTimes(5);
+  // });
+
+  it('it sets sort direction', () => {
+    component.setSort('property');
+    expect(component.asc).toBe(true);
+    component.setSort('property');
+    expect(component.asc).toBe(false);
   });
 });

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../user';
 import { UserService } from 'src/app/services/user.service';
+//import { fa-pencil } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-user-list',
@@ -53,7 +54,6 @@ export class UserListComponent implements OnInit {
       //this.pageNumber = data.pageable.pageNumber + 1;
       this.pageSize = data.pageable.pageSize;
       //this.totalElements = data.totalElements;
-      //this.asc = data.sort.sorted;
     };
   }
 
@@ -75,11 +75,5 @@ export class UserListComponent implements OnInit {
       this.asc = true;
     }
     this.listUsers();
-    // console.log('in setSort');
-    // console.log(property);
-    // console.log(this.asc);
-    // this.userService
-    //   .getUsersPage(this.pageNumber, this.pageSize, this.sort, this.asc)
-    //   .subscribe(this.processResult);
   }
 }

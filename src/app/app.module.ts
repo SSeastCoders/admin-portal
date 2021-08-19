@@ -24,6 +24,7 @@ import { PhoneMaskDirective } from './create-user/validators/phone-mask.directiv
 import { AppButtonComponent } from './layout/app-button/app-button.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ChangeDetectorRef } from '@angular/core';
+import { EditUserComponent } from './edit-user/edit-user.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { ChangeDetectorRef } from '@angular/core';
     CreateUserComponent,
     PhoneMaskDirective,
     AppButtonComponent,
+    EditUserComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,6 +53,7 @@ import { ChangeDetectorRef } from '@angular/core';
     UserService,
     TokenService,
     AuthService,
+
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtTokenInterceptor,

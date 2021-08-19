@@ -74,16 +74,16 @@ export class UserService {
     return this.http.get<User[]>(this.usersUrl);
   }
 
-  // public findAllUsernames(): string[] {
-  //   //console.log(this.usersUrl);
-  //   // this.http.get<User[]>(this.usersUrl).subscribe((data) => {
-  //   //   this.allUsers = data;
-  //   // });
-  //   // if (this.allUsers) {
-  //   //   return this.allUsers.map((user) => user.username);
-  //   // }
-  //   // return null;
-  // }
+  public findAllUsernames(): string[] {
+    //console.log(this.usersUrl);
+    this.http.get<User[]>(this.usersUrl).subscribe((data) => {
+      this.allUsers = data;
+    });
+    if (this.allUsers) {
+      return this.allUsers.map((user) => user.username);
+    }
+    return null;
+  }
 
   public save(user: CreateUser) {
     return this.http.post<CreateUser>(this.usersUrl, user);
@@ -109,6 +109,16 @@ export class UserService {
   //public getNewUser(user: CreateUser) {
   //return this.http.post(this.usersUrl, user);
   //}
+
+  getUser(id: number) {
+    return this.http.get<User>(`${this.api}/${id}`);
+
+    //throw new Error('Method not implemented.');
+  }
+
+  updateUser(editUser: User): Observable<any> {
+    return this.http.put(`${this.api}/${editUser.id}`, editUser);
+  }
 
   public getNewUser(user: CreateUser) {
     return this.http.post(this.usersUrl, user);
