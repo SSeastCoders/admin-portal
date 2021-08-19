@@ -5,7 +5,8 @@ import { Observable } from 'rxjs';
 import { CreateAccount } from 'src/app/models/createAccount';
 import { environment } from 'src/environments/environment';
 import { Account } from '../../models/account';
-import { AccountEndPoints, UserEndPoints } from '../const';
+import { AccountEndPoints, ApiMethod, UserEndPoints } from '../const';
+import { HttpService } from '../http/http.service';
 
 const API_URL = environment.accountUrl;
 const api = API_URL + AccountEndPoints.MAIN;
@@ -19,7 +20,7 @@ export class AccountService {
   creationError: boolean;
   creationErrorMessage: string;
 
-  constructor(private https: HttpClient, private router: Router) {
+  constructor(private https: HttpClient, private router: Router, private http: HttpService) {
     this.creationError = false;
   }
 
@@ -29,6 +30,10 @@ export class AccountService {
 
   public find(accountId: number): Observable<Account> {
     return this.https.get<Account>(api+"/"+accountId);
+  }
+
+  public delete(accountId: number): Observable<Account> {
+    return this.https.delete<Account>(api+"/"+accountId);
   }
 
   public findCurrentAccount(accountId: number): void {

@@ -10,12 +10,18 @@ import { UserListComponent } from './observables/user-list/user-list.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthGuard } from './services/guard/guard.guard';
 import { UserService } from './services/user/user.service';
+import { Account } from './models/account';
+import { AccountEditComponent } from './account/account-edit/account-edit.component';
+import { AccountsComponent } from './accounts/accounts.component';
 
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'accounts/details', component: AccountDetailComponent },
+  { path: 'accounts', component: AccountsComponent },
   { path: 'accounts/:id', data: { preload: true }, loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
+  //{ path: 'accounts/details', component: AccountDetailComponent },
+  //{ path: 'accounts/edit', component: AccountEditComponent },
+  //{ path: 'accounts/:id', data: { preload: true }, loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
   { path: 'home', component: AccountComponent },
   {path: 'login', component: LoginComponent},
   {path: 'users', component: UserListComponent},

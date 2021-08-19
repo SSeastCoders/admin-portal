@@ -11,5 +11,6 @@ export class Account {
     openDate: string | undefined ;
     balance!: number;
     activeStatus: boolean | undefined ;
+    nickName!: string;
     //transactionLimit: number;
 }

@@ -14,7 +14,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { PhoneMaskDirective } from './services/validation/phone-mask.directive';
 import { CreateAccountComponent } from './account/create-account/create-account.component';
-import { AccountComponent } from './account/account.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { LoginComponent } from './login/login.component';
 import { UserListComponent } from './observables/user-list/user-list.component';
@@ -22,8 +21,8 @@ import { RegisterComponent } from './register/register.component';
 import { AuthService } from './services/auth/auth.service';
 import { JwtTokenInterceptor } from './services/interceptor/jwt.token.interceptor';
 import { StorageService } from './services/storage/storage.service';
+import { AccountsComponent } from './accounts/accounts.component';
 import { AccountModule } from './account/account.module';
-import { AccountDetailComponent } from './account/account-detail/account-detail.component';
 
 
 @NgModule({
@@ -36,9 +35,7 @@ import { AccountDetailComponent } from './account/account-detail/account-detail.
     AppButtonComponent,
     CreateAccountComponent,
     RegisterComponent,
-    AccountComponent,
-    AccountDetailComponent,
-
+    AccountsComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,6 +48,7 @@ import { AccountDetailComponent } from './account/account-detail/account-detail.
     NgbModule,
     NoopAnimationsModule,
     CommonModule,
+    AccountModule
   ],
   providers: [
     UserService,
