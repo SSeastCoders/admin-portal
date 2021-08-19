@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CreateUserComponent } from 'src/app/create-user/create-user.component';
-import { AuthService } from 'src/app/services/auth/auth.service';
-import { UserService } from 'src/app/services/user.service';
-
+import { UserService } from 'src/app/services/user/user.service';
 import 'bootstrap/dist/js/bootstrap.bundle';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -25,5 +23,8 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  public createUserForm(): void {}
+  public createUserForm():void{
+
+  }
+
 }

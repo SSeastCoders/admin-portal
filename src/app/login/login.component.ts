@@ -1,9 +1,6 @@
-import { HttpErrorResponse, HttpHandler } from '@angular/common/http';
-import { Component, HostBinding, OnDestroy, OnInit, Renderer2 } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
-import { catchError, finalize } from 'rxjs/operators';
-import { LoginUserClass } from '../observables/loginUserClass';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LoginUser } from '../models/loginUser';
 import { AuthService } from '../services/auth/auth.service';
 
 @Component({
@@ -13,51 +10,35 @@ import { AuthService } from '../services/auth/auth.service';
 })
 export class LoginComponent implements OnInit{
 
-  credentials: LoginUserClass = new LoginUserClass('','');
-  @HostBinding('class') class = 'login-box';
-  public loginForm: FormGroup;
-  public serverError = false;
+  credentials: LoginUser = new LoginUser();
+  loginForm!: FormGroup;
+  errorMessage: string = "Invalid Login Credentials, please try again";
   show: boolean = false;
-  errorMessage: string;
+
+  constructor(private formBuilder: FormBuilder,
+    public authService: AuthService,){}
 
 
-  constructor(
-    public authService: AuthService, 
-    private renderer: Renderer2,
-    ) { }
+  ngOnInit() {
+    this.authService.clear();
+    this.buildForm();
+  }
 
-
-  ngOnInit(): void{
-  this.serverError = false;
-  this.loginForm = new FormGroup({
-      username: new FormControl(null, Validators.required),
-      password: new FormControl(null, Validators.required)
-  });
-  this.errorMessage = "Invalid credentials";
+  buildForm() {
+    this.loginForm = this.formBuilder.group({
+        username:      ['', [ Validators.required]],
+        password:   ['', [ Validators.required]]
+    });
   }
 
   public togglePass(){
     this.show = !this.show;
   }
 
-  public login(loginForm) {
+  submit() {
     if (this.loginForm.valid){
-      this.authService.login(this.credentials);//.subscribe((res) => {
-        //this.serverError = false;
-      //},
-      //(err: HttpErrorResponse)=>{
-        //this.serverError = true;
-        //console.log(this.serverError);
-      //});
-    };
+      this.authService.login(this.credentials);
+    }
   }
-      
-      //else{
-      //  this.serverError = true;
-       /* }=> {
-          (x => console.log('success'),
-          err => {this.serverError = true;
-          console.log('error');}
-        )//; */
 
 }

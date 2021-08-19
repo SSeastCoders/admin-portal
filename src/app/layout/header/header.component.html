@@ -1,4 +1,4 @@
-<!-- 
+<!--
 <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
   <a class="navbar-brand" routerLink="/home">
     <img src="assets/SimpleBankLogo.png" width="30" height="30" class="d-inline-block align-bottom" alt="Simple Bank Logo">
@@ -25,20 +25,14 @@
 <head>
     <meta charset="UTF-8">
     <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">  
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">  
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/cerulean/bootstrap.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
-    <!-- daterange picker -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js">
-    <!-- bootstrap datepicker -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js">    
-    <!-- Theme style -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.4.12/js/adminlte.min.js">
 </head>
 
 <!-- Navbar -->
@@ -57,7 +51,7 @@
 
       <div class="collapse navbar-collapse" id="navbarNavDropdown" [ngClass]="{'hidden': !authService.isLoggedIn() }">
       <li class="nav-item dropdown" [ngClass]="{'hidden': !authService.isLoggedIn() }">
-        <a class="nav-link dropdown-toggle"  
+        <a class="nav-link dropdown-toggle"
         id="Users" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
 
         > Users <span class="sr-only">(current)</span> </a>
@@ -70,17 +64,17 @@
 
       <div class="collapse navbar-collapse" id="navbarNavDropdown" [ngClass]="{'hidden': !authService.isLoggedIn() }">
         <li class="nav-item dropdown" [ngClass]="{'hidden': !authService.isLoggedIn() }">
-          <a class="nav-link dropdown-toggle"  
+          <a class="nav-link dropdown-toggle"
           id="Users" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-  
+
           > Accounts <span class="sr-only">(current)</span> </a>
           <div class="dropdown-menu" aria-labelledby="Users">
-            <a class="dropdown-item" routerLink="/accounts">View Accounts</a>
-            <a class="dropdown-item" routerLink="/accounts">New Account</a>
+            <a class="dropdown-item" routerLink="/home">View Accounts</a>
+            <a class="dropdown-item" routerLink="/account-registration">New Account</a>
           </div>
         </li>
       </div>
-      
+
       <li class="nav-item d-none d-sm-inline-block">
         <a class="nav-link" routerLink="/" [ngClass]="{'hidden': !authService.isLoggedIn() }"
         > Branches... <span class="sr-only">(current)</span> </a>

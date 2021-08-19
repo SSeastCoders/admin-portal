@@ -1,84 +1,83 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginUserClass } from 'src/app/observables/loginUserClass';
-import { TokenService } from './token.service';
-import { environment } from "src/environments/environment";
-import { Observable, of, throwError } from 'rxjs';
-import { error } from '@angular/compiler/src/util';
-import { map } from 'rxjs/operators';
 
-const API_URL = environment.apiUrl;
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-  observe: 'response' as 'response'
-};
+import { StorageService, Token } from '../storage/storage.service';
+import { HttpService } from '../http/http.service';
+import { ApiMethod, AuthEndPoints, UserEndPoints } from '../const';
+import { LoginUser } from 'src/app/models/loginUser';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import jwt_decode from 'jwt-decode';
+import { RoleTitle } from 'src/app/models/const';
+import { JWT } from 'src/app/models/jwt';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  static readonly TOKEN_STORAGE_KEY = 'token';
-  redirectToUrl: string = '/users';
-  loginError = false;
-  loginUrl: string;
-  
+  loginErrorMessage: string = "Invalid credentials";
+  loginError: boolean;
+  redirectUrl: string = UserEndPoints.MAIN;
 
-  constructor(private router: Router, private tokenService: TokenService, private http: HttpClient) {
-    //this.redirectToUrl = '/users';
+  constructor(private router: Router, private storage: StorageService, private http: HttpService) {
     this.loginError = false;
-    this.loginUrl = "/login";
   }
 
-  public login(credentials: LoginUserClass){
-    //console.log("hello");
-    return this.tokenService.getResponseHeaders(credentials)
-      .subscribe((res) => {
-        //console.log(res);
-        //console.log("authservice");
-        this.loginError = false;
-        this.saveToken(res.headers.get('authorization') || '');
-        this.router.navigate([this.redirectToUrl]);
-        //console.log(this.redirectToUrl);
-        //console.log("Auth");
-        //console.log(res.headers.get('authorization'));
-        //console.log("hello");
-        //console.log(res);
-        //if (res.status == 401){
-        //  console.log("401 error oops");
-        //  throw HttpErrorResponse;
-        //}
-      },
-      (err: HttpErrorResponse)=>{
-        console.log(err);
+  public login(credentials: LoginUser){
+    return this.getResponseHeaders(credentials).subscribe(
+      (res: HttpResponse<any>) => {
+        if (res.status == 200) {
+          this.saveToken(res?.headers?.get(Token.AUTHORIZATION) || '')
+          if (this.getRole() == RoleTitle.ADMIN) {
+            console.log(this.getRole());
+            this.loginError = false;
+            this.router.navigate([this.redirectUrl])
+            console.log(res);
+          }
+          else {
+            this.loginError = true;
+            console.log("Customer Login, Invalid");
+          }
+        }
+        else {
+          this.loginError = true;
+          console.log("Invalid Login");
+        }
+      }, (err: HttpErrorResponse) => {
         this.loginError = true;
-        //return this.tokenService.getResponseHeaders(credentials);
-          //throw throwError;
-        //console.log("error");
-        //console.log(err);
-      });
-    //return this.tokenService.getResponseHeaders(credentials); 
+        console.log("Invalid Login");
+        console.error(err.error?.message);
+      }
+    );
   }
 
-  private saveToken(token: string) {
-    localStorage.setItem(AuthService.TOKEN_STORAGE_KEY, token);
-    //console.log("token " + token);
+  public saveToken(token: string) {
+    this.storage.saveToken(token);
   }
 
   public getToken(): string {
-    return localStorage.getItem(AuthService.TOKEN_STORAGE_KEY) || '';
+    return this.storage.getToken();
   }
 
   public logout(): void {
-    this.tokenService.logout()
-      .subscribe(() => {
-        localStorage.removeItem(AuthService.TOKEN_STORAGE_KEY);
-      });
+    this.storage.removeToken();
   }
 
   public isLoggedIn(): boolean {
-    return !!this.getToken();
+    return !!this.storage.getToken();
+  }
+
+  public getResponseHeaders(credentials: LoginUser) {
+    return this.http.requestCall(AuthEndPoints.LOGIN, ApiMethod.POST, LoginUser, credentials);
+  }
+
+  public getRole(): RoleTitle {
+    let tokenInfo: JWT = jwt_decode(this.getToken());
+    return tokenInfo.role;
+  }
+
+  public clear() {
+    this.loginError = false;
   }
 
 }

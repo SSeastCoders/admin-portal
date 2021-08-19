@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../user';
+import { User} from '../../models/user'
 import { UserService } from 'src/app/services/user.service';
 //import { fa-pencil } from '@fortawesome/free-solid-svg-icons';
 

@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  baseUrl: 'https://localhost:8443',
+  userUrl: 'http://localhost:8222',
+  accountUrl:'http://localhost:8223/api/v1',
 };
