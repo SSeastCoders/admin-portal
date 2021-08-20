@@ -21,10 +21,14 @@ export class AccountService {
   creationError: boolean;
   creationErrorMessage: string;
   updateError: boolean;
+  deletionError: boolean;
+  deletionErrorMessage: string;
   updateErrorMessage: string;
 
   constructor(private https: HttpClient, private router: Router, private http: HttpService) {
     this.creationError = false;
+    this.updateError = false;
+    this.deletionError = false;
   }
 
   public findAll(): Observable<Account[]> {
@@ -35,9 +39,21 @@ export class AccountService {
     return this.https.get<Account>(api+"/"+accountId);
   }
 
-  public delete(accountId: number): Observable<Account> {
-    return this.https.delete<Account>(api+"/"+accountId);
-  }
+  public delete(accountId: number) {
+    return this.https.delete<any>(api+"/"+accountId)
+      .subscribe((res) => {
+        this.deletionError = false;
+        console.log("Account deleted");
+        alert("Account deleted");
+        this.router.navigate([AccountEndPoints.MAIN]);
+      },(err : HttpErrorResponse) =>{
+        console.log(err);
+        console.log("Account could not be deleted");
+        this.deletionError = true;
+        this.deletionErrorMessage = err.error.message;
+      }
+      );
+    }
 
   public findCurrentAccount(accountId: number): void {
     this.https.get<Account>(api+"/"+accountId).subscribe(data => {
@@ -51,7 +67,7 @@ export class AccountService {
         this.creationError = false;
         console.log("Account created");
         alert("Account created");
-        this.router.navigate([UserEndPoints.MAIN]);
+        this.router.navigate([AccountEndPoints.MAIN]);
       },(err) =>{
         console.log(err);
         console.log("Account could not be created");
@@ -88,6 +104,7 @@ export class AccountService {
   clear(){
     this.creationError = false;
     this.updateError = false;
+    this.deletionError = false;
   }
 
 }

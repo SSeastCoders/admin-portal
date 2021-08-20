@@ -23,6 +23,7 @@ import { JwtTokenInterceptor } from './services/interceptor/jwt.token.intercepto
 import { StorageService } from './services/storage/storage.service';
 import { AccountsComponent } from './accounts/accounts.component';
 import { AccountModule } from './account/account.module';
+import { ModalComponent } from './modal/modal.component';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { AccountModule } from './account/account.module';
     CreateAccountComponent,
     RegisterComponent,
     AccountsComponent,
+    ModalComponent,
   ],
   imports: [
     BrowserModule,

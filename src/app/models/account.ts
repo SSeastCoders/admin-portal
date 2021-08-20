@@ -8,9 +8,9 @@ export class Account {
     users!:
         User[];
     interestRate!: AccountInterest;
-    openDate: string | undefined ;
+    openDate: string;
     balance!: number;
-    activeStatus: boolean | undefined ;
+    activeStatus: boolean;
     nickName!: string;
     //transactionLimit: number;
 }

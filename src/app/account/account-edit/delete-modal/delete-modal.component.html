@@ -1,0 +1,44 @@
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+</head>
+
+<div class=modal-header> ARE YOU ABSOLUTELY SURE ABOUT THAT?!
+  <br>this action is permanent and includes the deletion of related data (i.e. transactions, balances, attached cards)</div>
+<div class=modal-body>
+  <label for="password">Please enter password to confirm deletion</label>
+  <form [formGroup]="passwordForm" (ngSubmit)='submit()'>
+  <div class=input-group>
+    <input
+        formControlName="password"
+        type="{{show ? 'text' : 'password'}}"
+        class="form-control"
+        placeholder="Password"
+        [(ngModel)]="credentials.password"
+        required
+    />
+    <div class="input-group-append">
+      <div class="input-group-text">
+        <i (click) = "togglePass()" class="{{show ? 'fa fa-eye' : 'fa fa-eye-slash'}}" id="togglePassword"></i>
+      </div>
+    </div>
+    <div class="input-group-append">
+      <div class="input-group-text">
+          <span class="fa fa-lock"></span>
+      </div>
+    </div>
+  </div>
+    <small *ngIf="(password?.errors?.required) && password.touched"
+      class="text-danger">Password is required</small>
+      <!--small [hidden]="passwordForm.get('password')?.valid || passwordForm.get('password')?.pristine"
+    class="text-danger">Password is required2</small-->
+
+<div class=modal-footer>
+  <div class="pull-right">
+    <button id="cancel" class="btn btn-default" (click)="cancel()">Cancel</button>&nbsp;&nbsp;
+    <button type="submit" class="btn btn-danger" [disabled]="!passwordForm.valid">Delete</button>
+  </div>
+</div>
+
+</form>

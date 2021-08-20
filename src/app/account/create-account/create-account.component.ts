@@ -38,7 +38,7 @@ export class CreateAccountComponent implements OnInit {
     this.accountForm = this.formBuilder.group({
         accountType:      ['', [ Validators.required]],
         users:   this.formBuilder.array([]),
-        nickName: ['', ValidationService.usernameValidator]
+        nickName: ['', ValidationService.nickNameValidator]
     });
   }
 

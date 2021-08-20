@@ -6,6 +6,8 @@ import { AccountService } from 'src/app/services/account/account.service';
 import { AccountType } from 'src/app/models/const';
 import { ValidationService } from 'src/app/services/validation/validation.service';
 import { UpdateAccount } from 'src/app/models/updateAccount';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { DeleteModalComponent } from './delete-modal/delete-modal.component';
 
 @Component({
   selector: 'account-edit',
@@ -20,12 +22,15 @@ export class AccountEditComponent implements OnInit {
   deleteMessageEnabled: boolean;
   accounts = [AccountType.CHECKING, AccountType.SAVING];
   hasBeenTouched = false;
+  //defaultState : FormGroup;
+  //defaultState: FormGroup;
   @ViewChild('accountForm2', { static: true }) accountForm: FormGroup;
 
   constructor(private router: Router,
     public acctService: AccountService,
     private route: ActivatedRoute,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder,
+    private modalService: NgbModal) { }
 
   ngOnInit() {
     this.hasBeenTouched = false;
@@ -41,19 +46,21 @@ export class AccountEditComponent implements OnInit {
   }
 
   buildForm(account: Account) {
+    this.hasBeenTouched = false;
     this.accountForm = this.formBuilder.group({
         accountType:      ['', ],
         users:   this.formBuilder.array([]),
         nickName: ['', ValidationService.nickNameValidator]
     });
     this.accountForm.patchValue(
-      {'accountType' : account.accountType});
-    this.accountForm.patchValue({'nickName' : account.nickName});
-    console.log(account.users);
+      {'accountType' : account.accountType,
+      'nickName' : account.nickName});
+    //console.log(account.users);
     account.users.forEach((user) => {
-      console.log(user.id);
+      //console.log(user.id);
       this.users().push(this.newUserWithValue(user.id));
     });
+    //this.defaultState = this.accountForm;
   }
 
   users() {
@@ -97,7 +104,7 @@ export class AccountEditComponent implements OnInit {
   changeType(e) {
     this.accountType.setValue(e.target.value);
     this.updateAccount.accountType = (e.target.value);
-    this.hasBeenTouched = true;
+    this.hasBeenTouched = !this.hasBeenTouched ;
   }
 
   getAccount(id: number) {
@@ -106,10 +113,6 @@ export class AccountEditComponent implements OnInit {
       //console.log("acct" + account);
       this.buildForm(account);
     });
-  }
-
-  populateForm() {
-    this.accountForm.patchValue({"nickName" : this.account?.nickName});
   }
 
   submit() {
@@ -121,15 +124,28 @@ export class AccountEditComponent implements OnInit {
 
   cancel(event: Event) {
     event.preventDefault();
-    this.getAccount(this.account.id);
-    this.accountType.setValue(this.account.accountType);
-    this.updateAccount.accountType = (this.account.accountType);
+    this.setDefaultValues();
   }
+
+	setDefaultValues() {
+    let temp = {
+      //accountType = this.account.accountType
+      //usersIds = this.account.users.forEach((user) => {return user.id}),
+      //nickName = this.account.nickName
+    }
+		this.accountForm.setValue(temp);
+	}
 
   delete(event: Event) {
     event.preventDefault();
-    this.acctService.delete(this.account.id)
-      .subscribe();
+
+    this.modalService.open(DeleteModalComponent).result.then((result) => {
+      if (result) {
+        console.log(result);
+        this.acctService.delete(this.account.id);
+      }});
+   // this.acctService.delete(this.account.id)
+   //   .subscribe();
   }
 
   canDeactivate(): Promise<boolean> | boolean {
@@ -157,6 +173,7 @@ export class AccountEditComponent implements OnInit {
     this.updateAccount.usersIds = this.removeDuplicate(tempNumArray);
     return this.updateAccount;
   }
+
 
 
 /*     // Dirty show display modal dialog to user to confirm leaving
