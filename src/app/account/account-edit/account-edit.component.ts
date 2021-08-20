@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { FormArray, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Account } from 'src/app/models/account';
 import { AccountService } from 'src/app/services/account/account.service';
 import { AccountType } from 'src/app/models/const';
-import { ReactiveFormsModule } from '@angular/forms';
 import { ValidationService } from 'src/app/services/validation/validation.service';
+import { UpdateAccount } from 'src/app/models/updateAccount';
 
 @Component({
   selector: 'account-edit',
@@ -15,13 +15,12 @@ import { ValidationService } from 'src/app/services/validation/validation.servic
 export class AccountEditComponent implements OnInit {
 
   account!: Account;
+  updateAccount!: UpdateAccount;
   errorMessage: string;
   deleteMessageEnabled: boolean;
-  operationText = 'Insert';
   accounts = [AccountType.CHECKING, AccountType.SAVING];
-  @ViewChild('accountForm', { static: true }) accountForm: NgForm;
-  @ViewChild('accountForm2', { static: true }) accountForm2: FormGroup;
-
+  hasBeenTouched = false;
+  @ViewChild('accountForm2', { static: true }) accountForm: FormGroup;
 
   constructor(private router: Router,
     public acctService: AccountService,
@@ -29,59 +28,53 @@ export class AccountEditComponent implements OnInit {
     private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-
-    // replace with subscription to get active account
-        //this.getAccount(1);
+    this.hasBeenTouched = false;
+    this.acctService.clear();
+    this.updateAccount = new UpdateAccount();
     this.acctService.clear();
     this.route.parent.params.subscribe((params: Params) => {
-      const id = +params['id'];
+      const id = + params['id'];
       if (id) {
         this.getAccount(id);
       }
     });
-
-    this.buildForm();
-    this.users().push(this.newUser());
-
-    //this.dataService.getStates().subscribe((states: IState[]) => this.states = states);
   }
 
-  buildForm() {
-    this.accountForm2 = this.formBuilder.group({
+  buildForm(account: Account) {
+    this.accountForm = this.formBuilder.group({
         accountType:      ['', ],
         users:   this.formBuilder.array([]),
         nickName: ['', ValidationService.nickNameValidator]
     });
-    //this.accountForm2.patchValue({'accountType' : this.account.accountType});
-    //this.accountForm2.patchValue({'nickName' : this.account.nickName});
-
-    //this.setUsers();
-  }
-
-  setUsers() {
-    this.account.usersIds.forEach(user => {
-      this.users().push(this.newUserWithValue(user));
+    this.accountForm.patchValue(
+      {'accountType' : account.accountType});
+    this.accountForm.patchValue({'nickName' : account.nickName});
+    console.log(account.users);
+    account.users.forEach((user) => {
+      console.log(user.id);
+      this.users().push(this.newUserWithValue(user.id));
     });
   }
 
   users() {
-    return this.accountForm2.get('users') as FormArray;
+    return this.accountForm.get('users') as FormArray;
   }
 
   newUser() {
     return this.formBuilder.group({
-      user: ['', [ValidationService.userValidator]]
+      //why cant user validationservice?
+      user: ['', [Validators.required, Validators.pattern(/^[0-9]{1,15}$/)]]
     })
   }
 
   newUserWithValue(number) {
     let tempUser = this.newUser();
-    tempUser.patchValue(number);
+    tempUser.patchValue({'user' : number});
     return tempUser;
   }
 
   addUser() {
-    if (this.accountForm2.valid){
+    if (this.accountForm.valid){
       this.users().push(this.newUser());
     }
   }
@@ -98,27 +91,39 @@ export class AccountEditComponent implements OnInit {
   }
 
   get accountType() {
-    //return this.accountForm.getControl('accountType');
-    return this.accountForm2.get('accountType');
+    return this.accountForm.get('accountType');
   }
 
   changeType(e) {
     this.accountType.setValue(e.target.value);
-    this.account.accountType = (e.target.value).slice(3);
+    this.updateAccount.accountType = (e.target.value);
+    this.hasBeenTouched = true;
   }
 
   getAccount(id: number) {
     this.acctService.find(id).subscribe((account: Account) => {
       this.account = account;
+      //console.log("acct" + account);
+      this.buildForm(account);
     });
   }
 
+  populateForm() {
+    this.accountForm.patchValue({"nickName" : this.account?.nickName});
+  }
+
   submit() {
+    if (this.accountForm.valid){
+      this.generateAccount();
+      this.acctService.updateAccount(this.updateAccount);
+    }
   }
 
   cancel(event: Event) {
     event.preventDefault();
-    this.router.navigate(['/accounts']);
+    this.getAccount(this.account.id);
+    this.accountType.setValue(this.account.accountType);
+    this.updateAccount.accountType = (this.account.accountType);
   }
 
   delete(event: Event) {
@@ -135,6 +140,24 @@ export class AccountEditComponent implements OnInit {
       return false;
     }
   }
+
+  get nickName() {
+    return this.accountForm.get('nickName');
+  }
+
+  generateAccount() {
+    this.updateAccount.nickName = this.accountForm.get('nickName').value;
+    this.updateAccount.id = this.account.id;
+    let tempArray = this.accountForm.get('users').value;
+    let tempNumArray = [];
+    for (let i = 0; i <  tempArray.length; i++) {
+      //console.log(tempArray.at(i).user);
+      tempNumArray.push(Number(tempArray.at(i).user));
+    }
+    this.updateAccount.usersIds = this.removeDuplicate(tempNumArray);
+    return this.updateAccount;
+  }
+
 
 /*     // Dirty show display modal dialog to user to confirm leaving
     const modalContent: ModalContent = {

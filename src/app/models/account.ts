@@ -5,8 +5,8 @@ import { User } from "./user";
 export class Account {
     id!: number;
     accountType: AccountType;
-    usersIds!:
-        number[];
+    users!:
+        User[];
     interestRate!: AccountInterest;
     openDate: string | undefined ;
     balance!: number;

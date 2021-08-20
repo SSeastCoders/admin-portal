@@ -76,6 +76,11 @@ export class AuthService {
     return tokenInfo.role;
   }
 
+  public getUsername(): string {
+    let tokenInfo: JWT = jwt_decode(this.getToken());
+    return tokenInfo.username;
+  }
+
   public clear() {
     this.loginError = false;
   }

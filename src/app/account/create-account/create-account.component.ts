@@ -1,8 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_INPUT_VALUE_ACCESSOR } from '@angular/material/input';
 import { Subscription } from 'rxjs';
-import { tap } from 'rxjs/operators';
 import { AccountInterest, AccountType } from 'src/app/models/const';
 import { CreateAccount } from 'src/app/models/createAccount';
 import { User } from 'src/app/models/user';
@@ -77,7 +75,7 @@ export class CreateAccountComponent implements OnInit {
     let tempArray = this.accountForm.get('users').value;
     let tempNumArray = [];
     for (let i = 0; i <  tempArray.length; i++) {
-      console.log(tempArray.at(i).user);
+      //console.log(tempArray.at(i).user);
       tempNumArray.push(tempArray.at(i).user);
     }
     this.account.usersIds = this.removeDuplicate(tempNumArray);

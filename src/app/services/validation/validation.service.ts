@@ -82,17 +82,15 @@ export class ValidationService {
     }
 
     static nickNameValidator(control: AbstractControl) {
-      if ((control.value.match(/^[a-z0-9A-Z]{6,20}$/)) || (!control.touched) || (!control.dirty)){
+      if ((control?.value.match(/^[a-z0-9A-Z ]{6,20}$/))) {
           return null;
       } else {
         return { 'invalidNickname': true };
       }
     }
 
-
-
     static userValidator(control: AbstractControl) {
-      if ((control.value.match(/^[0-9]{1,15}$/)) || (!control.touched)) {
+      if ((control?.value.match(/^[0-9]{1,15}$/)) || (!control?.touched)) {
           return null;
       } else {
           return { 'invalidUser': true };

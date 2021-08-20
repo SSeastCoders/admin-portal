@@ -1,55 +1,20 @@
-<div>
-  <form (ngSubmit)="submit()" #accountForm="ngForm" class="account-form" novalidate>
-    <div class="form-group">
-      <label>Account nickname</label>
-      <input type="text" class="form-control" name="nickName" [(ngModel)]="account.nickName" #nickName="ngModel">
-    </div>
-    <div class="form-group" data-select2-id="29">
-      <label>Account Type</label>
-      <select id="accountType" class="form-control select2 select2-hidden-accessible"
-      style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" name="accountType"
-      (change)="changeType($event)">
-        <option *ngFor="let a of accounts" [ngValue]=account [selected]="a == account.accountType">
-        {{ a }} </option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label>Users on account</label>
-      <input type="text" class="form-control" name="usersIds" [(ngModel)]="account.usersIds" #usersIds="ngModel" required>
-    </div>
-    <div *ngIf="account">
-      <div class="alert alert-warning" *ngIf="account.id && deleteMessageEnabled">
-         Delete account?&nbsp;&nbsp;<button class="btn btn-danger" (click)="delete($event)">Yes</button>&nbsp;&nbsp;
-         <button class="btn btn-default" (click)="deleteMessageEnabled = false">No</button>
-      </div>
-      <button class="btn btn-danger" *ngIf="account.id && !deleteMessageEnabled" (click)="deleteMessageEnabled = true">Delete</button>&nbsp;&nbsp;
-
-      <div class="pull-right" *ngIf="!deleteMessageEnabled">
-        <button class="btn btn-default" (click)="cancel($event)">Cancel</button>&nbsp;&nbsp;
-        <button type="submit" class="btn btn-success" [disabled]="accountForm.pristine || !accountForm.valid">{{ operationText }}</button>
-      </div>
-    </div>
-    <div class="alert alert-danger" *ngIf="errorMessage != null">{{ errorMessage }}</div>
-  </form>
-  <br />
-</div>
 
 <div>
-  <form (ngSubmit)="submit()" [formGroup]="accountForm2">
+  <form (ngSubmit)="submit()" [formGroup]="accountForm">
     <div class="form-group" data-select2-id="29">
       <label>Account nickname</label>
       <input type="text" class="form-control" name="nickName"
-      [class.is-invalid] = "accountForm2.get('nickName')?.invalid && accountForm2.get('nickName')?.touched"
-      id="nickName" class="form-control" type="text" name="nickName" formControlName = "nickName"
-      placeholder={{account.nickName}}>
-      <small *ngIf="nickName?.errors && nickName.touched" class="text-danger">Nickname needs to be 4-20 alphanumeric characters</small>
+      [class.is-invalid] = "accountForm.get('nickName')?.invalid && accountForm.get('nickName')?.touched"
+      id="nickName" type="text" name="nickName" formControlName="nickName"
+      placeholder={{account?.nickName}}>
+      <small *ngIf="nickName?.errors && nickName?.touched" class="text-danger">Nickname needs to be 4-20 alphanumeric characters</small>
     </div>
     <div class="form-group" data-select2-id="29">
       <label>Account Type</label>
       <select id="accountType" class="form-control select2 select2-hidden-accessible"
       style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" name="accountType"
       (change)="changeType($event)">
-        <option *ngFor="let a of accounts" [ngValue]=account [selected]="a == account.accountType">
+        <option *ngFor="let a of accounts" [selected]="a == account?.accountType">
         {{ a }} </option>
       </select>
     </div>
@@ -59,23 +24,17 @@
       <small *ngIf="(acctService.creationError)" class="text-danger">
         Please verify User account numbers</small>
         <label for="users">Users on Account</label>
-        <small *ngIf="accountForm2.get('users')?.invalid && accountForm2.get('users')?.touched" class="text-danger">All users must be listed as ID number</small>
+        <small *ngIf="accountForm.get('users')?.invalid && accountForm.get('users')?.touched" class="text-danger">All users must be listed as ID number</small>
         <span float="right"><i center="right" class ='fa fa-plus' (click)="addUser()"></i></span>
         <div class="input-group" formArrayName="users">
         <section *ngFor="let user of users().controls; let i = index;" [formGroupName]="i">
           <button type="button" class="btn btn-danger btn-sm" (click)="removeUser(i)">Remove User</button>
-          <input [class.is-invalid] = "accountForm2.get('users')?.invalid && accountForm2.get('users')?.touched"
-          id="user" class="form-control" type="text" pattern="^[0-9]{1,15}$"
+          <input [class.is-invalid] = "accountForm.get('users')?.invalid && accountForm.get('users')?.touched"
           placeholder="Users on Account" name="user_{{i}}" formControlName="user">
         </section>
         </div>
     </div>
 
-
-    <div class="form-group">
-      <label>Users on account</label>
-      <input type="text" class="form-control" name="usersIds" [(ngModel)]="account.usersIds" #usersIds="ngModel" required>
-    </div>
     <div *ngIf="account">
       <div class="alert alert-warning" *ngIf="account.id && deleteMessageEnabled">
          Delete account?&nbsp;&nbsp;<button class="btn btn-danger" (click)="delete($event)">Yes</button>&nbsp;&nbsp;
@@ -85,7 +44,7 @@
 
       <div class="pull-right" *ngIf="!deleteMessageEnabled">
         <button class="btn btn-default" (click)="cancel($event)">Cancel</button>&nbsp;&nbsp;
-        <button type="submit" class="btn btn-success" [disabled]="accountForm.pristine || !accountForm.valid">{{ operationText }}</button>
+        <button type="submit" class="btn btn-success" [disabled]="(accountForm.pristine && !hasBeenTouched) || !accountForm.valid">Update</button>
       </div>
     </div>
     <div class="alert alert-danger" *ngIf="errorMessage != null">{{ errorMessage }}</div>
