@@ -1,28 +1,34 @@
 import { Injectable, OnInit } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from "src/environments/environment";
+import { environment } from 'src/environments/environment';
 import { HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CreateUser } from '../../models/createUser';
 import { User } from '../../models/user';
 import { HttpService } from '../http/http.service';
-import { ApiMethod, UserEndPoints } from '../const';
+import { ApiMethod, IUserPagination, UserEndPoints } from '../const';
 
 const API_URL = environment.userUrl;
 const api = environment.userUrl + UserEndPoints.MAIN;
 
-
 @Injectable()
 export class UserService {
-
   bearer: string;
   redirectToUrl: string = '/users';
   creationError: boolean;
   creationErrorMessage: string;
   userCreated: boolean;
 
-  constructor(private https: HttpClient, private router: Router, private http: HttpService) {
+  constructor(
+    private https: HttpClient,
+    private router: Router,
+    private http: HttpService
+  ) {
     this.bearer = 'Bearer ';
     this.userCreated = false;
     this.creationError = false;
@@ -60,55 +66,64 @@ export class UserService {
   }*/
 
   public createUser(user: CreateUser) {
-    return this.https.post(api, user)
-      .subscribe((res) =>{
+    return this.https.post(api, user).subscribe(
+      (res) => {
         this.creationError = false;
-        console.log("User created");
-        alert("User created");
+        console.log('User created');
+        alert('User created');
         this.router.navigate([UserEndPoints.MAIN]);
-      },(err) =>{
+      },
+      (err) => {
         console.log(err);
-        console.log("User could not be created");
+        console.log('User could not be created');
         this.creationError = true;
         this.creationErrorMessage = err.error.message;
       }
     );
   }
 
-  clear(){
+  clear() {
     this.creationError = false;
+  }
+
+  getUser(id: number) {
+    return this.http.requestCall(
+      UserEndPoints.MAIN,
+      ApiMethod.GET,
+      User,
+      '/' + id
+    );
   }
 
   public getUsersPage(
     page: number,
-    size: number
-  ): Observable<GetResponseUsers> {
-    let t = '';
-    //put token here
-
-    let headersWt = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + t,
-    });
-    return this.https.get<GetResponseUsers>(
-      `${api}?page=${page}&size=${size}`,
-      {
-        headers: headersWt,
-      }
+    size: number,
+    sort?: string,
+    asc?: boolean
+  ): Observable<any> {
+    let req;
+    if (sort !== undefined) {
+      req = `?page=${page}&size=${size}&sort=${sort}&asc=${!!asc}`;
+    } else {
+      req = `?page=${page}&size=${size}`;
+    }
+    console.log(req);
+    return this.http.requestCall(
+      UserEndPoints.MAIN,
+      ApiMethod.GET,
+      IUserPagination,
+      req
     );
   }
 }
 
-interface GetResponseUsers {
-  content: User[];
+// interface GetResponseUsers {
+//   content: User[];
 
-  page: {
-    size: number;
-    totalElements: number;
-    totalPages: number;
-    number: number;
-  };
-}
-
-
-
+//   page: {
+//     size: number;
+//     totalElements: number;
+//     totalPages: number;
+//     number: number;
+//   };
+// }

@@ -1,153 +1,318 @@
 <!DOCTYPE html>
 <head>
-    <meta charset="UTF-8">
-  </head>
+  <meta charset="UTF-8" />
+</head>
 
-  <div class="card">
-    <div class="card-body">
-      <div class="card card-primary">
-          <form [formGroup]="registerForm" (ngSubmit)="submit()">
-            <div class="card-body">
-              <div class="form-group" data-select2-id="29">
-                  <label>Role Title</label>
-                  <select id="role" class="form-control select2 select2-hidden-accessible" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" name="role"
-                  (change)="changeRole($event)">
-                    <option selected="selected" data-select2-id="3" disabled>Select Role Title</option>
-                    <option *ngFor="let role of roles" [ngValue]="role">
-                      {{ role.roleTitle }} </option>
-                  </select>
-              </div>
-
-              <div class="form-group">
-                  <label for="firstName">First Name</label>
-                  <input [class.is-invalid] = "registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched"
-                  id="firstName" class="form-control" type="text"
-                  placeholder="First Name" name="firstName" formControlName = "firstName">
-              </div>
-
-              <div class="form-group">
-                  <label for="firstName">Last Name</label>
-                  <input [class.is-invalid] = "registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched"
-                  id="lastName" class="form-control" type="text"
-                  placeholder="Last Name" name="lastName" formControlName = "lastName">
-              </div>
-
-              <div class="form-group">
-                  <label>Date of Birth</label>
-                    <div class="input-group date" id="dob" data-target-input="nearest">
-                        <input [class.is-invalid] = "registerForm.get('dob')?.invalid && registerForm.get('dob')?.touched"
-                        type="date" ng-readonly="true" class="form-control datetimepicker-input" data-target="#dob"
-                        name="dob" formControlName = "dob"
-                        min="1900-01-01" max="{{minorCutOff | date:'yyyy-MM-dd'}}">
-                    </div>
-                    <small *ngIf="(dob?.invalid && dob?.touched)" class="text-danger">
-                      {{errorMessages('invalidBirthdate')}}</small>
-              </div>
-
-              <div class="form-group">
-                  <label for="email">* Email</label>
-                  <input type="email" class="form-control" id="email" placeholder="Email"
-                  name="email" formControlName="email"
-                  [class.is-invalid] = "registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
-
-                  <div *ngIf="(email?.invalid && email?.touched) || email?.dirty">
-                      <small *ngIf="email?.errors?.required" class="text-danger">Email is required</small>
-                      <!--question mark(?) is a safe navigation operator-->
-                      <small *ngIf="email?.errors?.email" class="text-danger">{{errorMessages('invalidEmailAddress')}}</small>
-                      <small *ngIf="email?.errors?.invalidEmailAddress" class="text-danger">{{errorMessages('invalidEmailAddress')}}</small>
-                      <small *ngIf="email?.errors?.invalidAdminEmailAddress" class="text-danger">{{errorMessages('invalidAdminEmailAddress')}}</small>
-                  </div>
-                  <small *ngIf="(userService.creationError && ((userService.creationErrorMessage == serverErrorMessages.EMAIL) || (userService.creationErrorMessage == serverErrorMessages.USERNAMEANDEMAIL)))" class="text-danger">
-                    {{userService.creationErrorMessage}}</small>
-              </div>
-
-              <div class="form-group">
-                  <label for="phone">Phone Number</label>
-                  <input [class.is-invalid] = "registerForm.get('phone')?.invalid && registerForm.get('phone')?.touched"
-                  type="text" class="form-control" id="phone" phoneMask
-                  [preValue]="registerForm.value.phone"  [phoneControl]="registerForm.controls['phone']"
-                  formControlName="phone" formControlName="phone" maxlength="14"
-                  placeholder="(000) 000-0000" name="phone" >
-              </div>
-              <div>
-                  <small *ngIf="phone?.errors?.pattern" class="text-danger">Please enter a valid phone number</small>
-              </div>
-
-              <div class="form-group">
-                  <label for="username">* Username</label>
-                  <input [class.is-invalid] = "registerForm.get('username')?.invalid && registerForm.get('username')?.touched"
-                  id="username" class="form-control" type="text"
-                  placeholder="Username" name="username" formControlName="username">
-
-                <div *ngIf="(username?.invalid && username?.touched) || username?.dirty">
-                    <small *ngIf="username?.errors?.required" class="text-danger">Username is required</small>
-                    <small *ngIf="username?.errors?.invalidUsername" class="text-danger">{{errorMessages('invalidUsername')}}</small>
-                </div>
-                <small *ngIf="(userService.creationError && ((userService.creationErrorMessage == serverErrorMessages.USERNAME) || (userService.creationErrorMessage == serverErrorMessages.USERNAMEANDEMAIL)))" class="text-danger">
-                  {{userService.creationErrorMessage}}</small>
-              </div>
-
-              <div class="form-group">
-                  <label for="password">* Password</label>
-                  <div class="input-group">
-                      <input [class.is-invalid] = "registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
-                          id="password" class="form-control" type="{{show ? 'text' : 'password'}}"
-                          placeholder="Password" name="password" formControlName="password" />
-
-                      <div class="input-group-append">
-                          <div class="input-group-text">
-                              <i (click) = "togglePass()" class="{{show ? 'fa fa-eye' : 'fa fa-eye-slash'}}" id="togglePassword"></i>
-                          </div>
-                      </div>
-                  </div>
-                  <div *ngIf="(password?.invalid && password?.touched) || password?.dirty">
-                      <small *ngIf="password?.errors?.required" class="text-danger">Password is required</small>
-                      <!--question mark(?) is a safe navigation operator-->
-                      <small *ngIf="(password?.errors?.invalidPassword)" class="text-danger">
-                        {{errorMessages('invalidPassword')}}</small>
-                  </div>
-              </div>
-
-              <div class="form-group">
-                <label for="confirmPassword">* Re-type Password</label>
-                <div class="input-group mb-3">
-                    <input [class.is-invalid] = "registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched"
-                    id="confirmPassword" class="form-control" type="{{show ? 'text' : 'password'}}"
-                        placeholder="Re-type Password" name="confirmPassword" formControlName="confirmPassword" pattern = {{password?.value}} />
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <i (click) = "togglePass()" class="{{show ? 'fa fa-eye' : 'fa fa-eye-slash'}}" id="togglePassword"></i>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                  <small *ngIf="(confirmPassword?.errors?.pattern)" class="text-danger">Passwords must match</small>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="exampleInputFile">File input</label>
-                <div class="input-group">
-                  <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="exampleInputFile">
-                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                  </div>
-                  <div class="input-group-append">
-                    <span class="input-group-text">Upload</span>
-                  </div>
-                </div>
-              </div>
-
-            <!-- /.card-body -->
+<div class="card">
+  <div class="card-body">
+    <div class="card card-primary">
+      <form [formGroup]="registerForm" (ngSubmit)="submit()">
+        <div class="card-body">
+          <div class="form-group" data-select2-id="29">
+            <label>Role Title</label>
+            <select
+              id="role"
+              class="form-control select2 select2-hidden-accessible"
+              style="width: 100%"
+              data-select2-id="1"
+              tabindex="-1"
+              aria-hidden="true"
+              name="role"
+              (change)="changeRole($event)"
+            >
+              <option selected="selected" data-select2-id="3" disabled>
+                Select Role Title
+              </option>
+              <option *ngFor="let role of roles" [ngValue]="role">
+                {{ role.roleTitle }}
+              </option>
+            </select>
           </div>
 
-        <div class="card-footer">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input
+              [class.is-invalid]="
+                registerForm.get('firstName')?.invalid &&
+                registerForm.get('firstName')?.touched
+              "
+              id="firstName"
+              class="form-control"
+              type="text"
+              placeholder="First Name"
+              name="firstName"
+              formControlName="firstName"
+            />
+          </div>
 
-          <button type="button" class="btn btn-primary" [disabled]="!registerForm.valid" [type]="'submit'">Create User</button>
+          <div class="form-group">
+            <label for="firstName">Last Name</label>
+            <input
+              [class.is-invalid]="
+                registerForm.get('lastName')?.invalid &&
+                registerForm.get('lastName')?.touched
+              "
+              id="lastName"
+              class="form-control"
+              type="text"
+              placeholder="Last Name"
+              name="lastName"
+              formControlName="lastName"
+            />
+          </div>
 
+          <div class="form-group">
+            <label>Date of Birth</label>
+            <div class="input-group date" id="dob" data-target-input="nearest">
+              <input
+                [class.is-invalid]="
+                  registerForm.get('dob')?.invalid &&
+                  registerForm.get('dob')?.touched
+                "
+                type="date"
+                ng-readonly="true"
+                class="form-control datetimepicker-input"
+                data-target="#dob"
+                name="dob"
+                formControlName="dob"
+                min="1900-01-01"
+                max="{{ minorCutOff | date: 'yyyy-MM-dd' }}"
+              />
+            </div>
+            <small *ngIf="dob?.invalid && dob?.touched" class="text-danger">
+              {{ errorMessages("invalidBirthdate") }}</small
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="email">* Email</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              placeholder="Email"
+              name="email"
+              formControlName="email"
+              [class.is-invalid]="
+                registerForm.get('email')?.invalid &&
+                registerForm.get('email')?.touched
+              "
+            />
+
+            <div *ngIf="(email?.invalid && email?.touched) || email?.dirty">
+              <small *ngIf="email?.errors?.required" class="text-danger"
+                >Email is required</small
+              >
+              <!--question mark(?) is a safe navigation operator-->
+              <small *ngIf="email?.errors?.email" class="text-danger">{{
+                errorMessages("invalidEmailAddress")
+              }}</small>
+              <small
+                *ngIf="email?.errors?.invalidEmailAddress"
+                class="text-danger"
+                >{{ errorMessages("invalidEmailAddress") }}</small
+              >
+              <small
+                *ngIf="email?.errors?.invalidAdminEmailAddress"
+                class="text-danger"
+                >{{ errorMessages("invalidAdminEmailAddress") }}</small
+              >
+            </div>
+            <small
+              *ngIf="
+                userService.creationError &&
+                (userService.creationErrorMessage ==
+                  serverErrorMessages.EMAIL ||
+                  userService.creationErrorMessage ==
+                    serverErrorMessages.USERNAMEANDEMAIL)
+              "
+              class="text-danger"
+            >
+              {{ userService.creationErrorMessage }}</small
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input
+              [class.is-invalid]="
+                registerForm.get('phone')?.invalid &&
+                registerForm.get('phone')?.touched
+              "
+              type="text"
+              class="form-control"
+              id="phone"
+              phoneMask
+              [preValue]="registerForm.value.phone"
+              [phoneControl]="registerForm.controls['phone']"
+              formControlName="phone"
+              formControlName="phone"
+              maxlength="14"
+              placeholder="(000) 000-0000"
+              name="phone"
+            />
+          </div>
+          <div>
+            <small *ngIf="phone?.errors?.pattern" class="text-danger"
+              >Please enter a valid phone number</small
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="username">* Username</label>
+            <input
+              [class.is-invalid]="
+                registerForm.get('username')?.invalid &&
+                registerForm.get('username')?.touched
+              "
+              id="username"
+              class="form-control"
+              type="text"
+              placeholder="Username"
+              name="username"
+              formControlName="username"
+            />
+
+            <div
+              *ngIf="
+                (username?.invalid && username?.touched) || username?.dirty
+              "
+            >
+              <small *ngIf="username?.errors?.required" class="text-danger"
+                >Username is required</small
+              >
+              <small
+                *ngIf="username?.errors?.invalidUsername"
+                class="text-danger"
+                >{{ errorMessages("invalidUsername") }}</small
+              >
+            </div>
+            <small
+              *ngIf="
+                userService.creationError &&
+                (userService.creationErrorMessage ==
+                  serverErrorMessages.USERNAME ||
+                  userService.creationErrorMessage ==
+                    serverErrorMessages.USERNAMEANDEMAIL)
+              "
+              class="text-danger"
+            >
+              {{ userService.creationErrorMessage }}</small
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="password">* Password</label>
+            <div class="input-group">
+              <input
+                [class.is-invalid]="
+                  registerForm.get('password')?.invalid &&
+                  registerForm.get('password')?.touched
+                "
+                id="password"
+                class="form-control"
+                type="{{ show ? 'text' : 'password' }}"
+                placeholder="Password"
+                name="password"
+                formControlName="password"
+              />
+
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <i
+                    (click)="togglePass()"
+                    class="{{ show ? 'fa fa-eye' : 'fa fa-eye-slash' }}"
+                    id="togglePassword"
+                  ></i>
+                </div>
+              </div>
+            </div>
+            <div
+              *ngIf="
+                (password?.invalid && password?.touched) || password?.dirty
+              "
+            >
+              <small *ngIf="password?.errors?.required" class="text-danger"
+                >Password is required</small
+              >
+              <!--question mark(?) is a safe navigation operator-->
+              <small
+                *ngIf="password?.errors?.invalidPassword"
+                class="text-danger"
+              >
+                {{ errorMessages("invalidPassword") }}</small
+              >
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="confirmPassword">* Re-type Password</label>
+            <div class="input-group mb-3">
+              <input
+                [class.is-invalid]="
+                  registerForm.get('confirmPassword')?.invalid &&
+                  registerForm.get('confirmPassword')?.touched
+                "
+                id="confirmPassword"
+                class="form-control"
+                type="{{ show ? 'text' : 'password' }}"
+                placeholder="Re-type Password"
+                name="confirmPassword"
+                formControlName="confirmPassword"
+                pattern="{{ password?.value }}"
+              />
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <i
+                    (click)="togglePass()"
+                    class="{{ show ? 'fa fa-eye' : 'fa fa-eye-slash' }}"
+                    id="togglePassword"
+                  ></i>
+                </div>
+              </div>
+            </div>
+            <div>
+              <small
+                *ngIf="confirmPassword?.errors?.pattern"
+                class="text-danger"
+                >Passwords must match</small
+              >
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputFile">File input</label>
+            <div class="input-group">
+              <div class="custom-file">
+                <input
+                  type="file"
+                  class="custom-file-input"
+                  id="exampleInputFile"
+                />
+                <label class="custom-file-label" for="exampleInputFile"
+                  >Choose file</label
+                >
+              </div>
+              <div class="input-group-append">
+                <span class="input-group-text">Upload</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- /.card-body -->
         </div>
 
+        <div class="card-footer">
+          <button
+            type="button"
+            class="btn btn-primary"
+            [disabled]="!registerForm.valid"
+            [type]="'submit'"
+          >
+            Create User
+          </button>
+        </div>
       </form>
-
+    </div>
+  </div>
 </div>
-

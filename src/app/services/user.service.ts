@@ -1,13 +1,14 @@
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-//import { User } from '../models/user';
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { CreateUser } from '../observables/createUser';
-import { User } from '../observables/user';
 
+import { Injectable } from '@angular/core';
+import { CreateUser } from '../models/createUser';
+import { User } from '../models/user';
+import { IUserPagination, SpecificUser } from './const';
 import { Router } from '@angular/router';
 import { AuthService } from './auth/auth.service';
+import { HttpService } from './http/http.service';
+import { ApiMethod, UserEndPoints } from './const';
 
 const API_URL = environment.apiUrl;
 @Injectable({
@@ -26,7 +27,8 @@ export class UserService {
   userCreated: boolean;
 
   constructor(
-    private http: HttpClient,
+    private http: HttpService,
+    //private http: HttpClient,
     private router: Router,
     public auth: AuthService
   ) {
@@ -36,96 +38,66 @@ export class UserService {
     this.userCreated = false;
   }
 
-  public getUsersPage(
-    page: number,
-    size: number,
-    sort?: string,
-    asc?: boolean
-  ): Observable<GetResponseUsers> {
-    let req;
-    if (sort !== undefined) {
-      req = `${this.api}?page=${page}&size=${size}&sort=${sort}&asc=${!!asc}`;
-    } else {
-      req = `${this.api}?page=${page}&size=${size}`;
-    }
-    console.log('this is the request');
-    console.log(req);
-    return this.http.get<GetResponseUsers>(req);
-  }
 
-  // errorHandler(error: HttpErrorResponse) {
-  //   return throwError('server error.');
+
+  //,
+  // public findAll(): Observable<User[]> {
+  //   //console.log(this.usersUrl);
+  //   return this.http.get<User[]>(this.usersUrl);
   // }
 
-  // public getSortedUsersPage(
-  //   page: number,
-  //   size: number,
-  //   asc: boolean,
-  //   sort: string
-  // ): Observable<GetResponseUsers> {
-  //   return this.http.get<GetResponseUsers>(
-  //     `${this.api}?page=${page}&size=${size}`
+  // public findAllUsernames(): string[] {
+  //   //console.log(this.usersUrl);
+  //   this.http.get<User[]>(this.usersUrl).subscribe((data) => {
+  //     this.allUsers = data;
+  //   });
+  //   if (this.allUsers) {
+  //     return this.allUsers.map((user) => user.username);
+  //   }
+  //   return null;
+  // }
+
+  // public save(user: CreateUser) {
+  //   return this.http.post<CreateUser>(this.usersUrl, user);
+  // }
+
+  // public createUser(user: CreateUser) {
+  //   this.serverError = false;
+  //   return this.getNewUser(user).subscribe(
+  //     (res) => {
+  //       //this.router.navigate(["/home"]);
+  //       this.userCreated = true;
+  //       //this.router.navigate([this.redirectToUrl]);
+  //     },
+  //     (err) => {
+  //       console.log(err);
+  //       this.serverError = true;
+  //       this.serverErrorMessage = err.error.message;
+  //     }
   //   );
-  //   // .pipe(catchError(this.errorHandler));
+  //   //return this.getNewUser(user);
   // }
 
-  public findAll(): Observable<User[]> {
-    //console.log(this.usersUrl);
-    return this.http.get<User[]>(this.usersUrl);
-  }
 
-  public findAllUsernames(): string[] {
-    //console.log(this.usersUrl);
-    this.http.get<User[]>(this.usersUrl).subscribe((data) => {
-      this.allUsers = data;
-    });
-    if (this.allUsers) {
-      return this.allUsers.map((user) => user.username);
-    }
-    return null;
-  }
 
-  public save(user: CreateUser) {
-    return this.http.post<CreateUser>(this.usersUrl, user);
-  }
-
-  public createUser(user: CreateUser) {
-    this.serverError = false;
-    return this.getNewUser(user).subscribe(
-      (res) => {
-        //this.router.navigate(["/home"]);
-        this.userCreated = true;
-        //this.router.navigate([this.redirectToUrl]);
-      },
-      (err) => {
-        console.log(err);
-        this.serverError = true;
-        this.serverErrorMessage = err.error.message;
-      }
-    );
-    //return this.getNewUser(user);
-  }
-
-  //public getNewUser(user: CreateUser) {
-  //return this.http.post(this.usersUrl, user);
-  //}
-
-  getUser(id: number) {
-    return this.http.get<User>(`${this.api}/${id}`);
-
-    //throw new Error('Method not implemented.');
-  }
-
-  updateUser(editUser: User): Observable<any> {
+  updateUser(editUser: User): any {
     console.log('in editUser:');
     console.log(editUser);
-    return this.http.put<User>(`${this.api}/${editUser.id}`, editUser.id);
+    
+    return this.http.requestCall(
+      UserEndPoints.MAIN,
+      ApiMethod.PUT,
+      User,
+      editUser,
+      editUser.id
+    );
+    // return this.http.put<User>(`${this.api}/${editUser.id}`, editUser.id);
   }
 
-  public getNewUser(user: CreateUser) {
-    return this.http.post(this.usersUrl, user);
-    //throw new Error('Function not implemented.');
-  }
+  // public getNewUser(user: CreateUser) {
+  //   return this.http.post(this.usersUrl, user);
+  //   //throw new Error('Function not implemented.');
+  // }
 
   public getServerError() {
     return this.serverError;
@@ -140,13 +112,13 @@ export class UserService {
   }
 }
 
-interface GetResponseUsers {
-  content: User[];
+// export interface GetResponseUsers {
+//   content: User[];
 
-  page: {
-    size: number;
-    totalElements: number;
-    totalPages: number;
-    number: number;
-  };
-}
+//   page: {
+//     size: number;
+//     totalElements: number;
+//     totalPages: number;
+//     number: number;
+//   };
+// }

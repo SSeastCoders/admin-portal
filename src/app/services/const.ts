@@ -1,46 +1,42 @@
-import { environment } from "src/environments/environment";
-import { User } from "../models/user";
+import { environment } from 'src/environments/environment';
+import { User } from '../models/user';
 
 export enum ApiMethod {
-    GET = "GET",
-    PUT = "PUT",
-    POST = "POST",
-    DELETE = "DELETE"
+  GET = 'GET',
+  PUT = 'PUT',
+  POST = 'POST',
+  DELETE = 'DELETE',
 }
 
 export enum AuthEndPoints {
-    LOGIN = "/login",
-    LOGOUT = "/logout",
-    REGISTER = "/users"
+  LOGIN = '/login',
+  LOGOUT = '/logout',
+  REGISTER = '/users',
 }
 
 export enum UserEndPoints {
-    MAIN = "/users",
+  MAIN = '/users',
 }
 
 export class SpecificUser {
-    fullUrl: string;
-    constructor(
-        private userNumber: string,
-    ) {
-        this.fullUrl = environment.userUrl.concat('/').concat(userNumber);
-    }
+  fullUrl: string;
+  constructor(private userNumber: string) {
+    this.fullUrl = environment.userUrl.concat('/').concat(userNumber);
+  }
 }
 
 export enum AccountEndPoints {
-    MAIN = "/accounts",
+  MAIN = '/accounts',
 }
 
 export class SpecificAccount {
-    fullUrl: string;
-    constructor(
-        private acctNumber: string,
-    ) {
-        this.fullUrl = environment.accountUrl.concat('/').concat(acctNumber);
-    }
+  fullUrl: string;
+  constructor(private acctNumber: string) {
+    this.fullUrl = environment.accountUrl.concat('/').concat(acctNumber);
+  }
 }
 
-export interface IUserPagination{
+export class IUserPagination {
   content: User[];
 
   page: {
@@ -51,10 +47,8 @@ export interface IUserPagination{
   };
 }
 
-export enum ConstraintError{
-  EMAIL = "duplicate email",
-  USERNAMEANDEMAIL = "duplicate username and email",
-  USERNAME = "duplicate username",
+export enum ConstraintError {
+  EMAIL = 'duplicate email',
+  USERNAMEANDEMAIL = 'duplicate username and email',
+  USERNAME = 'duplicate username',
 }
-
-

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { User} from '../../models/user'
-import { UserService } from 'src/app/services/user.service';
+import { User } from '../../models/user';
+import { UserService } from 'src/app/services/user/user.service';
 //import { fa-pencil } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -46,25 +46,18 @@ export class UserListComponent implements OnInit {
   }
 
   processResult() {
-    console.log('this is the data in process result');
     return (data) => {
-      console.log('this is the data in process result');
-      console.log(data);
       this.users = data.content;
-      //this.pageNumber = data.pageable.pageNumber + 1;
+      this.pageNumber = data.pageable.pageNumber + 1;
       this.pageSize = data.pageable.pageSize;
-      //this.totalElements = data.totalElements;
+      this.totalElements = data.totalElements;
     };
   }
 
   updatePageSize(pageSize: number) {
-    try {
-      this.pageSize = pageSize;
-      this.pageNumber = 1;
-      this.listUsers();
-    } catch {
-      throw new Error("couldn't update page size");
-    }
+    this.pageSize = pageSize;
+    this.pageNumber = 1;
+    this.listUsers();
   }
 
   setSort(property: string) {

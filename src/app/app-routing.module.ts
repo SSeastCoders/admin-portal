@@ -4,7 +4,7 @@ import { CreateAccountComponent } from './account/create-account/create-account.
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { LoginComponent } from './login/login.component';
-import { UserListComponent } from './observables/user-list/user-list.component';
+import { UserListComponent } from './components/user-list/user-list.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { AuthGuard } from './services/guard/guard.guard';
 import { UserService } from './services/user/user.service';

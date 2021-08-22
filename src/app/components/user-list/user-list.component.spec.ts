@@ -1,21 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../services/user/user.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { UserListComponent } from './user-list.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { RouterTestingModule } from '@angular/router/testing';
+import { User } from 'src/app/models/user';
 
 describe('UserListComponent', () => {
   let component: UserListComponent;
   let fixture: ComponentFixture<UserListComponent>;
-
-  let userService: UserService;
-  let route: ActivatedRoute;
-
+  let service;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [HttpClientTestingModule, RouterTestingModule],
       declarations: [UserListComponent],
       providers: [UserService],
       schemas: [NO_ERRORS_SCHEMA],
@@ -24,7 +23,9 @@ describe('UserListComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(UserListComponent);
+    service = TestBed.inject(UserService);
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   });
 
@@ -32,26 +33,9 @@ describe('UserListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // it('listUsers should call handleUsers', () => {
-  //   let result = component.listUsers();
-  //   let spy = jasmine.createSpy();
-  //   expect(spy(component.handleUsersList)).toHaveBeenCalled();
-  // });
-
   it('should update page size', () => {
     component.updatePageSize(5);
     expect(component.pageSize).toEqual(5);
-  });
-
-  it('should throw error', () => {
-    try {
-      let thing = component.updatePageSize(0);
-
-      expect(thing).toThrowError();
-    } catch (err) {
-      expect(err).toBeTruthy();
-    }
-    // expect(component).toBeTruthy();
   });
 
   it('should return to pageNumber 1 when pageSize is updated', () => {
@@ -60,21 +44,10 @@ describe('UserListComponent', () => {
     expect(component.pageNumber).toEqual(1);
   });
 
-  // it('makes a new request when setPage, setResultsPerPage, setSort, or setSearch is called', () => {
-  //   component.
-  //   expect(mockService.getUsers).toHaveBeenCalledTimes(2);
-  //   component.setResultsPerPage(50);
-  //   expect(mockService.getUsers).toHaveBeenCalledTimes(3);
-  //   component.setSort("lastName");
-  //   expect(mockService.getUsers).toHaveBeenCalledTimes(4);
-  //   component.setSearch("some search");
-  //   expect(mockService.getUsers).toHaveBeenCalledTimes(5);
-  // });
-
   it('it sets sort direction', () => {
-    component.setSort('property');
+    component.setSort('username');
     expect(component.asc).toBe(true);
-    component.setSort('property');
+    component.setSort('username');
     expect(component.asc).toBe(false);
   });
 });
