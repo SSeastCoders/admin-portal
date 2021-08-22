@@ -9,6 +9,9 @@
 <div class=modal-body>
   <label for="password">Please enter password to confirm deletion</label>
   <form [formGroup]="passwordForm" (ngSubmit)='submit()'>
+    <small *ngIf="error"  class="text-danger">
+      {{errorMessage}}
+    </small>
   <div class=input-group>
     <input
         formControlName="password"

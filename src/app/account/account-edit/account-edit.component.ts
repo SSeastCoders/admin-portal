@@ -124,7 +124,8 @@ export class AccountEditComponent implements OnInit {
 
   cancel(event: Event) {
     event.preventDefault();
-    this.setDefaultValues();
+    //this.setDefaultValues();
+    this.buildForm(this.account);
   }
 
 	setDefaultValues() {
