@@ -2,34 +2,32 @@
   <div class="form-group">
     <label for="firstName">First Name</label>
     <input
-      ngModel="{{ editUser?.firstName }}"
+      ngModel="{{ currentUser?.firstName }}"
       type="text"
       name="firstName"
-      class="form-control"
       id="firstName"
     />
   </div>
   <input
     type="hidden"
-    ngModel="{{ editUser?.id }}"
+    ngModel="{{ currentUser?.id }}"
     name="id"
-    class="form-control"
     id="id"
     placeholder="userId"
   />
 
-  <!-- <input
+  <input
     type="hidden"
-    ngModel="{{ editUser?.role.roleTitle }}"
+    ngModel="{{ currentUser?.role['title'] }}"
     name="role"
     class="form-control"
-    id="roleTitle"
-    placeholder="roleTitle"
-  /> -->
+    id="role"
+    placeholder="role"
+  />
   <div class="form-group">
     <label for="lastName">Last Name</label>
     <input
-      ngModel="{{ editUser?.lastName }}"
+      ngModel="{{ currentUser?.lastName }}"
       type="text"
       name="lastName"
       class="form-control"
@@ -39,7 +37,7 @@
   <div class="form-group">
     <label for="email">Email</label>
     <input
-      ngModel="{{ editUser?.email }}"
+      ngModel="{{ currentUser?.email }}"
       type="email"
       name="email"
       class="form-control"
@@ -49,7 +47,7 @@
   <div class="form-group">
     <label for="username">Username</label>
     <input
-      ngModel="{{ editUser?.username }}"
+      ngModel="{{ currentUser?.username }}"
       type="text"
       name="username"
       class="form-control"
@@ -59,20 +57,46 @@
   <div class="form-group">
     <label for="phone">Phone</label>
     <input
-      ngModel="{{ editUser?.phone }}"
+      ngModel="{{ currentUser?.phone }}"
       type="text"
       name="phone"
       class="form-control"
       id="phone"
     />
   </div>
+  <div class="form-group">
+    <label>
+      <input
+        type="radio"
+        [value]="true"
+        name="activeStatus"
+        ngModel="{{ currentUser?.activeStatus }}"
+      />
+      <span>Active</span>
+    </label>
+    <label>
+      <input
+        type="radio"
+        [value]="false"
+        name="activeStatus"
+        ngModel="{{ currentUser?.activeStatus }}"
+      />
+      <span>Inactive</span>
+    </label>
+  </div>
+
   <div class="form-footer">
-    <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">
-      Close
+    <button
+      type="button"
+      id=""
+      routerLink="/users/{{ currentUser.id }}"
+      class="btn btn-secondary"
+    >
+      Cancel
     </button>
     <button
-      (click)="onUpdateUser(editUserForm.value)"
-      data-dismiss="modal"
+      (click)="onUpdateUser(editUserForm)"
+      routerLink="/users/{{ currentUser.id }}"
       class="btn btn-primary"
     >
       Save changes

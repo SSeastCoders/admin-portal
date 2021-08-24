@@ -13,13 +13,12 @@
           {{ asc ? " ↑" : " ↓" }}
         </span>
       </th>
-      <th>Options</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let user of users">
-      <td>{{ user.id }}</td>
-      <!-- <td>{{ user["role"].roleTitle }}</td> -->
+    <tr *ngFor="let user of users" routerLink="/users/{{ user.id }}">
+      <td>{{ pageNumber * pageSize }}</td>
+      <td>{{ user.role["title"] }}</td>
       <td>{{ user.firstName }}</td>
       <td>{{ user.lastName }}</td>
       <td>{{ user.username }}</td>
@@ -28,14 +27,14 @@
         <div *ngIf="user.activeStatus; else elseBlock">active</div>
         <ng-template #elseBlock>inactive</ng-template>
       </td>
-      <button
+      <!-- <button
         class="btn btn-primary tooltips"
         data-placement="top"
         data-original-title="Edit"
-        routerLink="/users/{{ user.id }}/edit"
+        routerLink="/users/{{ user.id }}"
       >
         <i class="fas fa-pencil-alt"></i>
-      </button>
+      </button> -->
     </tr>
   </tbody>
 </table>

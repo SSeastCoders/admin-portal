@@ -1,0 +1,15 @@
+<h2>Details for {{ currentUser?.firstName }}</h2>
+
+<p>{{ currentUser?.role["title"] }}</p>
+<p>{{ currentUser?.firstName }}</p>
+<p>{{ currentUser?.lastName }}</p>
+<p>{{ currentUser?.username }}</p>
+<p>{{ currentUser?.email }}</p>
+<p>{{ currentUser?.phone }}</p>
+<p>{{ currentUser?.activeStatus }}</p>
+<button
+  class="btn btn-primary tooltips"
+  routerLink="/users/{{ currentUser?.id }}/edit"
+>
+  <i class="fas fa-pencil-alt"></i>
+</button>

@@ -12,6 +12,7 @@ import { CreateUser } from '../../models/createUser';
 import { User } from '../../models/user';
 import { HttpService } from '../http/http.service';
 import { ApiMethod, IUserPagination, UserEndPoints } from '../const';
+import { UserDetailsDto } from 'src/app/dto/user-details-dto';
 
 const API_URL = environment.userUrl;
 const api = environment.userUrl + UserEndPoints.MAIN;
@@ -87,11 +88,37 @@ export class UserService {
   }
 
   getUser(id: number) {
+    //return this.https.get<User>(api + `/${id}`);
     return this.http.requestCall(
       UserEndPoints.MAIN,
       ApiMethod.GET,
       User,
       '/' + id
+    );
+  }
+
+  updateUser(editUser: UserDetailsDto): any {
+    // return this.https.post(api, user).subscribe(
+    //   (res) => {
+    //     this.creationError = false;
+    //     console.log('User created');
+    //     alert('User created');
+    //     this.router.navigate([UserEndPoints.MAIN]);
+    //   },
+    //   (err) => {
+    //     console.log(err);
+    //     console.log('User could not be created');
+    //     this.creationError = true;
+    //     this.creationErrorMessage = err.error.message;
+    //   }
+    // );
+    console.dir(editUser);
+    return this.http.requestCall(
+      UserEndPoints.MAIN,
+      ApiMethod.PUT,
+      UserDetailsDto,
+      editUser,
+      editUser.id
     );
   }
 
@@ -116,14 +143,3 @@ export class UserService {
     );
   }
 }
-
-// interface GetResponseUsers {
-//   content: User[];
-
-//   page: {
-//     size: number;
-//     totalElements: number;
-//     totalPages: number;
-//     number: number;
-//   };
-// }
