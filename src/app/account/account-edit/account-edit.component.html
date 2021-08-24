@@ -4,7 +4,7 @@
     <div class="form-group" data-select2-id="29">
       <label>Account nickname</label>
       <input type="text" class="form-control" name="nickName"
-      [class.is-invalid] = "accountForm.get('nickName')?.invalid && accountForm.get('nickName')?.touched"
+      [class.is-invalid] = "accountForm?.get('nickName')?.invalid && accountForm?.get('nickName')?.touched"
       id="nickName" type="text" name="nickName" formControlName="nickName"
       placeholder={{account?.nickName}}>
       <small *ngIf="nickName?.errors && nickName?.touched" class="text-danger">Nickname needs to be 4-20 alphanumeric characters</small>
@@ -25,12 +25,12 @@
       <small *ngIf="(acctService.creationError)" class="text-danger">
         Please verify User account numbers</small>
         <label for="users">Users on Account</label>
-        <small *ngIf="accountForm.get('users')?.invalid && accountForm.get('users')?.touched" class="text-danger">All users must be listed as ID number</small>
+        <small *ngIf="accountForm?.get('users')?.invalid && accountForm?.get('users')?.touched" class="text-danger">All users must be listed as ID number</small>
         <span float="right"><i center="right" class ='fa fa-plus' (click)="addUser()"></i></span>
         <div class="input-group" formArrayName="users">
-        <section *ngFor="let user of users().controls; let i = index;" [formGroupName]="i">
+        <section *ngFor="let user of users()?.controls; let i = index;" [formGroupName]="i">
           <button type="button" class="btn btn-danger btn-sm" (click)="removeUser(i)">Remove User</button>
-          <input [class.is-invalid] = "accountForm.get('users')?.invalid && accountForm.get('users')?.touched"
+          <input [class.is-invalid] = "accountForm?.get('users')?.invalid && accountForm?.get('users')?.touched"
           placeholder="Users on Account" name="user_{{i}}" formControlName="user">
         </section>
         </div>

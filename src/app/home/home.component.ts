@@ -10,7 +10,7 @@ export class HomeComponent implements OnInit {
 
 
 
-  constructor(private app: AppComponent) { }
+  constructor(){}//private app: AppComponent) { }
 
   ngOnInit(): void {
   }

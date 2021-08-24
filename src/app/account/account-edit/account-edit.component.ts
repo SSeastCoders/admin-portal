@@ -37,7 +37,7 @@ export class AccountEditComponent implements OnInit {
     this.acctService.clear();
     this.updateAccount = new UpdateAccount();
     this.acctService.clear();
-    this.route.parent.params.subscribe((params: Params) => {
+    this.route.parent?.params.subscribe((params: Params) => {
       const id = + params['id'];
       if (id) {
         this.getAccount(id);
@@ -64,7 +64,7 @@ export class AccountEditComponent implements OnInit {
   }
 
   users() {
-    return this.accountForm.get('users') as FormArray;
+    return this.accountForm?.get('users') as FormArray;
   }
 
   newUser() {
@@ -98,7 +98,7 @@ export class AccountEditComponent implements OnInit {
   }
 
   get accountType() {
-    return this.accountForm.get('accountType');
+    return this.accountForm?.get('accountType');
   }
 
   changeType(e) {
@@ -128,15 +128,6 @@ export class AccountEditComponent implements OnInit {
     this.buildForm(this.account);
   }
 
-	setDefaultValues() {
-    let temp = {
-      //accountType = this.account.accountType
-      //usersIds = this.account.users.forEach((user) => {return user.id}),
-      //nickName = this.account.nickName
-    }
-		this.accountForm.setValue(temp);
-	}
-
   delete(event: Event) {
     event.preventDefault();
 
@@ -159,7 +150,7 @@ export class AccountEditComponent implements OnInit {
   }
 
   get nickName() {
-    return this.accountForm.get('nickName');
+    return this.accountForm?.get('nickName');
   }
 
   generateAccount() {

@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { ModalComponent } from 'src/app/modal/modal.component';
 import { LoginUser } from 'src/app/models/loginUser';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { AccountEndPoints, AuthEndPoints } from 'src/app/services/const';

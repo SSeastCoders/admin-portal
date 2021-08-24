@@ -22,7 +22,7 @@ const routes: Routes = [
   //{ path: 'accounts/details', component: AccountDetailComponent },
   //{ path: 'accounts/edit', component: AccountEditComponent },
   //{ path: 'accounts/:id', data: { preload: true }, loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
-  { path: 'home', component: AccountComponent },
+  { path: 'home', component: HomeComponent },
   {path: 'login', component: LoginComponent},
   {path: 'users', component: UserListComponent},
   { canActivate: [AuthGuard], path: 'cookies', component: UserListComponent },
