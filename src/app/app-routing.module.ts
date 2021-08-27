@@ -5,7 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { LoginComponent } from './login/login.component';
 import { UserListComponent } from './components/user-list/user-list.component';
-import { EditUserComponent } from './components/edit-user/edit-user.component';
+
 import { AuthGuard } from './services/guard/guard.guard';
 import { UserService } from './services/user/user.service';
 import { RegisterComponent } from './register/register.component';
@@ -21,9 +21,9 @@ const routes: Routes = [
   },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'users/:id/edit', component: EditUserComponent },
+  //{ path: 'users/:id/edit', component: EditUserComponent },
   { path: 'users/:id', component: UserDetailsComponent },
-  { canActivate: [AuthGuard], path: 'cookies', component: EditUserComponent },
+
   { path: 'users', component: UserListComponent },
 
   { canActivate: [AuthGuard], path: 'cookies', component: UserListComponent },

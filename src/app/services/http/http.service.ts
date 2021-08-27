@@ -49,6 +49,7 @@ export class HttpService {
         response = this.http.get<typeof type[]>(
           `${environment.userUrl}${api}${data}`
         ); //.pipe(catchError(async (err) => this.handleError(err)));
+        console.log('from requestCall');
         console.log(response);
         break;
       case ApiMethod.POST:

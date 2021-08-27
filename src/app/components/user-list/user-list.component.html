@@ -17,7 +17,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let user of users" routerLink="/users/{{ user.id }}">
-      <td>{{ pageNumber * pageSize }}</td>
+      <td>{{ user.id }}</td>
       <td>{{ user.role["title"] }}</td>
       <td>{{ user.firstName }}</td>
       <td>{{ user.lastName }}</td>

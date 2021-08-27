@@ -87,7 +87,7 @@ export class UserService {
     this.creationError = false;
   }
 
-  getUser(id: number) {
+  public getUser(id: number) {
     //return this.https.get<User>(api + `/${id}`);
     return this.http.requestCall(
       UserEndPoints.MAIN,
@@ -97,21 +97,7 @@ export class UserService {
     );
   }
 
-  updateUser(editUser: UserDetailsDto): any {
-    // return this.https.post(api, user).subscribe(
-    //   (res) => {
-    //     this.creationError = false;
-    //     console.log('User created');
-    //     alert('User created');
-    //     this.router.navigate([UserEndPoints.MAIN]);
-    //   },
-    //   (err) => {
-    //     console.log(err);
-    //     console.log('User could not be created');
-    //     this.creationError = true;
-    //     this.creationErrorMessage = err.error.message;
-    //   }
-    // );
+  public updateUser(editUser: UserDetailsDto): any {
     console.dir(editUser);
     return this.http.requestCall(
       UserEndPoints.MAIN,
