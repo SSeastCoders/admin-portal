@@ -15,6 +15,8 @@ export class ValidationService {
             'invalidUsername': 'Invalid username, Username must 5 - 20 alphanumeric characters',
             'invalidUser': 'Invalid user id number',
             'invalidUsers': 'Invalid users, user list must be unique',
+            'invalidNickName': 'Invalid nickname, must 5 - 20 alphanumeric characters',
+
         };
         return config[code];
     }
@@ -72,15 +74,23 @@ export class ValidationService {
     }
 
     static usernameValidator(control: AbstractControl) {
-      if ((control.value.match(/^[a-z0-9A-Z]{6,20}$/)) || (!control.touched)){
+      if (control.value.match(/^[a-z0-9A-Z]{6,20}$/)){
           return null;
       } else {
           return { 'invalidUsername': true };
       }
     }
 
+    static nickNameValidator(control: AbstractControl) {
+      if ((control?.value.match(/^[a-z0-9A-Z ]{6,20}$/))) {
+          return null;
+      } else {
+        return { 'invalidNickname': true };
+      }
+    }
+
     static userValidator(control: AbstractControl) {
-      if ((control.value.match(/^[0-9]{1,15}$/)) || (!control.touched)) {
+      if ((control?.value.match(/^[0-9]{1,15}$/)) || (!control?.touched)) {
           return null;
       } else {
           return { 'invalidUser': true };

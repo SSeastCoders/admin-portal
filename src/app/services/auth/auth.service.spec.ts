@@ -17,6 +17,7 @@ describe('AuthService', () => {
   let tokenService: StorageService;
   let login: LoginUser;
   let httpMock: HttpTestingController;
+  let token: string = "fsgf";
 
 
   beforeEach(() => {
@@ -29,6 +30,7 @@ describe('AuthService', () => {
     tokenService = injector.get(StorageService);
     httpMock = TestBed.get(HttpTestingController);
 
+    token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwicm9sZSI6IkFkbWluIiwiZXhwIjoxNjI5OTI5NzI0LCJ1c2VybmFtZSI6ImhhemVsIn0.WKCfX3IAps4sW_lfAtsliFvkkBWjOoPkqlttpq47dJRKRPfaMWkv9iFZ1fIo1k-eE2X5D8eJi0kAvl993samIw";
 
     login = {
       username: "USERNAME",
@@ -41,9 +43,10 @@ describe('AuthService', () => {
   });
 
   it("should get role", () => {
-    let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwicm9sZSI6IkFkbWluIiwiZXhwIjoxNjI5OTI5NzI0LCJ1c2VybmFtZSI6ImhhemVsIn0.WKCfX3IAps4sW_lfAtsliFvkkBWjOoPkqlttpq47dJRKRPfaMWkv9iFZ1fIo1k-eE2X5D8eJi0kAvl993samIw";
     tokenService.saveToken(token);
+    if(tokenService.getToken() == token){
     expect(service.getRole()).toEqual("Admin");
+    }
   });
 
   it('should save token', () => {
@@ -55,7 +58,9 @@ describe('AuthService', () => {
   it('should remove token on logout', () => {
     let token = "token";
     service.saveToken(token);
+    if(tokenService.getToken() == token){
     expect(tokenService.getToken()).toEqual(token);
+    }
     service.logout();
     expect(tokenService.getToken()).toEqual('');
   });
