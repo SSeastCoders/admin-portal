@@ -12,6 +12,7 @@ import { CreateUser } from '../../models/createUser';
 import { User } from '../../models/user';
 import { HttpService } from '../http/http.service';
 import { ApiMethod, IUserPagination, UserEndPoints } from '../const';
+import { UserDetailsDto } from 'src/app/dto/user-details-dto';
 
 const API_URL = environment.userUrl;
 const api = environment.userUrl + UserEndPoints.MAIN;
@@ -86,12 +87,24 @@ export class UserService {
     this.creationError = false;
   }
 
-  getUser(id: number) {
+  public getUser(id: number) {
+    //return this.https.get<User>(api + `/${id}`);
     return this.http.requestCall(
       UserEndPoints.MAIN,
       ApiMethod.GET,
       User,
       '/' + id
+    );
+  }
+
+  public updateUser(editUser: UserDetailsDto): any {
+    console.dir(editUser);
+    return this.http.requestCall(
+      UserEndPoints.MAIN,
+      ApiMethod.PUT,
+      UserDetailsDto,
+      editUser,
+      editUser.id
     );
   }
 
@@ -116,14 +129,3 @@ export class UserService {
     );
   }
 }
-
-// interface GetResponseUsers {
-//   content: User[];
-
-//   page: {
-//     size: number;
-//     totalElements: number;
-//     totalPages: number;
-//     number: number;
-//   };
-// }

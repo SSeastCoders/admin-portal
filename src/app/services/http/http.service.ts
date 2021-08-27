@@ -6,6 +6,7 @@ import {
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { UserDetailsDto } from 'src/app/dto/user-details-dto';
 import { User } from 'src/app/models/user';
 import { environment } from 'src/environments/environment';
 import {
@@ -48,6 +49,7 @@ export class HttpService {
         response = this.http.get<typeof type[]>(
           `${environment.userUrl}${api}${data}`
         ); //.pipe(catchError(async (err) => this.handleError(err)));
+        console.log('from requestCall');
         console.log(response);
         break;
       case ApiMethod.POST:
@@ -61,7 +63,7 @@ export class HttpService {
         console.log('in PUT case');
         console.log(data);
         response = this.http
-          .put<User>(`${environment.userUrl}${api}/${id}`, data)
+          .put<typeof type>(`${environment.userUrl}${api}/${id}`, data)
           .pipe(catchError(async (err) => this.handleError(err)));
         break;
       case ApiMethod.DELETE:

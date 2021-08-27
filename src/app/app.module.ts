@@ -18,7 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppButtonComponent } from './layout/app-button/app-button.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ChangeDetectorRef } from '@angular/core';
-import { EditUserComponent } from './edit-user/edit-user.component';
+
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { RegisterComponent } from './register/register.component';
@@ -26,6 +26,8 @@ import { PhoneMaskDirective } from './services/validation/phone-mask.directive';
 import { StorageService } from './services/storage/storage.service';
 import { AuthService } from './services/auth/auth.service';
 import { CreateAccountComponent } from './account/create-account/create-account.component';
+import { UserDetailsComponent } from './components/user-details/user-details.component';
+import { UserDetailsModalComponent } from './components/user-details-modal/user-details-modal.component';
 
 @NgModule({
   declarations: [
@@ -35,9 +37,11 @@ import { CreateAccountComponent } from './account/create-account/create-account.
     HeaderComponent,
     PhoneMaskDirective,
     AppButtonComponent,
-    EditUserComponent,
+
     CreateAccountComponent,
     RegisterComponent,
+    UserDetailsComponent,
+    UserDetailsModalComponent,
   ],
   imports: [
     BrowserModule,

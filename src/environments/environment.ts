@@ -7,7 +7,7 @@ export const environment = {
   apiUrl: 'https://localhost:8443',
 
   baseUrl: 'https://localhost:8443',
-  userUrl: 'https://localhost:8443',
+  userUrl: 'http://localhost:8222',
   accountUrl: 'http://localhost:8223/api/v1',
 
   production: false,

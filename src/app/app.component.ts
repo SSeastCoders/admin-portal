@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { UserService } from './services/user.service';
+import { UserService } from './services/user/user.service';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +15,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    localStorage.clear();
+    //localStorage.clear();
   }
 }
