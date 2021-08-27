@@ -14,11 +14,11 @@ describe('LoggerService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should log given message', () => {
+  // it('should log given message', () => {
 
-  });
+  // });
 
-  it('should log given error', () => {
+  // it('should log given error', () => {
 
-  });
+  // });
 });

@@ -1,0 +1,70 @@
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th
+        *ngFor="let field of fields"
+        scope="col"
+        [class]="field.class"
+        (click)="setSort(field.name)"
+      >
+        {{ field.displayName }}
+
+        <span *ngIf="sort === field.name">
+          {{ asc ? " ↑" : " ↓" }}
+        </span>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users" routerLink="/users/{{ user.id }}">
+      <td>{{ user.id }}</td>
+      <td>{{ user.role["title"] }}</td>
+      <td>{{ user.firstName }}</td>
+      <td>{{ user.lastName }}</td>
+      <td>{{ user.username }}</td>
+      <td>{{ user.email }}</td>
+      <td>
+        <div *ngIf="user.activeStatus; else elseBlock">active</div>
+        <ng-template #elseBlock>inactive</ng-template>
+      </td>
+      <!-- <button
+        class="btn btn-primary tooltips"
+        data-placement="top"
+        data-original-title="Edit"
+        routerLink="/users/{{ user.id }}"
+      >
+        <i class="fas fa-pencil-alt"></i>
+      </button> -->
+    </tr>
+  </tbody>
+</table>
+<div
+  *ngIf="users?.length == 0"
+  class="alert alert-warning col-md-12"
+  role="alert"
+>
+  No users found.
+</div>
+
+<div class="footer-pagination">
+  <div>
+    <span class="mr-2">Page Size</span>
+    <select (change)="updatePageSize($any($event).target.value)">
+      <option>5</option>
+      <option selected="true">10</option>
+      <option>25</option>
+      <option>50</option>
+    </select>
+  </div>
+  <div>
+    <ngb-pagination
+      [(page)]="pageNumber"
+      [pageSize]="pageSize"
+      [collectionSize]="totalElements"
+      [maxSize]="3"
+      [boundaryLinks]="true"
+      (pageChange)="listUsers()"
+    >
+    </ngb-pagination>
+  </div>
+</div>
