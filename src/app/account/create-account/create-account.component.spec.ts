@@ -6,7 +6,6 @@ import {
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AccountService } from 'src/app/services/account/account.service';
 import { HttpService } from 'src/app/services/http/http.service';
@@ -57,9 +56,13 @@ describe('CreateAccountComponent', () => {
     component.accountForm = fb.group({
       accountType: ['', []],
       users: fb.array([]),
+      nickName: ['', []],
     });
 
-    component.accountForm.patchValue({ accountType: '1: SAVING' });
+    component.accountForm.patchValue({
+      accountType: '1: SAVING',
+      nickName: 'NICKNAME',
+    });
     component.accountForm.patchValue([
       { users: [{ user: 34 }, { user: 34 }, { user: 2 }] },
     ]);

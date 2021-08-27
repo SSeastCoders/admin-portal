@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginUser } from '../models/loginUser';
 import { AuthService } from '../services/auth/auth.service';
+import { UserEndPoints } from '../services/const';
 
 @Component({
   selector: 'app-login-component',
@@ -36,6 +37,7 @@ export class LoginComponent implements OnInit {
   }
 
   submit() {
+    this.authService.redirectUrl = UserEndPoints.MAIN;
     if (this.loginForm.valid) {
       this.authService.login(this.credentials);
     }

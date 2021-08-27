@@ -17,17 +17,18 @@ import {
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppButtonComponent } from './layout/app-button/app-button.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { ChangeDetectorRef } from '@angular/core';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
-import { RegisterComponent } from './register/register.component';
 import { PhoneMaskDirective } from './services/validation/phone-mask.directive';
-import { StorageService } from './services/storage/storage.service';
-import { AuthService } from './services/auth/auth.service';
 import { CreateAccountComponent } from './account/create-account/create-account.component';
 import { UserDetailsComponent } from './components/user-details/user-details.component';
 import { UserDetailsModalComponent } from './components/user-details-modal/user-details-modal.component';
+import { RegisterComponent } from './register/register.component';
+import { AccountModule } from './account/account.module';
+import { AuthService } from './services/auth/auth.service';
+import { StorageService } from './services/storage/storage.service';
+import { AccountsComponent } from './accounts/accounts.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,7 @@ import { UserDetailsModalComponent } from './components/user-details-modal/user-
     HeaderComponent,
     PhoneMaskDirective,
     AppButtonComponent,
-
+    AccountsComponent,
     CreateAccountComponent,
     RegisterComponent,
     UserDetailsComponent,
@@ -56,10 +57,10 @@ import { UserDetailsModalComponent } from './components/user-details-modal/user-
     NgbModule,
     NoopAnimationsModule,
     CommonModule,
+    AccountModule,
   ],
   providers: [
     UserService,
-    //TokenService,
     AuthService,
     StorageService,
 
