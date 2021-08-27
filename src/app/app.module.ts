@@ -28,6 +28,7 @@ import { RegisterComponent } from './register/register.component';
 import { AccountModule } from './account/account.module';
 import { AuthService } from './services/auth/auth.service';
 import { StorageService } from './services/storage/storage.service';
+import { AccountsComponent } from './accounts/accounts.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,7 @@ import { StorageService } from './services/storage/storage.service';
     HeaderComponent,
     PhoneMaskDirective,
     AppButtonComponent,
-
+    AccountsComponent,
     CreateAccountComponent,
     RegisterComponent,
     UserDetailsComponent,
@@ -60,7 +61,6 @@ import { StorageService } from './services/storage/storage.service';
   ],
   providers: [
     UserService,
-    //TokenService,
     AuthService,
     StorageService,
 

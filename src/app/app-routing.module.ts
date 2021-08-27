@@ -11,15 +11,19 @@ import { AuthGuard } from './services/guard/guard.guard';
 import { UserService } from './services/user/user.service';
 import { RegisterComponent } from './register/register.component';
 import { UserDetailsComponent } from './components/user-details/user-details.component';
+import { AccountsComponent } from './accounts/accounts.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
+
+  { path: 'accounts', component: AccountsComponent },
   {
     path: 'accounts/:id',
     data: { preload: true },
     loadChildren: () =>
       import('./account/account.module').then((m) => m.AccountModule),
   },
+
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   //{ path: 'users/:id/edit', component: EditUserComponent },
