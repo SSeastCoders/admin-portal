@@ -19,7 +19,6 @@ export class UserListComponent implements OnInit {
   sort: string;
 
   fields = [
-    { name: 'id', displayName: '#', class: 'col-1' },
     { name: 'role', displayName: 'Role', class: 'col-1' },
     { name: 'firstName', displayName: 'First Name', class: 'col-1' },
     { name: 'lastName', displayName: 'Last Name', class: 'col-2' },
