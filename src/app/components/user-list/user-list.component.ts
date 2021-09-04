@@ -17,6 +17,9 @@ export class UserListComponent implements OnInit {
   totalElements!: number;
   asc: boolean = false;
   sort: string;
+  roleFilter: string = undefined;
+  statusFilter: string = undefined;
+  predicateCount: number = 0;
 
   fields = [
     { name: 'role', displayName: 'Role', class: 'col-1' },
@@ -26,6 +29,11 @@ export class UserListComponent implements OnInit {
     { name: 'email', displayName: 'Email', class: 'col-3' },
 
     { name: 'activeStatus', displayName: 'Status', class: 'col-3' },
+  ];
+
+  roles = [
+    { name: 'Admin', displayName: 'Administrator' },
+    { name: 'Customer', displayName: 'Customer' },
   ];
 
   constructor(private userService: UserService) {}
@@ -40,7 +48,14 @@ export class UserListComponent implements OnInit {
 
   handleUsersList() {
     this.userService
-      .getUsersPage(this.pageNumber - 1, this.pageSize, this.sort, this.asc)
+      .getUsersPage(
+        this.pageNumber - 1,
+        this.pageSize,
+        this.sort,
+        this.asc,
+        this.roleFilter,
+        this.statusFilter
+      )
       .subscribe(this.processResult());
   }
 
@@ -67,5 +82,42 @@ export class UserListComponent implements OnInit {
       this.asc = true;
     }
     this.listUsers();
+  }
+
+  setFilters(roleFilter?: string, statusFilter?: string) {
+    this.predicateCount++;
+    console.log('setting filters');
+    this.roleFilter = roleFilter;
+    this.statusFilter = statusFilter;
+
+    console.log('roleFilter' + this.roleFilter);
+    console.log('statusFilter' + this.statusFilter);
+    this.listUsers();
+  }
+
+  filterByRole($event: Event) {
+    console.log('in filterByRole ');
+    console.log($event);
+
+    const filteredRole = $event.target['value'];
+
+    console.log(filteredRole);
+
+    this.setFilters(filteredRole, this.statusFilter);
+    // searchProducts(keyword: string): Observable<Product[]> {
+    //   const searchUrl = `${this.baseUrl}/search/findByNameContaining?name=${keyword}`;
+    //   return this.getProducts(searchUrl);
+    // }
+  }
+
+  filterByStatus($event: Event) {
+    console.log('in filterByStatus ');
+    console.log($event);
+
+    let filteredStatus = $event.target['value'];
+
+    console.log(filteredStatus);
+
+    this.setFilters(this.roleFilter, filteredStatus);
   }
 }

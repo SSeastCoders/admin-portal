@@ -112,15 +112,53 @@ export class UserService {
     page: number,
     size: number,
     sort?: string,
-    asc?: boolean
+    asc?: boolean,
+    roleFilter?: string,
+    statusFilter?: string
   ): Observable<any> {
-    let req;
-    if (sort !== undefined) {
-      req = `?page=${page}&size=${size}&sort=${sort}&asc=${!!asc}`;
-    } else {
-      req = `?page=${page}&size=${size}`;
+    let req = ``;
+    let roleFilterReq: '';
+    let statusFilterReq: '';
+    let predicateCount = 0;
+
+    let delimeter = '?';
+    //let pageSettings = `?page=${page}&size=${size}`;
+    //let sortReq = `&sort=${sort}&asc=${!!asc}`;
+    //http://localhost:8222/users/inactive?role=Admin&page=0&size=25&sort=firstName&asc=true
+
+    if (statusFilter == 'active' || statusFilter == 'inactive') {
+      console.log(predicateCount);
+      //delimeter = predicateCount >= 1 ? '&' : '?';
+      // predicateCount++;
+      req += '/' + `${encodeURIComponent(statusFilter)}`;
     }
+    console.log(req + ' line 134');
+
+    if (roleFilter) {
+      console.log(predicateCount);
+      delimeter = predicateCount >= 1 ? '&' : '?';
+      predicateCount++;
+      req += delimeter + `role=${encodeURIComponent(roleFilter)}`;
+    }
+
+    delimeter = predicateCount >= 1 ? '&' : '?';
+
+    req +=
+      delimeter +
+      `page=${encodeURIComponent(page)}&size=${encodeURIComponent(size)}`;
+
+    console.log(req + ' line 146');
+    if (sort !== undefined) {
+      req += `&sort=${encodeURIComponent(sort)}&asc=${encodeURIComponent(
+        !!asc
+      )}`;
+    }
+    console.log(req + ' line 140');
+    // else {
+    //req += `?page=${page}&size=${size}&sort=${sort}&asc=${!!asc}`;
+    //  http://localhost:8222/users/inactive?role=Admin&page=0&size=25&sort=firstName&asc=true
     console.log(req);
+
     return this.http.requestCall(
       UserEndPoints.MAIN,
       ApiMethod.GET,
@@ -128,4 +166,32 @@ export class UserService {
       req
     );
   }
+
+  // public getFilteredUsersPage(
+  //   page: number,
+  //   size: number,
+  //   sort?: string,
+  //   asc?: boolean,
+  //   roleFilter?: string,
+  //   statusFilter?: boolean
+  // ) {
+
+  //   let req = ``;
+  //   //http://localhost:8222/users/inactive?role=Admin&page=0&size=25&sort=firstName&asc=true
+  //   if (statusFilter == true) {
+  //     console.log('in statusFilter if statement');
+  //     roleReq = `/active?page=${page}&size=${size}`;
+  //   } else if (statusFilter == false) {
+  //     statusReq = `/inactive?page=${page}&size=${size}`;
+  //   } else {
+  //     console.log('something went wrong');
+  //   }
+  //   console.log(req);
+  //   return this.http.requestCall(
+  //     UserEndPoints.MAIN,
+  //     ApiMethod.GET,
+  //     IUserPagination,
+  //     req
+  //   );
+  // }
 }
