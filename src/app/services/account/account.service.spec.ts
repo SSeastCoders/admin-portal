@@ -1,5 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Account } from 'src/app/models/account';
@@ -23,61 +26,60 @@ describe('AccountService', () => {
   let httpClientSpy: { get: jasmine.Spy };
 
   beforeEach(() => {
-    TestBed.configureTestingModule({ providers: [AccountService], imports : [HttpClientTestingModule, RouterTestingModule] });
+    TestBed.configureTestingModule({
+      providers: [AccountService],
+      imports: [HttpClientTestingModule, RouterTestingModule],
+    });
     service = TestBed.inject(AccountService);
-    httpMock = TestBed.get(HttpTestingController);
+    httpMock = TestBed.inject(HttpTestingController);
     client = TestBed.inject(HttpClient);
-    httpClientSpy = jasmine.createSpyObj('HttpClient', ['get','post','delete','put']);
 
     account = {
       id: 2,
       accountType: AccountType.CHECKING,
-      users: [{
-        id: 1,
-        role : new Role(1, "Admin"),
-        firstName: "FIRST",
-        lastName: "LAST",
-        dob: "9874-33-33",
-        email: "email@email.com",
-        phone: "1800beepme",
-        dateJoined: "9494-44-44",
-        activeStatus: true,
-        username:"username",
-        address: new Address()}, {
-          id: 2,
-          role : new Role(2, "Customer"),
-          firstName: "FIRST",
-          lastName: "LAST",
-          dob: "9874-33-33",
-          email: "email2@email.com",
-          phone: "1820beepme",
-          dateJoined: "9494-44-44",
+      users: [
+        {
+          id: 1,
+          role: new Role(1, 'Admin'),
+          firstName: 'FIRST',
+          lastName: 'LAST',
+          dob: '9874-33-33',
+          email: 'email@email.com',
+          phone: '1800beepme',
+          dateJoined: '9494-44-44',
           activeStatus: true,
-          username:"username2",
-          address: new Address()
-        }],
+          username: 'username',
+          address: new Address(),
+        },
+        {
+          id: 2,
+          role: new Role(2, 'Customer'),
+          firstName: 'FIRST',
+          lastName: 'LAST',
+          dob: '9874-33-33',
+          email: 'email2@email.com',
+          phone: '1820beepme',
+          dateJoined: '9494-44-44',
+          activeStatus: true,
+          username: 'username2',
+          address: new Address(),
+        },
+      ],
       interestRate: AccountInterest.CHECKING,
       balance: 100,
       activeStatus: true,
-      openDate: "somedate",
-      nickName: "nickname"
+      openDate: 'somedate',
+      nickName: 'nickname',
     };
 
     accountNew = {
       accountType: AccountType.CHECKING,
-      usersIds: [1,2],
+      usersIds: [1, 2],
       interestRate: AccountInterest.CHECKING,
       balance: 100,
       activeStatus: true,
       openDate: 232453245345,
-      nickName: "nickname"
-    };
-
-    accountUpdate = {
-      id: 2,
-      accountType: AccountType.CHECKING,
-      usersIds: [1],
-      nickName: "nicknameNew"
+      nickName: 'nickname',
     };
   });
 
@@ -85,14 +87,14 @@ describe('AccountService', () => {
     expect(service).toBeTruthy();
   });
 
-  it("should return data, all", () => {
+  it('should return data, all', () => {
     let result: Account[];
-    service.findAll().subscribe(t => {
+    service.findAll().subscribe((t) => {
       result = t;
     });
     const req = httpMock.expectOne({
-      method: "GET",
-      url: environment.accountUrl + AccountEndPoints.MAIN
+      method: 'GET',
+      url: environment.accountUrl + AccountEndPoints.MAIN,
     });
 
     req.flush([account]);
@@ -100,14 +102,14 @@ describe('AccountService', () => {
     expect(result[0]).toEqual(account);
   });
 
-  it("should return data, specific", () => {
+  it('should return data, specific', () => {
     let result: Account;
-    service.find(1).subscribe(t => {
+    service.find(1).subscribe((t) => {
       result = t;
     });
     const req = httpMock.expectOne({
-      method: "GET",
-      url: environment.accountUrl + AccountEndPoints.MAIN + "/1"
+      method: 'GET',
+      url: environment.accountUrl + AccountEndPoints.MAIN + '/1',
     });
 
     req.flush([account]);
@@ -116,12 +118,12 @@ describe('AccountService', () => {
     //expect(result).toEqual(account);
   });
 
-  it("should create account", () => {
+  it('should create account', () => {
     let result: Account;
     service.createAccount(accountNew);
     const req = httpMock.expectOne({
-      method: "POST",
-      url: environment.accountUrl + AccountEndPoints.MAIN
+      method: 'POST',
+      url: environment.accountUrl + AccountEndPoints.MAIN,
     });
 
     req.flush([account]);
@@ -129,26 +131,4 @@ describe('AccountService', () => {
     // these look the same to my eyes, but they say they are not the same...
     //expect(result).toEqual(account);
   });
-
-  it('should delete account'), () => {
-
-    httpClientSpy.get.and.returnValue(("deleted"));
-    service.delete(1);
-    const req = httpMock.expectOne({
-      method: "DELETE",
-      url: environment.accountUrl + AccountEndPoints.MAIN + "/1",
-    });
-
-  }
-
-  it('should update account'), () => {
-    service.updateAccount(accountUpdate);
-    const req = httpMock.expectOne({
-      method: "PUT",
-      url: environment.accountUrl + AccountEndPoints.MAIN + "/2",
-
-    });
-  }
-
 });
-

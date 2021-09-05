@@ -7,16 +7,18 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
+  constructor(
+    public authService: AuthService,
+    private router: Router,
+    public userService: UserService
+  ) {}
 
-  constructor(public authService: AuthService, private router: Router, public userService: UserService) { }
+  ngOnInit() {}
 
-  ngOnInit() {
-  }
-
-  public logout():void {
+  public logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
