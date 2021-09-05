@@ -29,6 +29,7 @@ import { AccountModule } from './account/account.module';
 import { AuthService } from './services/auth/auth.service';
 import { StorageService } from './services/storage/storage.service';
 import { AccountsComponent } from './accounts/accounts.component';
+import { CardListComponent } from './components/card-list/card-list.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { AccountsComponent } from './accounts/accounts.component';
     RegisterComponent,
     UserDetailsComponent,
     UserDetailsModalComponent,
+    CardListComponent,
   ],
   imports: [
     BrowserModule,

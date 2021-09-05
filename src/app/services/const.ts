@@ -1,4 +1,5 @@
 import { environment } from 'src/environments/environment';
+import { Credit } from '../models/credit';
 import { User } from '../models/user';
 
 export enum ApiMethod {
@@ -16,6 +17,10 @@ export enum AuthEndPoints {
 
 export enum UserEndPoints {
   MAIN = '/users',
+}
+
+export enum CardEndPoints {
+  CREDIT = '/credit-cards',
 }
 
 export class SpecificUser {
@@ -36,8 +41,26 @@ export class SpecificAccount {
   }
 }
 
+export class SpecificCard {
+  fullUrl: string;
+  constructor(private cardNum: string) {
+    this.fullUrl = environment.cardUrl.concat('/').concat(cardNum);
+  }
+}
+
 export class IUserPagination {
   content: User[];
+
+  page: {
+    size: number;
+    totalElements: number;
+    totalPages: number;
+    number: number;
+  };
+}
+
+export class ICreditPagination {
+  content: Credit[];
 
   page: {
     size: number;
