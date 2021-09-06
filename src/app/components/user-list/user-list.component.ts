@@ -104,10 +104,6 @@ export class UserListComponent implements OnInit {
     console.log(filteredRole);
 
     this.setFilters(filteredRole, this.statusFilter);
-    // searchProducts(keyword: string): Observable<Product[]> {
-    //   const searchUrl = `${this.baseUrl}/search/findByNameContaining?name=${keyword}`;
-    //   return this.getProducts(searchUrl);
-    // }
   }
 
   filterByStatus($event: Event) {
