@@ -6,17 +6,16 @@ import { CreateAccount } from 'src/app/models/createAccount';
 import { UpdateAccount } from 'src/app/models/updateAccount';
 import { environment } from 'src/environments/environment';
 import { Account } from '../../models/account';
-import { AccountEndPoints, ApiMethod, UserEndPoints } from '../const';
+import { AccountEndPoints, ApiMethod, IAccountPagination } from '../const';
 import { HttpService } from '../http/http.service';
 
 const API_URL = environment.accountUrl;
 const api = API_URL + AccountEndPoints.MAIN;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AccountService {
-
   public currentAccount: Account;
   creationError: boolean;
   creationErrorMessage: string;
@@ -25,7 +24,11 @@ export class AccountService {
   deletionErrorMessage: string;
   updateErrorMessage: string;
 
-  constructor(private https: HttpClient, private router: Router, private http: HttpService) {
+  constructor(
+    private https: HttpClient,
+    private router: Router,
+    private http: HttpService
+  ) {
     this.creationError = false;
     this.updateError = false;
     this.deletionError = false;
@@ -36,41 +39,43 @@ export class AccountService {
   }
 
   public find(accountId: number): Observable<Account> {
-    return this.https.get<Account>(api+"/"+accountId);
+    return this.https.get<Account>(api + '/' + accountId);
   }
 
   public delete(accountId: number) {
-    return this.https.delete<any>(api+"/"+accountId)
-      .subscribe((res) => {
+    return this.https.delete<any>(api + '/' + accountId).subscribe(
+      (res) => {
         this.deletionError = false;
-        console.log("Account deleted");
-        alert("Account deleted");
+        console.log('Account deleted');
+        alert('Account deleted');
         this.router.navigate([AccountEndPoints.MAIN]);
-      },(err : HttpErrorResponse) =>{
+      },
+      (err: HttpErrorResponse) => {
         console.log(err);
-        console.log("Account could not be deleted");
+        console.log('Account could not be deleted');
         this.deletionError = true;
         this.deletionErrorMessage = err.error.message;
       }
-      );
-    }
+    );
+  }
 
   public findCurrentAccount(accountId: number): void {
-    this.https.get<Account>(api+"/"+accountId).subscribe(data => {
+    this.https.get<Account>(api + '/' + accountId).subscribe((data) => {
       this.currentAccount = data;
-    });;
+    });
   }
 
   public createAccount(account: CreateAccount) {
-    return this.https.post(api, account)
-      .subscribe((res) =>{
+    return this.https.post(api, account).subscribe(
+      (res) => {
         this.creationError = false;
-        console.log("Account created");
-        alert("Account created");
+        console.log('Account created');
+        alert('Account created');
         this.router.navigate([AccountEndPoints.MAIN]);
-      },(err) =>{
+      },
+      (err) => {
         console.log(err);
-        console.log("Account could not be created");
+        console.log('Account could not be created');
         this.creationError = true;
         this.creationErrorMessage = err.error.message;
       }
@@ -79,21 +84,22 @@ export class AccountService {
 
   public updateAccount(account: UpdateAccount) {
     console.log(JSON.stringify(account));
-    return this.https.put((api+'/'+account.id), account)
-      .subscribe((res) =>{
+    return this.https.put(api + '/' + account.id, account).subscribe(
+      (res) => {
         console.log(res);
         //expect(res?.status == 206);
         this.creationError = false;
-        console.log("Account updated");
-        alert("Account updated");
+        console.log('Account updated');
+        alert('Account updated');
         //this.router.navigate([UserEndPoints.MAIN]);
-      },(err) =>{
+      },
+      (err) => {
         console.log(err);
-        console.log("Account could not be updated");
-        if(err?.status == 404) {
+        console.log('Account could not be updated');
+        if (err?.status == 404) {
           this.creationError = true;
           this.creationErrorMessage = err.error.message;
-        }else if (err?.status == 412) {
+        } else if (err?.status == 412) {
           this.updateError = true;
           this.updateErrorMessage = err.error.message;
         }
@@ -101,10 +107,21 @@ export class AccountService {
     );
   }
 
-  clear(){
+  public getAccountsPage(page: number, size: number): Observable<any> {
+    let req = `?page=${page}&size=${size}`;
+
+    console.log(req);
+    return this.http.requestCallAccount(
+      AccountEndPoints.MAIN,
+      ApiMethod.GET,
+      IAccountPagination,
+      req
+    );
+  }
+
+  clear() {
     this.creationError = false;
     this.updateError = false;
     this.deletionError = false;
   }
-
 }
