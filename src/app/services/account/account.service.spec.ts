@@ -13,8 +13,9 @@ import { Role } from 'src/app/models/role';
 import { UpdateAccount } from 'src/app/models/updateAccount';
 import { environment } from 'src/environments/environment';
 import { AccountEndPoints } from '../const';
-
+import { AccountsComponent } from 'src/app/accounts/accounts.component';
 import { AccountService } from './account.service';
+import { AccountComponent } from 'src/app/account/account.component';
 
 describe('AccountService', () => {
   let service: AccountService;
@@ -133,7 +134,7 @@ describe('AccountService', () => {
   });
 
   /// WRITING TESTS
-  // it('should send a request to service', () => {
+  // it('should send a request to http service', () => {
   //   service.
   // })
 
@@ -148,4 +149,8 @@ describe('AccountService', () => {
   //     req
   //   );
   // }
+
+  it('should get a page of accounts', () => {
+    expect(service.getAccountsPage).toBeTruthy();
+  });
 });

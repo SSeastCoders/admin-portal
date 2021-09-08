@@ -35,7 +35,7 @@ describe('UserDetailsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should open modal', () => {
-    expect(component.onOpenModal(null)).toBeTruthy();
-  });
+  // it('should open modal', () => {
+  //   expect(component.onOpenModal(null)).toBeTruthy();
+  // });
 });

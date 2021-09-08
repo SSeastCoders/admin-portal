@@ -20,7 +20,8 @@ describe(`AuthHttpInterceptor`, () => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, HttpClientTestingModule],
       providers: [
-        StorageService, {provide: Router, useClass: RouterTestingModule},
+        StorageService,
+        { provide: Router, useClass: RouterTestingModule },
         {
           provide: HTTP_INTERCEPTORS,
           useClass: JwtTokenInterceptor,
@@ -29,26 +30,25 @@ describe(`AuthHttpInterceptor`, () => {
       ],
     });
 
-
-    service = TestBed.get(StorageService);
-    httpMock = TestBed.get(HttpTestingController);
-    client = TestBed.inject(HttpClient)
+    service = TestBed.inject(StorageService);
+    httpMock = TestBed.inject(HttpTestingController);
+    client = TestBed.inject(HttpClient);
   });
 
   it('should add an Authorization header', () => {
-
-    service.saveToken("somevalue");
+    service.saveToken('somevalue');
     //Token.BEARER + `${this.storage.getToken()}
     //get<any>(`${environment.userUrl}`);
-    client.get(`${environment.userUrl}`).subscribe(response => {
+    client.get(`${environment.userUrl}`).subscribe((response) => {
       return;
-    })
+    });
 
     const httpRequest = httpMock.expectOne(`${environment.userUrl}`);
 
-    expect(httpRequest.request.headers.get('Authorization')).toBe(Token.BEARER + `${service.getToken()}`,);
+    expect(httpRequest.request.headers.get('Authorization')).toBe(
+      Token.BEARER + `${service.getToken()}`
+    );
 
     expect(httpRequest.request.headers.has('Authorization')).toEqual(true);
   });
-
 });
