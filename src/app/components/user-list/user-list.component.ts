@@ -86,33 +86,21 @@ export class UserListComponent implements OnInit {
 
   setFilters(roleFilter?: string, statusFilter?: string) {
     this.predicateCount++;
-    console.log('setting filters');
+
     this.roleFilter = roleFilter;
     this.statusFilter = statusFilter;
 
-    console.log('roleFilter' + this.roleFilter);
-    console.log('statusFilter' + this.statusFilter);
     this.listUsers();
   }
 
   filterByRole($event: Event) {
-    console.log('in filterByRole ');
-    console.log($event);
-
     const filteredRole = $event.target['value'];
-
-    console.log(filteredRole);
 
     this.setFilters(filteredRole, this.statusFilter);
   }
 
   filterByStatus($event: Event) {
-    console.log('in filterByStatus ');
-    console.log($event);
-
     let filteredStatus = $event.target['value'];
-
-    console.log(filteredStatus);
 
     this.setFilters(this.roleFilter, filteredStatus);
   }

@@ -44,10 +44,24 @@ describe('UserListComponent', () => {
     expect(component.pageNumber).toEqual(1);
   });
 
-  it('it sets sort direction', () => {
+  it('sets sort direction', () => {
     component.setSort('username');
     expect(component.asc).toBe(true);
     component.setSort('username');
     expect(component.asc).toBe(false);
+  });
+
+  it('should set a filter for role and status', () => {
+    component.setFilters('Admin', 'active');
+
+    expect(component.roleFilter).toBe('Admin');
+    expect(component.statusFilter).toEqual('active');
+  });
+
+  it('should set a filter for role', () => {
+    let roleFilter = 'Customer';
+
+    component.setFilters(roleFilter);
+    expect(component.roleFilter).toEqual('Customer');
   });
 });
