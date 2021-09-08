@@ -6,11 +6,8 @@ import {
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-<<<<<<< HEAD
-=======
 import { UserDetailsDto } from 'src/app/dto/user-details-dto';
 import { Account } from 'src/app/models/account';
->>>>>>> d895414 (CORS error; Also not receiving page object from back end correctly)
 import { User } from 'src/app/models/user';
 import { environment } from 'src/environments/environment';
 import {

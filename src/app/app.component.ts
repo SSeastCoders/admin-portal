@@ -15,10 +15,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-<<<<<<< HEAD
    // localStorage.clear();
-=======
-    //localStorage.clear();
->>>>>>> d895414 (CORS error; Also not receiving page object from back end correctly)
   }
 }
