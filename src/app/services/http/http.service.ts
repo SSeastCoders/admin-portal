@@ -7,6 +7,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { UserDetailsDto } from 'src/app/dto/user-details-dto';
+import { Account } from 'src/app/models/account';
 import { User } from 'src/app/models/user';
 import { environment } from 'src/environments/environment';
 import {
@@ -17,7 +18,6 @@ import {
   SpecificUser,
   UserEndPoints,
 } from '../const';
-import { IUserPagination } from '../const';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -86,9 +86,22 @@ export class HttpService {
     let response = new Observable<typeof type>();
     switch (method) {
       case ApiMethod.GET:
-        response = this.http
-          .get<typeof type[]>(`${environment.accountUrl}${api}`, data)
-          .pipe(catchError(async (err) => this.handleError(err)));
+        // console.log('from requestCall');
+        // console.log(data);
+        // response = this.http.get<typeof type[]>(
+        //   `${environment.userUrl}${api}${data}`
+        // ); //.pipe(catchError(async (err) => this.handleError(err)));
+        // console.log('from requestCall');
+        // console.log(response);
+        console.log('from requestCall');
+        console.log(data);
+
+        response = this.http.get<typeof type[]>(
+          `${environment.accountUrl}${api}${data}`
+        );
+
+        console.log('from requestCall');
+        console.log(response);
         break;
       case ApiMethod.POST:
         response = this.http
@@ -126,13 +139,23 @@ export class HttpService {
   }
 }
 
-export interface GetResponseUsers {
-  content: User[];
+// interface GetResponseUsers {
+//   content: User[];
 
-  page: {
-    size: number;
-    totalElements: number;
-    totalPages: number;
-    number: number;
-  };
-}
+//   page: {
+//     size: number;
+//     totalElements: number;
+//     totalPages: number;
+//     number: number;
+//   };
+
+// interface GetResponseAccounts {
+//   content: Account[];
+
+//   page: {
+//     size: number;
+//     totalElements: number;
+//     totalPages: number;
+//     number: number;
+//   };
+//}

@@ -10,7 +10,6 @@ import { AccountService } from '../services/account/account.service';
 export class AccountsComponent implements OnInit {
   accounts!: Account[];
 
-  //displayedColumns: string[] = ['id', 'nickName', 'balance'];
   totalAccounts!: number;
   pageSize: number = 10;
   pageNumber: number = 1;
@@ -40,6 +39,7 @@ export class AccountsComponent implements OnInit {
 
   processResult() {
     return (data) => {
+      console.dir(data);
       this.accounts = data.content;
       this.pageNumber = data.pageable.pageNumber + 1;
       this.pageSize = data.pageable.pageSize;
