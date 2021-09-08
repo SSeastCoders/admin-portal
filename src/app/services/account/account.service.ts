@@ -108,7 +108,7 @@ export class AccountService {
   }
 
   public getAccountsPage(page: number, size: number): Observable<any> {
-    let req = `?page=${page}&size=${size}`;
+    let req = `/all?page=${page}&size=${size}`;
 
     console.log(req);
     return this.http.requestCallAccount(

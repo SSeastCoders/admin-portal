@@ -18,9 +18,9 @@ export class AccountsComponent implements OnInit {
   constructor(private accountService: AccountService) {}
 
   fields = [
-    { name: 'id', displayName: '#', class: 'col-1' },
-    { name: 'nickName', displayName: 'Account Nickname', class: 'col-1' },
-    { name: 'balance', displayName: 'Balance', class: 'col-1' },
+    { name: 'accountType', displayName: 'Type', class: 'col-3' },
+    { name: 'nickName', displayName: 'Account Nickname', class: 'col-3' },
+    { name: 'balance', displayName: 'Balance', class: 'col-4' },
   ];
 
   ngOnInit() {
