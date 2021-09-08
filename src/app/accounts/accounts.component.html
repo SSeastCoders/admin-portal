@@ -14,11 +14,12 @@
       <th *ngFor="let field of fields" scope="col" [class]="field.class">
         {{ field.displayName }}
       </th>
+      <th>Options</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let account of accounts">
-      <td>{{ account.id }}</td>
+      <td>{{ account.accountType }}</td>
       <td>{{ account.nickName }}</td>
       <td>{{ account.balance }}</td>
       <td>
