@@ -91,21 +91,16 @@ export class UserService {
     statusFilter?: string
   ): Observable<any> {
     let req = ``;
-    let roleFilterReq: '';
-    let statusFilterReq: '';
+
     let predicateCount = 0;
 
     let delimeter = '?';
 
     if (statusFilter == 'active' || statusFilter == 'inactive') {
-      console.log(predicateCount);
-
       req += '/' + `${encodeURIComponent(statusFilter)}`;
     }
-    console.log(req + ' line 134');
 
-    if (roleFilter == 'Admin' || statusFilter == 'Customer') {
-      console.log(predicateCount);
+    if (roleFilter == 'Admin' || roleFilter == 'Customer') {
       delimeter = predicateCount >= 1 ? '&' : '?';
       predicateCount++;
       req += delimeter + `role=${encodeURIComponent(roleFilter)}`;
@@ -117,15 +112,11 @@ export class UserService {
       delimeter +
       `page=${encodeURIComponent(page)}&size=${encodeURIComponent(size)}`;
 
-    console.log(req + ' line 146');
     if (sort !== undefined) {
       req += `&sort=${encodeURIComponent(sort)}&asc=${encodeURIComponent(
         !!asc
       )}`;
     }
-    console.log(req + ' line 140');
-
-    console.log(req);
 
     return this.http.requestCall(
       UserEndPoints.MAIN,
