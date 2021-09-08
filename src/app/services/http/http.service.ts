@@ -6,6 +6,11 @@ import {
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+<<<<<<< HEAD
+=======
+import { UserDetailsDto } from 'src/app/dto/user-details-dto';
+import { Account } from 'src/app/models/account';
+>>>>>>> d895414 (CORS error; Also not receiving page object from back end correctly)
 import { User } from 'src/app/models/user';
 import { environment } from 'src/environments/environment';
 import {
@@ -86,11 +91,30 @@ export class HttpService {
     let response = new Observable<typeof type>();
     switch (method) {
       case ApiMethod.GET:
+<<<<<<< HEAD
         console.log('from requestCall');
         console.log(data);
         response = this.http
           .get<typeof type[]>(`${environment.accountUrl}${api}`, data)
           .pipe(catchError(async (err) => this.handleError(err)));
+=======
+        // console.log('from requestCall');
+        // console.log(data);
+        // response = this.http.get<typeof type[]>(
+        //   `${environment.userUrl}${api}${data}`
+        // ); //.pipe(catchError(async (err) => this.handleError(err)));
+        // console.log('from requestCall');
+        // console.log(response);
+        console.log('from requestCall');
+        console.log(data);
+
+        response = this.http.get<typeof type[]>(
+          `${environment.accountUrl}${api}${data}`
+        );
+
+        console.log('from requestCall');
+        console.log(response);
+>>>>>>> d895414 (CORS error; Also not receiving page object from back end correctly)
         break;
       case ApiMethod.POST:
         response = this.http
@@ -167,13 +191,23 @@ export class HttpService {
   }
 }
 
-export interface GetResponseUsers {
-  content: User[];
+// interface GetResponseUsers {
+//   content: User[];
 
-  page: {
-    size: number;
-    totalElements: number;
-    totalPages: number;
-    number: number;
-  };
-}
+//   page: {
+//     size: number;
+//     totalElements: number;
+//     totalPages: number;
+//     number: number;
+//   };
+
+// interface GetResponseAccounts {
+//   content: Account[];
+
+//   page: {
+//     size: number;
+//     totalElements: number;
+//     totalPages: number;
+//     number: number;
+//   };
+//}

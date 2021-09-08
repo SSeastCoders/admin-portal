@@ -131,4 +131,21 @@ describe('AccountService', () => {
     // these look the same to my eyes, but they say they are not the same...
     //expect(result).toEqual(account);
   });
+
+  /// WRITING TESTS
+  // it('should send a request to service', () => {
+  //   service.
+  // })
+
+  // public getAccountsPage(page: number, size: number): Observable<any> {
+  //   let req = `?page=${page}&size=${size}`;
+
+  //   console.log(req);
+  //   return this.http.requestCallAccount(
+  //     AccountEndPoints.MAIN,
+  //     ApiMethod.GET,
+  //     IAccountPagination,
+  //     req
+  //   );
+  // }
 });
