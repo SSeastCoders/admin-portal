@@ -88,7 +88,6 @@ export class UserService {
   }
 
   public getUser(id: number) {
-    //return this.https.get<User>(api + `/${id}`);
     return this.http.requestCall(
       UserEndPoints.MAIN,
       ApiMethod.GET,
@@ -112,15 +111,38 @@ export class UserService {
     page: number,
     size: number,
     sort?: string,
-    asc?: boolean
+    asc?: boolean,
+    roleFilter?: string,
+    statusFilter?: string
   ): Observable<any> {
-    let req;
-    if (sort !== undefined) {
-      req = `?page=${page}&size=${size}&sort=${sort}&asc=${!!asc}`;
-    } else {
-      req = `?page=${page}&size=${size}`;
+    let req = ``;
+
+    let predicateCount = 0;
+
+    let delimeter = '?';
+
+    if (statusFilter == 'active' || statusFilter == 'inactive') {
+      req += '/' + `${encodeURIComponent(statusFilter)}`;
     }
-    console.log(req);
+
+    if (roleFilter == 'Admin' || roleFilter == 'Customer') {
+      delimeter = predicateCount >= 1 ? '&' : '?';
+      predicateCount++;
+      req += delimeter + `role=${encodeURIComponent(roleFilter)}`;
+    }
+
+    delimeter = predicateCount >= 1 ? '&' : '?';
+
+    req +=
+      delimeter +
+      `page=${encodeURIComponent(page)}&size=${encodeURIComponent(size)}`;
+
+    if (sort !== undefined) {
+      req += `&sort=${encodeURIComponent(sort)}&asc=${encodeURIComponent(
+        !!asc
+      )}`;
+    }
+
     return this.http.requestCall(
       UserEndPoints.MAIN,
       ApiMethod.GET,
