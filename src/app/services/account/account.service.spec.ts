@@ -13,8 +13,9 @@ import { Role } from 'src/app/models/role';
 import { UpdateAccount } from 'src/app/models/updateAccount';
 import { environment } from 'src/environments/environment';
 import { AccountEndPoints } from '../const';
-
+import { AccountsComponent } from 'src/app/accounts/accounts.component';
 import { AccountService } from './account.service';
+import { AccountComponent } from 'src/app/account/account.component';
 
 describe('AccountService', () => {
   let service: AccountService;
@@ -130,5 +131,26 @@ describe('AccountService', () => {
 
     // these look the same to my eyes, but they say they are not the same...
     //expect(result).toEqual(account);
+  });
+
+  /// WRITING TESTS
+  // it('should send a request to http service', () => {
+  //   service.
+  // })
+
+  // public getAccountsPage(page: number, size: number): Observable<any> {
+  //   let req = `?page=${page}&size=${size}`;
+
+  //   console.log(req);
+  //   return this.http.requestCallAccount(
+  //     AccountEndPoints.MAIN,
+  //     ApiMethod.GET,
+  //     IAccountPagination,
+  //     req
+  //   );
+  // }
+
+  it('should get a page of accounts', () => {
+    expect(service.getAccountsPage).toBeTruthy();
   });
 });

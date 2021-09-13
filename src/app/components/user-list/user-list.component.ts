@@ -17,9 +17,11 @@ export class UserListComponent implements OnInit {
   totalElements!: number;
   asc: boolean = false;
   sort: string;
+  roleFilter: string = undefined;
+  statusFilter: string = undefined;
+  predicateCount: number = 0;
 
   fields = [
-    { name: 'id', displayName: '#', class: 'col-1' },
     { name: 'role', displayName: 'Role', class: 'col-1' },
     { name: 'firstName', displayName: 'First Name', class: 'col-1' },
     { name: 'lastName', displayName: 'Last Name', class: 'col-2' },
@@ -27,6 +29,11 @@ export class UserListComponent implements OnInit {
     { name: 'email', displayName: 'Email', class: 'col-3' },
 
     { name: 'activeStatus', displayName: 'Status', class: 'col-3' },
+  ];
+
+  roles = [
+    { name: 'Admin', displayName: 'Administrator' },
+    { name: 'Customer', displayName: 'Customer' },
   ];
 
   constructor(private userService: UserService) {}
@@ -41,7 +48,14 @@ export class UserListComponent implements OnInit {
 
   handleUsersList() {
     this.userService
-      .getUsersPage(this.pageNumber - 1, this.pageSize, this.sort, this.asc)
+      .getUsersPage(
+        this.pageNumber - 1,
+        this.pageSize,
+        this.sort,
+        this.asc,
+        this.roleFilter,
+        this.statusFilter
+      )
       .subscribe(this.processResult());
   }
 
@@ -68,5 +82,26 @@ export class UserListComponent implements OnInit {
       this.asc = true;
     }
     this.listUsers();
+  }
+
+  setFilters(roleFilter?: string, statusFilter?: string) {
+    this.predicateCount++;
+
+    this.roleFilter = roleFilter;
+    this.statusFilter = statusFilter;
+
+    this.listUsers();
+  }
+
+  filterByRole($event: Event) {
+    const filteredRole = $event.target['value'];
+
+    this.setFilters(filteredRole, this.statusFilter);
+  }
+
+  filterByStatus($event: Event) {
+    let filteredStatus = $event.target['value'];
+
+    this.setFilters(this.roleFilter, filteredStatus);
   }
 }

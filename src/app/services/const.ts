@@ -1,4 +1,5 @@
 import { environment } from 'src/environments/environment';
+import { Account } from '../models/account';
 import { User } from '../models/user';
 
 export enum ApiMethod {
@@ -38,6 +39,16 @@ export class SpecificAccount {
 
 export class IUserPagination {
   content: User[];
+
+  page: {
+    size: number;
+    totalElements: number;
+    totalPages: number;
+    number: number;
+  };
+}
+export class IAccountPagination {
+  content: Account[];
 
   page: {
     size: number;

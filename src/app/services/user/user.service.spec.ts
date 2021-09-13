@@ -95,4 +95,8 @@ describe('UserService', () => {
   it('should get a page of users', () => {
     expect(service.getUsersPage).toBeTruthy();
   });
+
+  // it('should format request correctly', () => {
+
+  // })
 });
