@@ -68,10 +68,15 @@
       </li-->
       </div>
 
-      <div class="collapse navbar-collapse" id="navbarNavDropdown" [ngClass]="{'hidden': !authService.isLoggedIn() }">
+      <div class="nav nav-pills flex-column flex-sm-row" id="navbarNavDropdown" [ngClass]="{'hidden': !authService.isLoggedIn() }">
         <li class="nav-item d-none d-sm-inline-block">
-          <a class="nav-link" routerLink="/accounts" [ngClass]="{'hidden': !authService.isLoggedIn() }"
+          <a class="flex-sm-fill text-sm-center nav-link" routerLink="/accounts" [ngClass]="{'hidden': !authService.isLoggedIn() }"
           > Accounts <span class="sr-only">(current)</span> </a>
+        </li>
+
+        <li class="nav-item d-none d-sm-inline-block">
+          <a class="flex-sm-fill text-sm-center nav-link" routerLink="/cards" [ngClass]="{'hidden': !authService.isLoggedIn() }"
+          > Cards <span class="sr-only">(current)</span> </a>
         </li>
         <!--li class="nav-item dropdown" [ngClass]="{'hidden': !authService.isLoggedIn() }">
           <a class="nav-link dropdown-toggle"
@@ -86,8 +91,8 @@
       </div>
 
       <li class="nav-item d-none d-sm-inline-block">
-        <a class="nav-link" routerLink="/" [ngClass]="{'hidden': !authService.isLoggedIn() }"
-        > Branches... <span class="sr-only">(current)</span> </a>
+        <a class="flex-sm-fill text-sm-center nav-link" routerLink="/" [ngClass]="{'hidden': !authService.isLoggedIn() }"
+        > Branches<span class="sr-only">(current)</span> </a>
       </li>
     </ul>
     <!-- SEARCH FORM -->

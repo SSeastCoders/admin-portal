@@ -3,6 +3,7 @@ import { User } from "./user";
 
 export class Credit {
   id!: number;
+  swipe!: string;
   users: User[];
   cvv!: number;
   cardType!: CardType;

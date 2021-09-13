@@ -16,7 +16,7 @@
       <td>{{ account.id }}</td>
       <td>{{ account.nickName }}</td>
       <td>{{ account.balance }}</td>
-      <td><span class="fa fa-edit" [routerLink]="['/accounts',account.id,'details']"></span></td>
+      <td><span class="fa fa-edit" [routerLink]="['/accounts',account.id,'edit']"></span></td>
       <!--td>
         <div *ngIf="user.activeStatus; else elseBlock">active</div>
         <ng-template #elseBlock>inactive</ng-template>

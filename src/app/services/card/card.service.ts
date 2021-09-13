@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
-import { ApiMethod, CardEndPoints, ICreditPagination, IUserPagination } from '../const';
+import { ApiMethod, CardEndPoints, ICreditPagination } from '../const';
 import { HttpService } from '../http/http.service';
 
 const API_URL = environment.userUrl;

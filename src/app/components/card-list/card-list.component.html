@@ -1,1 +1,41 @@
-<p>card-list works!</p>
+
+<div class="mat-elevation-z8">
+<mat-table [dataSource]="dataSource">
+  <!-- Position Column -->
+  <ng-container matColumnDef="swipe">
+    <mat-header-cell *matHeaderCellDef> Swipe </mat-header-cell>
+    <mat-cell *matCellDef="let card"> {{card.swipe}} </mat-cell>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="nickName">
+    <mat-header-cell *matHeaderCellDef> Card Nickname </mat-header-cell>
+    <mat-cell *matCellDef="let card"> {{card.nickName}} </mat-cell>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="users">
+    <mat-header-cell *matHeaderCellDef> Primary User </mat-header-cell>
+    <mat-cell *matCellDef="let card"> {{card.users[0].firstName + ' ' + card.users[0].lastName}} </mat-cell>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="balance">
+    <mat-header-cell *matHeaderCellDef> Current Outstanding Balance </mat-header-cell>
+    <mat-cell *matCellDef="let card"> {{card.balance}} </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+
+<mat-paginator
+  #paginator
+  [length]="totalElements"
+  [pageIndex]="pageNumber"
+  [pageSize]="pageSize"
+  [pageSizeOptions]="[5, 10, 25, 100]"
+  (page)="pageEvent = getCardsPageEvent($event)">
+</mat-paginator>
+
+</div>

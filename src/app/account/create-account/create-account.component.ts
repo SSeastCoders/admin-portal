@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {  Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AccountInterest, AccountType } from 'src/app/models/const';
@@ -6,6 +6,7 @@ import { CreateAccount } from 'src/app/models/createAccount';
 import { User } from 'src/app/models/user';
 import { AccountService } from 'src/app/services/account/account.service';
 import { ConstraintError } from 'src/app/services/const';
+import { UserService } from 'src/app/services/user/user.service';
 import { ValidationService } from 'src/app/services/validation/validation.service';
 
 @Component({
@@ -16,6 +17,7 @@ import { ValidationService } from 'src/app/services/validation/validation.servic
 export class CreateAccountComponent implements OnInit {
 
   account: CreateAccount = new CreateAccount();
+  usersOnAccount: User[] = [];
   usersAdd = [new User()];
   accountForm!: FormGroup;
   errorMessage?: string;
@@ -23,10 +25,12 @@ export class CreateAccountComponent implements OnInit {
   serverErrorMessages = ConstraintError;
   accounts = [AccountType.CHECKING, AccountType.SAVING];
   errorSubscription: Subscription;
+  userSearch : User[];
 
 
   constructor(private formBuilder: FormBuilder,
-    public acctService: AccountService){}
+    public acctService: AccountService,
+    private userService: UserService){}
 
   ngOnInit(): void {
     this.acctService.clear();
@@ -66,6 +70,18 @@ export class CreateAccountComponent implements OnInit {
     }
   }
 
+  searchUsers() {
+    this.userService.searchUsers((<HTMLInputElement>(document.getElementById("userSearch"))).value).subscribe((res) => {
+      this.userSearch = res;
+      console.log(res);
+      console.log()
+    });
+  }
+
+  closeUsers() {
+    this.userSearch = [];
+  }
+
   generateAccount() {
     this.account.interestRate =  AccountInterest.SAVING //? AccountInterest.SAVING : AccountInterest.CHECKING;
     this.account.openDate = Date.parse((new Date().getFullYear())+'-'+(new Date().getMonth())+'-'+new Date().getDate()) ;
@@ -97,6 +113,16 @@ export class CreateAccountComponent implements OnInit {
     if (this.accountForm.valid){
       this.users().push(this.newUser());
     }
+  }
+
+  addUserNew(user: User) {
+    if((this.usersOnAccount.find(u => u.id == user.id)) == undefined ){
+      this.usersOnAccount.push(user);
+    }
+  }
+
+  removeUserNew(user: number) {
+    this.usersOnAccount.splice(user, 1);
   }
 
   removeUser(i: number) {

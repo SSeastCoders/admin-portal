@@ -30,6 +30,7 @@ import { AuthService } from './services/auth/auth.service';
 import { StorageService } from './services/storage/storage.service';
 import { AccountsComponent } from './accounts/accounts.component';
 import { CardListComponent } from './components/card-list/card-list.component';
+import { MaterialModule } from './services/material/material.module';
 
 @NgModule({
   declarations: [
@@ -60,12 +61,13 @@ import { CardListComponent } from './components/card-list/card-list.component';
     NoopAnimationsModule,
     CommonModule,
     AccountModule,
+    MaterialModule,
   ],
   providers: [
     UserService,
     AuthService,
     StorageService,
-
+    MaterialModule,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtTokenInterceptor,

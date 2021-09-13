@@ -12,6 +12,7 @@ import { UserService } from './services/user/user.service';
 import { RegisterComponent } from './register/register.component';
 import { UserDetailsComponent } from './components/user-details/user-details.component';
 import { AccountsComponent } from './accounts/accounts.component';
+import { CardListComponent } from './components/card-list/card-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -24,7 +25,9 @@ const routes: Routes = [
       import('./account/account.module').then((m) => m.AccountModule),
   },
 
-  { path: 'home', component: HomeComponent },
+  //{ path: 'home', component: HomeComponent },
+  { path: 'home', component: CardListComponent },
+  { path: 'cards', component: CardListComponent },
   { path: 'login', component: LoginComponent },
   //{ path: 'users/:id/edit', component: EditUserComponent },
   { path: 'users/:id', component: UserDetailsComponent },

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ContentChild, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Account } from 'src/app/models/account';
@@ -14,6 +14,7 @@ import { DeleteModalComponent } from './delete-modal/delete-modal.component';
   templateUrl: './account-edit.component.html',
   styleUrls: ['./account-edit.component.css']
 })
+
 export class AccountEditComponent implements OnInit {
 
   account!: Account;
@@ -22,6 +23,7 @@ export class AccountEditComponent implements OnInit {
   deleteMessageEnabled: boolean;
   accounts = [AccountType.CHECKING, AccountType.SAVING];
   hasBeenTouched = false;
+  edit: boolean = false;
   //defaultState : FormGroup;
   //defaultState: FormGroup;
   @ViewChild('accountForm2', { static: true }) accountForm: FormGroup;
@@ -32,7 +34,9 @@ export class AccountEditComponent implements OnInit {
     private formBuilder: FormBuilder,
     private modalService: NgbModal) { }
 
+
   ngOnInit() {
+    this.edit = false;
     this.hasBeenTouched = false;
     this.acctService.clear();
     this.updateAccount = new UpdateAccount();
@@ -43,6 +47,10 @@ export class AccountEditComponent implements OnInit {
         this.getAccount(id);
       }
     });
+  }
+
+  public toggleEdit(){
+    this.edit = !this.edit;
   }
 
   buildForm(account: Account) {
