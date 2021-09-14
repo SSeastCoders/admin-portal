@@ -8,6 +8,7 @@ import { ValidationService } from 'src/app/services/validation/validation.servic
 import { UpdateAccount } from 'src/app/models/updateAccount';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DeleteModalComponent } from './delete-modal/delete-modal.component';
+import { EditModalComponent } from './edit-modal/edit-modal.component';
 
 @Component({
   selector: 'account-edit',
@@ -50,7 +51,13 @@ export class AccountEditComponent implements OnInit {
   }
 
   public toggleEdit(){
-    this.edit = !this.edit;
+    const modalRef = this.modalService.open(EditModalComponent);
+    (<EditModalComponent>modalRef.componentInstance).account = this.account;
+    modalRef.result.then((result) => {
+      if (result) {
+        this.acctService.updateAccount(result);
+        this.ngOnInit();
+      }});
   }
 
   buildForm(account: Account) {
