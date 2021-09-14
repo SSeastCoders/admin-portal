@@ -29,6 +29,7 @@ import { AccountModule } from './account/account.module';
 import { AuthService } from './services/auth/auth.service';
 import { StorageService } from './services/storage/storage.service';
 import { AccountsComponent } from './accounts/accounts.component';
+import { MaterialModule } from './services/material/material.module';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { AccountsComponent } from './accounts/accounts.component';
     NoopAnimationsModule,
     CommonModule,
     AccountModule,
+    MaterialModule
   ],
   providers: [
     UserService,
