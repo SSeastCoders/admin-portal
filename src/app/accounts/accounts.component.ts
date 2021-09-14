@@ -49,15 +49,10 @@ export class AccountsComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  fields = [
-    { name: 'accountType', displayName: 'Type', class: 'col-3' },
-    { name: 'nickName', displayName: 'Account Nickname', class: 'col-3' },
-    { name: 'balance', displayName: 'Balance', class: 'col-4' },
-  ];
-
   ngOnInit(): void {
     this.handleAccountsList();
-    this.getAccounts();
+    //this.getAccounts();
+    this.getAccountsPageEvent();
     this.dataSource = new MatTableDataSource(this.accounts);
     this.dataSource.paginator = this.paginator;
   }
@@ -72,6 +67,7 @@ export class AccountsComponent implements OnInit {
     return (data) => {
       console.dir(data);
       this.accounts = data.content;
+      this.dataSource = new MatTableDataSource(this.accounts);
       this.pageNumber = data.pageable.pageNumber + 1;
       this.pageSize = data.pageable.pageSize;
       this.totalElements = data.totalElements;
