@@ -14,17 +14,17 @@
   <mat-table [dataSource]="dataSource" matSort>
     <ng-container matColumnDef="accountType">
       <mat-header-cell *matHeaderCellDef mat-sort-header (click)="setSort('accountType')"> Account Type </mat-header-cell>
-      <mat-cell *matCellDef="let account" routerLink="/accounts/{{account.id}}/details"> {{account.accountType}} </mat-cell>
+      <mat-cell *matCellDef="let account" routerLink="/accounts/{{account.id}}/edit"> {{account.accountType}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="nickName">
       <mat-header-cell *matHeaderCellDef mat-sort-header (click)="setSort('nickName')"> Account Nickname </mat-header-cell>
-      <mat-cell *matCellDef="let account" routerLink="/accounts/{{account.id}}/details"> {{account.nickName}} </mat-cell>
+      <mat-cell *matCellDef="let account" routerLink="/accounts/{{account.id}}/edit"> {{account.nickName}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="balance">
       <mat-header-cell *matHeaderCellDef mat-sort-header (click)="setSort('balance')"> Balance </mat-header-cell>
-      <mat-cell *matCellDef="let account" routerLink="/accounts/{{account.id}}/details"> {{account.balance}} </mat-cell>
+      <mat-cell *matCellDef="let account" routerLink="/accounts/{{account.id}}/edit"> {{account.balance}} </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

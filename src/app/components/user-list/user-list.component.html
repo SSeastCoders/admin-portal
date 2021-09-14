@@ -38,27 +38,27 @@
   <mat-table [dataSource]="dataSource" matSort>
     <ng-container matColumnDef="role">
       <mat-header-cell *matHeaderCellDef mat-sort-header (click)="setSort('role')"> Role </mat-header-cell>
-      <mat-cell *matCellDef="let user" routerLink='/users/{{ user.id }}'> {{user.role.title}} </mat-cell>
+      <mat-cell *matCellDef="let user" routerLink="/users/{{user.id}}/details"> {{user.role.title}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef mat-sort-header (click)="setSort('lastName')"> Name </mat-header-cell>
-      <mat-cell *matCellDef="let user" routerLink='/users/{{ user.id }}'> {{user.firstName + ' ' + user.lastName}} </mat-cell>
+      <mat-cell *matCellDef="let user" routerLink="/users/{{user.id}}/details"> {{user.firstName + ' ' + user.lastName}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="credential.username">
       <mat-header-cell *matHeaderCellDef mat-sort-header (click)="setSort('credential.username')"> Username </mat-header-cell>
-      <mat-cell *matCellDef="let user" routerLink='/users/{{ user.id }}'> {{user.username}} </mat-cell>
+      <mat-cell *matCellDef="let user" routerLink="/users/{{user.id}}/details"> {{user.username}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="email">
       <mat-header-cell *matHeaderCellDef mat-sort-header (click)="setSort('email')"> Email </mat-header-cell>
-      <mat-cell *matCellDef="let user" routerLink='/users/{{ user.id }}'> {{user.email}} </mat-cell>
+      <mat-cell *matCellDef="let user" routerLink="/users/{{user.id}}/details"> {{user.email}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="activeStatus">
       <mat-header-cell *matHeaderCellDef mat-sort-header (click)="setSort('activeStatus')"> Status </mat-header-cell>
-      <mat-cell *matCellDef="let user" routerLink='/users/{{ user.id }}'> {{user.activeStatus}} </mat-cell>
+      <mat-cell *matCellDef="let user" routerLink="/users/{{user.id}}/details"> {{user.activeStatus}} </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

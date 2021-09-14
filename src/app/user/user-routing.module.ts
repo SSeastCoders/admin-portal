@@ -1,17 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { AccountComponent } from './account.component';
 import { AuthGuard } from '../services/guard/guard.guard';
-import { AccountEditComponent } from './account-edit/account-edit.component';
+import { UserComponent } from './user.component';
+import { UserDetailsComponent } from '../components/user-details/user-details.component';
+import { UserDetailsModalComponent } from '../components/user-details-modal/user-details-modal.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: AccountComponent,
+    component: UserComponent,
     children: [
       //{ path: 'transactions', component: AccountTransactionComponents },
-      {path: 'edit', component: AccountEditComponent}
+     {path: 'details', component: UserDetailsComponent}
     ]
   }
 ];
@@ -23,6 +24,6 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: [AuthGuard],//, CanDeactivateGuard],
 })
-export class AccountRoutingModule {
-  static components = [AccountComponent, AccountEditComponent];
+export class UserRoutingModule {
+  static components = [UserComponent, UserDetailsComponent, UserDetailsModalComponent];
  }

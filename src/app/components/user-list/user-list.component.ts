@@ -29,15 +29,6 @@ export class UserListComponent implements OnInit {
 
   dataSource: MatTableDataSource<User>;
 
-  fields = [
-    { name: 'role', displayName: 'Role', class: 'col-1' },
-    { name: 'name', displayName: 'Name', class: 'col-1' },
-    { name: 'credential.username', displayName: 'Username', class: 'col-3' },
-    { name: 'email', displayName: 'Email', class: 'col-3' },
-
-    { name: 'activeStatus', displayName: 'Status', class: 'col-3' },
-  ];
-
   roles = [
     { name: 'Admin', displayName: 'Administrator' },
     { name: 'Customer', displayName: 'Customer' },

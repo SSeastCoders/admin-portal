@@ -88,13 +88,11 @@ export class HttpService {
     let response = new Observable<typeof type>();
     switch (method) {
       case ApiMethod.GET:
-<<<<<<< HEAD
         console.log('from requestCall');
         console.log(data);
         response = this.http
           .get<typeof type[]>(`${environment.accountUrl}${api}`, data)
           .pipe(catchError(async (err) => this.handleError(err)));
-=======
         // console.log('from requestCall');
         // console.log(data);
         // response = this.http.get<typeof type[]>(
@@ -111,7 +109,6 @@ export class HttpService {
 
         console.log('from requestCall');
         console.log(response);
->>>>>>> d895414 (CORS error; Also not receiving page object from back end correctly)
         break;
       case ApiMethod.POST:
         response = this.http

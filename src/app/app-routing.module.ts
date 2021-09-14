@@ -25,6 +25,13 @@ const routes: Routes = [
       import('./account/account.module').then((m) => m.AccountModule),
   },
 
+  {
+    path: 'users/:id',
+    data: { preload: true },
+    loadChildren: () =>
+      import('./user/user.module').then((m) => m.UserModule),
+  },
+
   //{ path: 'home', component: HomeComponent },
   { path: 'home', component: CardListComponent },
   { path: 'cards', component: CardListComponent },

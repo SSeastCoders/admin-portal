@@ -1,5 +1,6 @@
 import {  AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Credit } from 'src/app/models/credit';
 import { CardService } from 'src/app/services/card/card.service';
@@ -16,7 +17,7 @@ export class CardListComponent implements OnInit {
   pageNumber: number = 1;
   totalElements!: number;
   asc: boolean = false;
-  sort: string;
+  sorter: string;
   pageEvent: PageEvent;
 
   displayedColumns : string[] = ['swipe','nickName','users','balance'];
@@ -26,6 +27,7 @@ export class CardListComponent implements OnInit {
   constructor(private cardService: CardService) {   }
 
   private paginator: MatPaginator;
+  private sort: MatSort;
 
   @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
     if (mp !== undefined && this.dataSource) {
@@ -34,8 +36,17 @@ export class CardListComponent implements OnInit {
     }
   }
 
+  @ViewChild(MatSort) set matSort(ms: MatSort) {
+    if (ms !== undefined && this.dataSource) {
+      this.sort = ms;
+      this.setDataSourceAttributes();
+    }
+  }
+
+
   setDataSourceAttributes() {
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   ngOnInit(): void {
@@ -45,7 +56,7 @@ export class CardListComponent implements OnInit {
   }
 
   getCards() {
-    this.cardService.getCardsPage(this.pageNumber -1, this.pageSize, this.sort, this.asc)
+    this.cardService.getCardsPage(this.pageNumber, this.pageSize, this.sorter, this.asc)
     .subscribe((data) => {
       console.log(data);
       this.cards = data.content;
@@ -54,14 +65,14 @@ export class CardListComponent implements OnInit {
       //this.paginator.pageIndex = data.pageable?.pageNumber;
      // this.paginator.pageSize = data.pageable?.pageSize;
      // this.paginator.length = data?.totalElements;
-     this.pageNumber = data.pageable?.pageNumber + 1;
+     this.pageNumber = data.pageable?.pageNumber;
      this.pageSize = data.pageable?.pageSize;
      this.totalElements = data?.totalElements;
     });
   }
 
   public getCardsPageEvent(event?:PageEvent){
-    this.cardService.getCardsPage(event.pageIndex, event.pageSize, this.sort, this.asc).subscribe(
+    this.cardService.getCardsPage(event.pageIndex, event.pageSize, this.sorter, this.asc).subscribe(
       (data) => {
         console.log(data);
         this.dataSource = data.content;
@@ -70,5 +81,16 @@ export class CardListComponent implements OnInit {
         this.totalElements = data.totalElements;
       });
     return event;
+  }
+
+  setSort(sort: string) {
+    console.log("clicked");
+    if (this.asc && this.sorter === sort) {
+      this.asc = false;
+    } else {
+      this.sorter = sort;
+      this.asc = true;
+    }
+    this.getCards();
   }
 }

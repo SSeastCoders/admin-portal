@@ -31,6 +31,7 @@ import { StorageService } from './services/storage/storage.service';
 import { AccountsComponent } from './accounts/accounts.component';
 import { CardListComponent } from './components/card-list/card-list.component';
 import { MaterialModule } from './services/material/material.module';
+import { UserModule } from './user/user.module';
 
 @NgModule({
   declarations: [
@@ -43,8 +44,6 @@ import { MaterialModule } from './services/material/material.module';
     AccountsComponent,
     CreateAccountComponent,
     RegisterComponent,
-    UserDetailsComponent,
-    UserDetailsModalComponent,
     CardListComponent,
   ],
   imports: [
@@ -61,11 +60,8 @@ import { MaterialModule } from './services/material/material.module';
     NoopAnimationsModule,
     CommonModule,
     AccountModule,
-<<<<<<< HEAD
     MaterialModule,
-=======
-    MaterialModule
->>>>>>> 67c0f74 (all pagination with material, sorting with material, click directed to individual view page)
+    UserModule
   ],
   providers: [
     UserService,

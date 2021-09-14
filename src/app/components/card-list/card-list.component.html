@@ -1,27 +1,44 @@
 
+<div>
+  <div class="pull-right">
+    <button disabled
+    type="submit"
+    class="btn btn-success"
+    routerLink="/registration"
+  >
+    + New Card
+  </button></div>
+
+  <span class="row">
+  </span>
+
+</div>
+
+<br>
+
 <div class="mat-elevation-z8">
-<mat-table [dataSource]="dataSource">
+<mat-table [dataSource]="dataSource" matSort>
   <!-- Position Column -->
   <ng-container matColumnDef="swipe">
-    <mat-header-cell *matHeaderCellDef> Swipe </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef  mat-sort-header (click)="setSort('swipe')"> Card Number </mat-header-cell>
     <mat-cell *matCellDef="let card"> {{card.swipe}} </mat-cell>
   </ng-container>
 
   <!-- Name Column -->
   <ng-container matColumnDef="nickName">
-    <mat-header-cell *matHeaderCellDef> Card Nickname </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header (click)="setSort('nickName')"> Card Nickname </mat-header-cell>
     <mat-cell *matCellDef="let card"> {{card.nickName}} </mat-cell>
   </ng-container>
 
   <!-- Weight Column -->
   <ng-container matColumnDef="users">
-    <mat-header-cell *matHeaderCellDef> Primary User </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header (click)="setSort('users')"> Primary User </mat-header-cell>
     <mat-cell *matCellDef="let card"> {{card.users[0].firstName + ' ' + card.users[0].lastName}} </mat-cell>
   </ng-container>
 
   <!-- Symbol Column -->
   <ng-container matColumnDef="balance">
-    <mat-header-cell *matHeaderCellDef> Current Outstanding Balance </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header (click)="setSort('balance')"> Current Outstanding Balance </mat-header-cell>
     <mat-cell *matCellDef="let card"> {{card.balance}} </mat-cell>
   </ng-container>
 
@@ -32,6 +49,7 @@
 <mat-paginator
   #paginator
   [length]="totalElements"
+  showFirstLastButtons
   [pageIndex]="pageNumber"
   [pageSize]="pageSize"
   [pageSizeOptions]="[5, 10, 25, 100]"
