@@ -8,23 +8,25 @@ import { AccountEditComponent } from './account-edit/account-edit.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: '', //NEED TO CHANGE THIS
     component: AccountComponent,
     children: [
       //{ path: 'transactions', component: AccountTransactionComponents },
       { path: 'details', component: AccountDetailComponent },
-      {path: 'edit', component: AccountEditComponent}
-    ]
-  }
+      { path: 'edit', component: AccountEditComponent },
+    ],
+  },
 ];
 
 @NgModule({
-  imports: [
-    CommonModule, RouterModule.forChild(routes),
-  ],
+  imports: [CommonModule, RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers: [AuthGuard],//, CanDeactivateGuard],
+  providers: [AuthGuard], //, CanDeactivateGuard],
 })
 export class AccountRoutingModule {
-  static components = [AccountComponent, AccountDetailComponent, AccountEditComponent];
- }
+  static components = [
+    AccountComponent,
+    AccountDetailComponent,
+    AccountEditComponent,
+  ];
+}

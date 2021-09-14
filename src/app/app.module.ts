@@ -1,20 +1,19 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserService } from './services/user/user.service';
 import { JwtTokenInterceptor } from './services/interceptor/jwt.token.interceptor';
-import { HeaderComponent } from './layout/header/header.component';
+
 import {
   BrowserAnimationsModule,
   NoopAnimationsModule,
 } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
+
 import { AppButtonComponent } from './layout/app-button/app-button.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
@@ -29,13 +28,20 @@ import { AccountModule } from './account/account.module';
 import { AuthService } from './services/auth/auth.service';
 import { StorageService } from './services/storage/storage.service';
 import { AccountsComponent } from './accounts/accounts.component';
+import { RouterModule } from '@angular/router';
+import { LayoutComponent } from './layout/layout.component';
+import { HeaderComponent } from './layout/header/header.component';
+//import { FooterComponent } from './layout/footer/footer.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
+    LayoutComponent,
     LoginComponent,
     UserListComponent,
     HeaderComponent,
+    //FooterComponent,
     PhoneMaskDirective,
     AppButtonComponent,
     AccountsComponent,
@@ -46,7 +52,7 @@ import { AccountsComponent } from './accounts/accounts.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
+    RouterModule,
     HttpClientModule,
     NoopAnimationsModule,
     NgbModule,
@@ -58,7 +64,9 @@ import { AccountsComponent } from './accounts/accounts.component';
     NoopAnimationsModule,
     CommonModule,
     AccountModule,
+    AppRoutingModule,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     UserService,
     AuthService,

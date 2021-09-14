@@ -1,70 +1,83 @@
 <head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <meta charset="UTF-8" />
+  <link
+    rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"
+  />
 </head>
 
-<div class="view">
-  <div class="card card-outline card-primary">
+<div id="login">
+  <div class="card card-outline mt-5 ml-5 mr-5 card-primary">
     <div class="card-body">
-        <form [formGroup]="loginForm" (ngSubmit)="submit()">
-          <small *ngIf="authService.loginError"  class="text-danger">
-            {{errorMessage}}
-          </small>
+      <form [formGroup]="loginForm" (ngSubmit)="submit()">
+        <small *ngIf="authService.loginError" class="text-danger">
+          {{ errorMessage }}
+        </small>
 
-          <small [hidden]="loginForm.get('username')?.valid || loginForm.get('username')?.pristine"
-          class="text-danger">Username is required
-          </small>
+        <small
+          [hidden]="
+            loginForm.get('username')?.valid ||
+            loginForm.get('username')?.pristine
+          "
+          class="text-danger"
+          >Username is required
+        </small>
 
-            <div class="input-group mb-3">
-                <input
-                    formControlName="username"
-                    type="username"
-                    class="form-control"
-                    placeholder="Username"
-                    [(ngModel)]="credentials.username"
-                    required
-                />
-                <div class="input-group-append">
-                    <div class="input-group-text">
-                        <span class="fa fa-envelope"></span>
-                    </div>
-                </div>
-
+        <div class="input-group mb-3">
+          <input
+            formControlName="username"
+            type="username"
+            class="form-control"
+            placeholder="Username"
+            [(ngModel)]="credentials.username"
+            required
+          />
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fa fa-envelope"></span>
             </div>
-              <small [hidden]="loginForm.get('password')?.valid || loginForm.get('password')?.pristine"
-                  class="text-danger">Password is required</small>
-            <div class="input-group mb-3">
-                <input
-                    formControlName="password"
-                    type="{{show ? 'text' : 'password'}}"
-                    class="form-control"
-                    placeholder="Password"
-                    [(ngModel)]="credentials.password"
-                    required
-                />
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                <i (click) = "togglePass()" class="{{show ? 'fa fa-eye' : 'fa fa-eye-slash'}}" id="togglePassword"></i>
-              </div>
           </div>
-                <div class="input-group-append">
-                    <div class="input-group-text">
-                        <span class="fa fa-lock"></span>
-                    </div>
-                </div>
+        </div>
+        <small
+          [hidden]="
+            loginForm.get('password')?.valid ||
+            loginForm.get('password')?.pristine
+          "
+          class="text-danger"
+          >Password is required</small
+        >
+        <div class="input-group mb-3">
+          <input
+            formControlName="password"
+            type="{{ show ? 'text' : 'password' }}"
+            class="form-control"
+            placeholder="Password"
+            [(ngModel)]="credentials.password"
+            required
+          />
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <i
+                (click)="togglePass()"
+                class="{{ show ? 'fa fa-eye' : 'fa fa-eye-slash' }}"
+                id="togglePassword"
+              ></i>
             </div>
-            <div class="row">
-                <div class="col-5">
-                    <app-button
-                        [type]="'submit'"
-                        [disabled]="!loginForm.valid"
-                    >
-                        Sign In
-                    </app-button>
-                </div>
+          </div>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fa fa-lock"></span>
             </div>
-        </form>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-5">
+            <app-button [type]="'submit'" [disabled]="!loginForm.valid">
+              Sign In
+            </app-button>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 </div>
-
