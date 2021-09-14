@@ -31,7 +31,7 @@ import { AccountsComponent } from './accounts/accounts.component';
 import { RouterModule } from '@angular/router';
 import { LayoutComponent } from './layout/layout.component';
 import { HeaderComponent } from './layout/header/header.component';
-//import { FooterComponent } from './layout/footer/footer.component';
+import { FooterComponent } from './layout/footer/footer.component';
 import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
@@ -41,7 +41,7 @@ import { AppRoutingModule } from './app-routing.module';
     LoginComponent,
     UserListComponent,
     HeaderComponent,
-    //FooterComponent,
+    FooterComponent,
     PhoneMaskDirective,
     AppButtonComponent,
     AccountsComponent,
