@@ -8,7 +8,75 @@
   </button>
 </div>
 
-<table class="table">
+<br />
+
+<div class="mat-elevation-z8">
+  <mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="accountType">
+      <mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        (click)="setSort('accountType')"
+      >
+        Account Type
+      </mat-header-cell>
+      <mat-cell
+        *matCellDef="let account"
+        routerLink="/accounts/{{ account.id }}/edit"
+      >
+        {{ account.accountType }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="nickName">
+      <mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        (click)="setSort('nickName')"
+      >
+        Account Nickname
+      </mat-header-cell>
+      <mat-cell
+        *matCellDef="let account"
+        routerLink="/accounts/{{ account.id }}/edit"
+      >
+        {{ account.nickName }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="balance">
+      <mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        (click)="setSort('balance')"
+      >
+        Balance
+      </mat-header-cell>
+      <mat-cell
+        *matCellDef="let account"
+        routerLink="/accounts/{{ account.id }}/edit"
+      >
+        {{ account.balance }}
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+
+  <mat-paginator
+    #paginator
+    showFirstLastButtons
+    [length]="totalElements"
+    [pageIndex]="pageNumber"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    (page)="pageEvent = getAccountsPageEvent($event)"
+  >
+  </mat-paginator>
+</div>
+
+<!--table class="table">
   <thead class="thead-dark">
     <tr>
       <th *ngFor="let field of fields" scope="col" [class]="field.class">
@@ -58,8 +126,8 @@
       [collectionSize]="totalElements"
       [maxSize]="3"
       [boundaryLinks]="true"
-      (pageChange)="listAccounts()"
+      (pageChange)="handleAccountsList()"
     >
     </ngb-pagination>
   </div>
-</div>
+</div-->

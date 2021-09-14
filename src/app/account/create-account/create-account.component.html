@@ -55,72 +55,82 @@
               >Nickname needs to be 4-20 alphanumeric characters</small
             >
           </div>
+        </div>
 
-          <div class="form-group">
-            <small *ngIf="acctService.creationError" class="text-danger">
-              Please verify User account numbers</small
-            >
-            <label for="users">User on Account</label>
-            <small
-              *ngIf="
-                accountForm.get('users')?.invalid &&
-                accountForm.get('users')?.touched
-              "
-              class="text-danger"
-              >All users must be listed as ID number</small
-            >
-            <span float="right"
-              ><i center="right" class="fa fa-plus" (click)="addUser()"></i
-            ></span>
-            <div class="input-group" formArrayName="users">
-              <section
-                *ngFor="let user of users().controls; let i = index"
-                [formGroupName]="i"
-              >
-                <button
-                  type="button"
-                  class="btn btn-danger btn-sm"
-                  (click)="removeUser(i)"
-                >
-                  Remove User
-                </button>
-                <input
-                  [class.is-invalid]="
-                    accountForm.get('users')?.invalid &&
-                    accountForm.get('users')?.touched
-                  "
-                  id="user"
-                  class="form-control"
-                  type="text"
-                  pattern="^[0-9]{1,15}$"
-                  placeholder="Users on Account"
-                  name="user_{{ i }}"
-                  formControlName="user"
-                />
-              </section>
+        <div class="form-group">
+          <small *ngIf="acctService.creationError" class="text-danger">
+            Please verify User account numbers</small
+          >
+          <label for="users">Add Users</label>
+
+          <br />
+          <input type="text" id="userSearch" />
+          <button
+            type="button"
+            class="btn btn-primary btn-sm"
+            (click)="searchUsers()"
+          >
+            Find Users
+          </button>
+          <!--button type="button" class="btn btn-danger btn-sm" (click)="closeUsers()" *ngIf="searchUsers">Close Results</button-->
+
+          <ul class="list-group list-group-flush">
+            <div *ngIf="userSearch?.length == 0">No users found</div>
+            <!--section *ngFor="let user of userSearch; let i = index;">
+                    <div *ngIf="i<5">
+                    <li class="list-group-item">
+                      {{user.firstName}} {{user.lastName}} - {{user.username}} - {{user.email}} - {{user.id}}
+                      <span class="pull-right"><i center="right" class ='fa fa-plus' (click)="addUserNew(user)"></i></span>
+                    </li>
+                    </div>
+                  </section-->
+          </ul>
+
+          <br />
+          <section *ngFor="let user of usersOnAccount; let i = index">
+            <div *ngIf="i < 5">
+              <li class="list-group-item">
+                {{ user.firstName }} {{ user.lastName }} - {{ user.username }} -
+                {{ user.email }} - {{ user.id }}
+                <span class="pull-right"
+                  ><i
+                    center="right"
+                    class="fa fa-minus"
+                    (click)="removeUserNew(i)"
+                  ></i
+                ></span>
+              </li>
             </div>
-          </div>
+          </section>
+          <!--
+                  <small *ngIf="accountForm.get('users')?.invalid && accountForm.get('users')?.touched" class="text-danger">All users must be listed as ID number</small>
+                  <span class="pull-right"><i center="right" class ='fa fa-plus' (click)="addUser()"></i></span>
+                  <div class="input-group" formArrayName="users">
+                  <ul class="list-group list-group-flush">
+                  <section *ngFor="let user of users().controls; let i = index;" [formGroupName]="i">
+                    <li class="list-group-item">
+                    <input [class.is-invalid] = "accountForm.get('users')?.invalid && accountForm.get('users')?.touched"
+                    id="user" class="form-control" type="text" pattern="^[0-9]{1,15}$"
+                    placeholder="Users on Account" name="user_{{i}}" formControlName="user">
+                    <button type="button" class="btn btn-danger btn-sm" (click)="removeUser(i)"  *ngIf="i !== 0">Remove User</button>
+                  </li>
+                  </section>
+                  </ul>
+                  </div>-->
+        </div>
+        <div class="input-group-append">
+          <span class="input-group-text">Upload</span>
+        </div>
 
-          <div class="form-group">
-            <label for="exampleInputFile">File input</label>
-            <div class="input-group">
-              <div class="custom-file">
-                <input
-                  type="file"
-                  class="custom-file-input"
-                  id="exampleInputFile"
-                />
-                <label class="custom-file-label" for="exampleInputFile"
-                  >Choose file</label
-                >
-              </div>
-              <div class="input-group-append">
-                <span class="input-group-text">Upload</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- /.card-body -->
+        <div class="card-footer">
+          <button
+            type="button"
+            class="btn btn-primary"
+            [disabled]="usersOnAccount.length < 1 || !accountForm.valid"
+            [type]="'submit'"
+          >
+            New Account
+          </button>
         </div>
 
         <div class="card-footer">
@@ -136,7 +146,7 @@
       </form>
     </div>
 
-    <div class="container">
+    <div class="left">
       <router-outlet></router-outlet>
       <br />
       <br />

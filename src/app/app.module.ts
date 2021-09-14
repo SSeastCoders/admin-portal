@@ -33,6 +33,10 @@ import { LayoutComponent } from './layout/layout.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { AppRoutingModule } from './app-routing.module';
+import { CardListComponent } from './components/card-list/card-list.component';
+import { MaterialModule } from './services/material/material.module';
+import { UserModule } from './user/user.module';
+import { UserSearchModalComponent } from './account/user-search-modal/user-search-modal.component';
 
 @NgModule({
   declarations: [
@@ -47,8 +51,10 @@ import { AppRoutingModule } from './app-routing.module';
     AccountsComponent,
     CreateAccountComponent,
     RegisterComponent,
-    UserDetailsComponent,
+    CardListComponent,
+    UserSearchModalComponent,
     UserDetailsModalComponent,
+    UserDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,13 +71,15 @@ import { AppRoutingModule } from './app-routing.module';
     CommonModule,
     AccountModule,
     AppRoutingModule,
+    MaterialModule,
+    UserModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     UserService,
     AuthService,
     StorageService,
-
+    MaterialModule,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtTokenInterceptor,

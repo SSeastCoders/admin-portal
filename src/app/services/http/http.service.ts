@@ -14,7 +14,9 @@ import {
   AccountEndPoints,
   ApiMethod,
   AuthEndPoints,
+  CardEndPoints,
   SpecificAccount,
+  SpecificCard,
   SpecificUser,
   UserEndPoints,
 } from '../const';
@@ -86,6 +88,11 @@ export class HttpService {
     let response = new Observable<typeof type>();
     switch (method) {
       case ApiMethod.GET:
+        console.log('from requestCall');
+        console.log(data);
+        response = this.http
+          .get<typeof type[]>(`${environment.accountUrl}${api}`, data)
+          .pipe(catchError(async (err) => this.handleError(err)));
         // console.log('from requestCall');
         // console.log(data);
         // response = this.http.get<typeof type[]>(
@@ -120,6 +127,40 @@ export class HttpService {
       case ApiMethod.DELETE:
         response = this.http
           .delete(`${environment.accountUrl}${api}`, data)
+          .pipe(catchError(async (err) => this.handleError(err)));
+        break;
+      default:
+        break;
+    }
+    return response;
+  }
+
+  requestCallCard(
+    api: CardEndPoints | SpecificCard,
+    method: ApiMethod,
+    type: any,
+    data?: any
+  ) {
+    let response = new Observable<typeof type>();
+    switch (method) {
+      case ApiMethod.GET:
+        response = this.http.get<typeof type[]>(
+          `${environment.cardUrl}${api}${data}`
+        ); //.pipe(catchError(async (err) => this.handleError(err)));
+        break;
+      case ApiMethod.POST:
+        response = this.http
+          .post<typeof type>(`${environment.cardUrl}${api}`, data, httpOptions)
+          .pipe(catchError(async (err) => this.handleError(err)));
+        break;
+      case ApiMethod.PUT:
+        response = this.http
+          .put(`${environment.cardUrl}${api}`, data)
+          .pipe(catchError(async (err) => this.handleError(err)));
+        break;
+      case ApiMethod.DELETE:
+        response = this.http
+          .delete(`${environment.cardUrl}${api}`, data)
           .pipe(catchError(async (err) => this.handleError(err)));
         break;
       default:

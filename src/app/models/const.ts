@@ -14,6 +14,11 @@ export enum AccountType{
   SAVING = "SAVING",
 }
 
+export enum CardType{
+  CREDIT = "CREDIT",
+  DEBIT = "DEBIT",
+}
+
 export enum AccountInterest{
   CHECKING = 0.01,
   SAVING = 0.01,

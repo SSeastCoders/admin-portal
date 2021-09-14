@@ -1,7 +1,7 @@
 import { Container } from '@angular/compiler/src/i18n/i18n_ast';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserDetailsDto } from 'src/app/dto/user-details-dto';
 import { User } from 'src/app/models/user';
@@ -23,7 +23,12 @@ export class UserDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getUser();
+    console.log("PARAM")
+    console.log(this.route.parent?.params['value'].id);
+    this.userService.getUser(this.route.parent?.params['value'].id).subscribe((user => {
+      this.currentUser = user;
+    }));
+
   }
 
   getUser(): void {

@@ -1,4 +1,8 @@
-<div class="container" id="user-details-container">
+<div class="pull-right">
+  <i class="fa fa-edit" (click)="onOpenModal(currentUser)"></i>
+</div>
+
+<div class="container" id="main-container">
   <div>
     <h2>Details for {{ this.currentUser?.firstName }}</h2>
   </div>
@@ -23,14 +27,16 @@
     </div>
   </div>
   <div>
-    <a
+    <!--a
       class="btn btn-primary tooltips"
       data-placement="top"
       data-toggle="tooltip"
       data-original-title="Edit"
       (click)="onOpenModal(currentUser)"
     >
-      <i class="fas fa-pencil-alt"></i
-    ></a>
+-      <i class="fas fa-pencil-alt"></i
+    ></a-->
   </div>
 </div>
+
+<!-- This is the edit modal -->

@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from '../../models/user';
 import { UserService } from 'src/app/services/user/user.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 //import { fa-pencil } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -16,20 +19,21 @@ export class UserListComponent implements OnInit {
   pageNumber: number = 1;
   totalElements!: number;
   asc: boolean = false;
-  sort: string;
   roleFilter: string = undefined;
   statusFilter: string = undefined;
   predicateCount: number = 0;
+  pageEvent: PageEvent;
+  sorter: string;
 
-  fields = [
-    { name: 'role', displayName: 'Role', class: 'col-1' },
-    { name: 'firstName', displayName: 'First Name', class: 'col-1' },
-    { name: 'lastName', displayName: 'Last Name', class: 'col-2' },
-    { name: 'credential.username', displayName: 'Username', class: 'col-3' },
-    { name: 'email', displayName: 'Email', class: 'col-3' },
-
-    { name: 'activeStatus', displayName: 'Status', class: 'col-3' },
+  displayedColumns: string[] = [
+    'role',
+    'name',
+    'credential.username',
+    'email',
+    'activeStatus',
   ];
+
+  dataSource: MatTableDataSource<User>;
 
   roles = [
     { name: 'Admin', displayName: 'Administrator' },
@@ -38,20 +42,41 @@ export class UserListComponent implements OnInit {
 
   constructor(private userService: UserService) {}
 
-  ngOnInit() {
-    this.listUsers();
+  private paginator: MatPaginator;
+  private sort: MatSort;
+
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    if (mp !== undefined && this.dataSource) {
+      this.paginator = mp;
+      this.setDataSourceAttributes();
+    }
   }
 
-  listUsers() {
+  @ViewChild(MatSort) set matSort(ms: MatSort) {
+    if (ms !== undefined && this.dataSource) {
+      this.sort = ms;
+      this.setDataSourceAttributes();
+    }
+  }
+
+  setDataSourceAttributes() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  ngOnInit() {
     this.handleUsersList();
+    this.getUsers();
+    this.dataSource = new MatTableDataSource(this.users);
+    this.dataSource.paginator = this.paginator;
   }
 
   handleUsersList() {
     this.userService
       .getUsersPage(
-        this.pageNumber - 1,
+        this.pageNumber,
         this.pageSize,
-        this.sort,
+        this.sorter,
         this.asc,
         this.roleFilter,
         this.statusFilter
@@ -62,7 +87,8 @@ export class UserListComponent implements OnInit {
   processResult() {
     return (data) => {
       this.users = data.content;
-      this.pageNumber = data.pageable.pageNumber + 1;
+      this.dataSource = new MatTableDataSource(this.users);
+      this.pageNumber = data.pageable.pageNumber;
       this.pageSize = data.pageable.pageSize;
       this.totalElements = data.totalElements;
     };
@@ -71,17 +97,18 @@ export class UserListComponent implements OnInit {
   updatePageSize(pageSize: number) {
     this.pageSize = pageSize;
     this.pageNumber = 1;
-    this.listUsers();
+    this.handleUsersList();
   }
 
-  setSort(property: string) {
-    if (this.asc && this.sort === property) {
+  setSort(sort: string) {
+    console.log('clicked');
+    if (this.asc && this.sorter === sort) {
       this.asc = false;
     } else {
-      this.sort = property;
+      this.sorter = sort;
       this.asc = true;
     }
-    this.listUsers();
+    this.handleUsersList();
   }
 
   setFilters(roleFilter?: string, statusFilter?: string) {
@@ -90,18 +117,43 @@ export class UserListComponent implements OnInit {
     this.roleFilter = roleFilter;
     this.statusFilter = statusFilter;
 
-    this.listUsers();
+    this.handleUsersList();
   }
 
   filterByRole($event: Event) {
     const filteredRole = $event.target['value'];
-
     this.setFilters(filteredRole, this.statusFilter);
   }
 
   filterByStatus($event: Event) {
     let filteredStatus = $event.target['value'];
-
     this.setFilters(this.roleFilter, filteredStatus);
+  }
+
+  getUsers() {
+    this.userService
+      .getUsersPage(this.pageNumber, this.pageSize, this.sorter, this.asc)
+      .subscribe((data) => {
+        console.log(data);
+        this.users = data.content;
+        this.dataSource = new MatTableDataSource(this.users);
+        console.log(this.dataSource);
+        this.pageNumber = data.pageable?.pageNumber;
+        this.pageSize = data.pageable?.pageSize;
+        this.totalElements = data?.totalElements;
+      });
+  }
+
+  public getUsersPageEvent(event?: PageEvent) {
+    this.userService
+      .getUsersPage(event.pageIndex, event.pageSize, this.sorter, this.asc)
+      .subscribe((data) => {
+        console.log(data);
+        this.dataSource = data.content;
+        this.pageNumber = data.pageable.pageNumber;
+        this.pageSize = data.size;
+        this.totalElements = data.totalElements;
+      });
+    return event;
   }
 }
