@@ -61,7 +61,11 @@ import { MaterialModule } from './services/material/material.module';
     NoopAnimationsModule,
     CommonModule,
     AccountModule,
+<<<<<<< HEAD
     MaterialModule,
+=======
+    MaterialModule
+>>>>>>> 67c0f74 (all pagination with material, sorting with material, click directed to individual view page)
   ],
   providers: [
     UserService,
