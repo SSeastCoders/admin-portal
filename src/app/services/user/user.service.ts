@@ -65,10 +65,10 @@ export class UserService {
     );
   }
 
-  public searchUsers(keyword: string) {
+  public searchUsers(keyword: string, pageNumber: number) {
     console.log(keyword);
-    console.log(api + `/search?keyword=${keyword}`);
-    return this.https.get<User[]>(api + `/search?keyword=${keyword}`);
+    console.log(api + `?keyword=${keyword}&page=${pageNumber}&size=5`);
+    return this.https.get<any>(api + `?keyword=${keyword}&page=${pageNumber}&size=5`);
   }
 
   public updateUser(editUser: UserDetailsDto): any {

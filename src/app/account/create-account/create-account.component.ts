@@ -1,5 +1,6 @@
 import {  Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { AccountInterest, AccountType } from 'src/app/models/const';
 import { CreateAccount } from 'src/app/models/createAccount';
@@ -8,6 +9,7 @@ import { AccountService } from 'src/app/services/account/account.service';
 import { ConstraintError } from 'src/app/services/const';
 import { UserService } from 'src/app/services/user/user.service';
 import { ValidationService } from 'src/app/services/validation/validation.service';
+import { UserSearchModalComponent } from '../user-search-modal/user-search-modal.component';
 
 @Component({
   selector: 'app-create-account',
@@ -30,18 +32,17 @@ export class CreateAccountComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
     public acctService: AccountService,
-    private userService: UserService){}
+    private userService: UserService,
+    private modalService: NgbModal){}
 
   ngOnInit(): void {
     this.acctService.clear();
     this.buildForm();
-    this.users().push(this.newUser());
   }
 
   buildForm() {
     this.accountForm = this.formBuilder.group({
         accountType:      ['', [ Validators.required]],
-        users:   this.formBuilder.array([]),
         nickName: ['', ValidationService.nickNameValidator]
     });
   }
@@ -52,10 +53,6 @@ export class CreateAccountComponent implements OnInit {
 
   get nickName() {
     return this.accountForm.get('nickName');
-  }
-
-  users() {
-    return this.accountForm.get('users') as FormArray;
   }
 
   changeType(e) {
@@ -71,15 +68,17 @@ export class CreateAccountComponent implements OnInit {
   }
 
   searchUsers() {
-    this.userService.searchUsers((<HTMLInputElement>(document.getElementById("userSearch"))).value).subscribe((res) => {
+    const modalRef = this.modalService.open(UserSearchModalComponent);
+    (<UserSearchModalComponent>modalRef.componentInstance).keyword = (<HTMLInputElement>(document.getElementById("userSearch"))).value;
+    modalRef.result.then((result) => {
+      if (result) {
+        this.addUserNew(result);
+      }});
+    this.userService.searchUsers((<HTMLInputElement>(document.getElementById("userSearch"))).value, 1).subscribe((res) => {
       this.userSearch = res;
       console.log(res);
       console.log()
     });
-  }
-
-  closeUsers() {
-    this.userSearch = [];
   }
 
   generateAccount() {
@@ -88,13 +87,14 @@ export class CreateAccountComponent implements OnInit {
     this.account.balance = 0;
     this.account.activeStatus = true;
     this.account.nickName = this.accountForm.get('nickName').value;
-    let tempArray = this.accountForm.get('users').value;
     let tempNumArray = [];
-    for (let i = 0; i <  tempArray.length; i++) {
+    for (let i = 0; i <  this.usersOnAccount.length; i++) {
       //console.log(tempArray.at(i).user);
-      tempNumArray.push(tempArray.at(i).user);
+      console.log(this.usersOnAccount.slice(i,i+1)[0].id);
+      tempNumArray.push(this.usersOnAccount.slice(i,i+1)[0].id);
     }
     this.account.usersIds = this.removeDuplicate(tempNumArray);
+    console.log(this.account)
     return this.account;
   }
 
@@ -109,12 +109,6 @@ export class CreateAccountComponent implements OnInit {
     })
   }
 
-  addUser() {
-    if (this.accountForm.valid){
-      this.users().push(this.newUser());
-    }
-  }
-
   addUserNew(user: User) {
     if((this.usersOnAccount.find(u => u.id == user.id)) == undefined ){
       this.usersOnAccount.push(user);
@@ -123,12 +117,6 @@ export class CreateAccountComponent implements OnInit {
 
   removeUserNew(user: number) {
     this.usersOnAccount.splice(user, 1);
-  }
-
-  removeUser(i: number) {
-    if(this.users().length > 1){
-      this.users().removeAt(i);
-    }
   }
 
   logValue() {

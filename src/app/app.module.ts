@@ -32,6 +32,7 @@ import { AccountsComponent } from './accounts/accounts.component';
 import { CardListComponent } from './components/card-list/card-list.component';
 import { MaterialModule } from './services/material/material.module';
 import { UserModule } from './user/user.module';
+import { UserSearchModalComponent } from './account/user-search-modal/user-search-modal.component';
 
 @NgModule({
   declarations: [

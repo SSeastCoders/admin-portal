@@ -32,8 +32,7 @@ const routes: Routes = [
       import('./user/user.module').then((m) => m.UserModule),
   },
 
-  //{ path: 'home', component: HomeComponent },
-  { path: 'home', component: CardListComponent },
+  { path: 'home', component: HomeComponent },
   { path: 'cards', component: CardListComponent },
   { path: 'login', component: LoginComponent },
   //{ path: 'users/:id/edit', component: EditUserComponent },

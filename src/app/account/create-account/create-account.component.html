@@ -36,18 +36,18 @@
                   <br>
                   <input type="text" id="userSearch" >
                   <button type="button" class="btn btn-primary btn-sm" (click)="searchUsers()" >Find Users</button>
-                  <button type="button" class="btn btn-danger btn-sm" (click)="closeUsers()" *ngIf="searchUsers">Close Results</button>
+                  <!--button type="button" class="btn btn-danger btn-sm" (click)="closeUsers()" *ngIf="searchUsers">Close Results</button-->
 
                   <ul class="list-group list-group-flush">
                   <div *ngIf= "userSearch?.length ==0"> No users found</div>
-                  <section *ngFor="let user of userSearch; let i = index;">
+                  <!--section *ngFor="let user of userSearch; let i = index;">
                     <div *ngIf="i<5">
                     <li class="list-group-item">
                       {{user.firstName}} {{user.lastName}} - {{user.username}} - {{user.email}} - {{user.id}}
                       <span class="pull-right"><i center="right" class ='fa fa-plus' (click)="addUserNew(user)"></i></span>
                     </li>
                     </div>
-                  </section>
+                  </section-->
                   </ul>
 
                   <br>
@@ -59,7 +59,7 @@
                     </li>
                     </div>
                   </section>
-
+<!--
                   <small *ngIf="accountForm.get('users')?.invalid && accountForm.get('users')?.touched" class="text-danger">All users must be listed as ID number</small>
                   <span class="pull-right"><i center="right" class ='fa fa-plus' (click)="addUser()"></i></span>
                   <div class="input-group" formArrayName="users">
@@ -73,7 +73,7 @@
                   </li>
                   </section>
                   </ul>
-                  </div>
+                  </div>-->
               </div>
 
               <div class="form-group">
@@ -94,7 +94,7 @@
 
         <div class="card-footer">
 
-          <button type="button" class="btn btn-primary" [disabled]="!accountForm.valid" [type]="'submit'">New Account</button>
+          <button type="button" class="btn btn-primary" [disabled]="(usersOnAccount.length<1) || (!accountForm.valid)" [type]="'submit'">New Account</button>
 
         </div>
 

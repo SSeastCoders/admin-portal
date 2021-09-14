@@ -105,7 +105,7 @@ export class AccountsComponent implements OnInit {
   }
 
   public getAccountsPageEvent(event?:PageEvent){
-    this.accountService.getAccountsPage(event.pageIndex, event.pageSize, this.sorter, this.asc).subscribe(
+    this.accountService.getAccountsPage(event?.pageIndex, event?.pageSize, this.sorter, this.asc).subscribe(
       (data) => {
         console.log(data);
         this.dataSource = data.content;
