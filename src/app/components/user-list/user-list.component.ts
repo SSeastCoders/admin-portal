@@ -77,7 +77,7 @@ export class UserListComponent implements OnInit {
   handleUsersList() {
     this.userService
       .getUsersPage(
-        this.pageNumber - 1,
+        this.pageNumber,
         this.pageSize,
         this.sorter,
         this.asc,
@@ -90,7 +90,8 @@ export class UserListComponent implements OnInit {
   processResult() {
     return (data) => {
       this.users = data.content;
-      this.pageNumber = data.pageable.pageNumber + 1;
+      this.dataSource = new MatTableDataSource(this.users);
+      this.pageNumber = data.pageable.pageNumber;
       this.pageSize = data.pageable.pageSize;
       this.totalElements = data.totalElements;
     };
@@ -102,6 +103,7 @@ export class UserListComponent implements OnInit {
     this.handleUsersList();
   }
 
+
   setSort(sort: string) {
     console.log("clicked");
     if (this.asc && this.sorter === sort) {
@@ -110,7 +112,7 @@ export class UserListComponent implements OnInit {
       this.sorter = sort;
       this.asc = true;
     }
-    this.getUsers();
+    this.handleUsersList();
   }
 
   setFilters(roleFilter?: string, statusFilter?: string) {
@@ -124,24 +126,22 @@ export class UserListComponent implements OnInit {
 
   filterByRole($event: Event) {
     const filteredRole = $event.target['value'];
-
     this.setFilters(filteredRole, this.statusFilter);
   }
 
   filterByStatus($event: Event) {
     let filteredStatus = $event.target['value'];
-
     this.setFilters(this.roleFilter, filteredStatus);
   }
 
   getUsers() {
-    this.userService.getUsersPage(this.pageNumber-1, this.pageSize, this.sorter, this.asc)
+    this.userService.getUsersPage(this.pageNumber, this.pageSize, this.sorter, this.asc)
     .subscribe((data) => {
       console.log(data);
       this.users = data.content;
       this.dataSource = new MatTableDataSource(this.users);
       console.log(this.dataSource);
-     this.pageNumber = data.pageable?.pageNumber + 1;
+     this.pageNumber = data.pageable?.pageNumber;
      this.pageSize = data.pageable?.pageSize;
      this.totalElements = data?.totalElements;
     });

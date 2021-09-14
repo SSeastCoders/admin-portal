@@ -1,14 +1,38 @@
-<div class="pull-right">
-  <button
+<div>
+  <div class="pull-right">
+    <button
     type="submit"
     class="btn btn-success"
     routerLink="/registration"
   >
     + New User
-  </button>
+  </button></div>
+
+  <span class="row">
+    <div>
+      <label>Filter by role: </label>
+      <select (change)="filterByRole($event)">
+        <option value="undefined">--All--</option>
+        <option *ngFor="let role of roles" value="{{ role.name }}">
+          {{ role.displayName }}
+        </option>
+      </select>
+    </div>
+    <div>
+      <label>Filter by status: </label>
+      <select (change)="filterByStatus($event)">
+        <option value="undefined">--All--</option>
+        <option value="active">Active</option>
+        <option value="inactive">Inactive</option>
+      </select>
+    </div>
+  </span>
+
 </div>
 
 <br>
+
+
 
 <div class="mat-elevation-z8">
   <mat-table [dataSource]="dataSource" matSort>
@@ -56,27 +80,9 @@
 
 
 
-<!--span class="row">
-  <div>
-    <label>Filter by role: </label>
-    <select (change)="filterByRole($event)">
-      <option value="undefined">--All--</option>
-      <option *ngFor="let role of roles" value="{{ role.name }}">
-        {{ role.displayName }}
-      </option>
-    </select>
-  </div>
-  <div>
-    <label>Filter by status: </label>
-    <select (change)="filterByStatus($event)">
-      <option value="undefined">--All--</option>
-      <option value="active">Active</option>
-      <option value="inactive">Inactive</option>
-    </select>
-  </div>
-</span>
 
-<div>
+
+<!--div>
   <table class="table">
     <thead class="table-dark">
       <tr>

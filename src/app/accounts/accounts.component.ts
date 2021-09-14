@@ -96,13 +96,13 @@ export class AccountsComponent implements OnInit {
   }
 
   getAccounts() {
-    this.accountService.getAccountsPage(this.pageNumber-1, this.pageSize, this.sorter, this.asc)
+    this.accountService.getAccountsPage(this.pageNumber, this.pageSize, this.sorter, this.asc)
     .subscribe((data) => {
       console.log(data);
       this.accounts = data.content;
       this.dataSource = new MatTableDataSource(this.accounts);
       console.log(this.dataSource);
-     this.pageNumber = data.pageable?.pageNumber + 1;
+     this.pageNumber = data.pageable?.pageNumber;
      this.pageSize = data.pageable?.pageSize;
      this.totalElements = data?.totalElements;
     });
