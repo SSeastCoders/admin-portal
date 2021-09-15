@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ContentChild, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Account } from 'src/app/models/account';
@@ -8,12 +8,14 @@ import { ValidationService } from 'src/app/services/validation/validation.servic
 import { UpdateAccount } from 'src/app/models/updateAccount';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DeleteModalComponent } from './delete-modal/delete-modal.component';
+import { EditModalComponent } from './edit-modal/edit-modal.component';
 
 @Component({
   selector: 'account-edit',
   templateUrl: './account-edit.component.html',
   styleUrls: ['./account-edit.component.css']
 })
+
 export class AccountEditComponent implements OnInit {
 
   account!: Account;
@@ -22,6 +24,7 @@ export class AccountEditComponent implements OnInit {
   deleteMessageEnabled: boolean;
   accounts = [AccountType.CHECKING, AccountType.SAVING];
   hasBeenTouched = false;
+  edit: boolean = false;
   //defaultState : FormGroup;
   //defaultState: FormGroup;
   @ViewChild('accountForm2', { static: true }) accountForm: FormGroup;
@@ -32,7 +35,9 @@ export class AccountEditComponent implements OnInit {
     private formBuilder: FormBuilder,
     private modalService: NgbModal) { }
 
+
   ngOnInit() {
+    this.edit = false;
     this.hasBeenTouched = false;
     this.acctService.clear();
     this.updateAccount = new UpdateAccount();
@@ -43,6 +48,16 @@ export class AccountEditComponent implements OnInit {
         this.getAccount(id);
       }
     });
+  }
+
+  public toggleEdit(){
+    const modalRef = this.modalService.open(EditModalComponent);
+    (<EditModalComponent>modalRef.componentInstance).account = this.account;
+    modalRef.result.then((result) => {
+      if (result) {
+        this.acctService.updateAccount(result);
+        this.ngOnInit();
+      }});
   }
 
   buildForm(account: Account) {

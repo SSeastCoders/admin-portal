@@ -1,24 +1,131 @@
-<span class="row">
-  <div>
-    <label>Filter by role: </label>
-    <select (change)="filterByRole($event)">
-      <option value="undefined">--All--</option>
-      <option *ngFor="let role of roles" value="{{ role.name }}">
-        {{ role.displayName }}
-      </option>
-    </select>
+<div id="spacer">
+  <div class="pull-right" id="new-user-button">
+    <button type="submit" class="btn btn-success" routerLink="/registration">
+      + New User
+    </button>
   </div>
-  <div>
-    <label>Filter by status: </label>
-    <select (change)="filterByStatus($event)">
-      <option value="undefined">--All--</option>
-      <option value="active">Active</option>
-      <option value="inactive">Inactive</option>
-    </select>
-  </div>
-</span>
+  <span id="user-filters">
+    <div>
+      <label>Filter by role: </label>
+      <select (change)="filterByRole($event)">
+        <option value="undefined">--All--</option>
+        <option *ngFor="let role of roles" value="{{ role.name }}">
+          {{ role.displayName }}
+        </option>
+      </select>
+    </div>
+    <div>
+      <label>Filter by status: </label>
+      <select (change)="filterByStatus($event)">
+        <option value="undefined">--All--</option>
+        <option value="active">Active</option>
+        <option value="inactive">Inactive</option>
+      </select>
+    </div>
+  </span>
+</div>
 
-<div>
+<br />
+
+<div class="mat-elevation-z8">
+  <mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="role">
+      <mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        (click)="setSort('role')"
+      >
+        Role
+      </mat-header-cell>
+      <mat-cell
+        *matCellDef="let user"
+        routerLink="/users/{{ user.id }}/details"
+      >
+        {{ user.role.title }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        (click)="setSort('lastName')"
+      >
+        Name
+      </mat-header-cell>
+      <mat-cell
+        *matCellDef="let user"
+        routerLink="/users/{{ user.id }}/details"
+      >
+        {{ user.firstName + " " + user.lastName }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="credential.username">
+      <mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        (click)="setSort('credential.username')"
+      >
+        Username
+      </mat-header-cell>
+      <mat-cell
+        *matCellDef="let user"
+        routerLink="/users/{{ user.id }}/details"
+      >
+        {{ user.username }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        (click)="setSort('email')"
+      >
+        Email
+      </mat-header-cell>
+      <mat-cell
+        *matCellDef="let user"
+        routerLink="/users/{{ user.id }}/details"
+      >
+        {{ user.email }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="activeStatus">
+      <mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        (click)="setSort('activeStatus')"
+      >
+        Status
+      </mat-header-cell>
+      <mat-cell
+        *matCellDef="let user"
+        routerLink="/users/{{ user.id }}/details"
+      >
+        {{ user.activeStatus }}
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+
+  <mat-paginator
+    #paginator
+    showFirstLastButtons
+    [length]="totalElements"
+    [pageIndex]="pageNumber"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    (page)="pageEvent = getUsersPageEvent($event)"
+  >
+  </mat-paginator>
+</div>
+
+<!--div>
   <table class="table">
     <thead class="table-dark">
       <tr>
@@ -30,7 +137,7 @@
         >
           {{ field.displayName }}
 
-          <span *ngIf="sort === field.name">
+          <span *ngIf="sorter === field.name">
             {{ asc ? " ↑" : " ↓" }}
           </span>
         </th>
@@ -47,14 +154,14 @@
           <div *ngIf="user.activeStatus; else elseBlock">active</div>
           <ng-template #elseBlock>inactive</ng-template>
         </td>
-        <!-- <button
+        <button
         class="btn btn-primary tooltips"
         data-placement="top"
         data-original-title="Edit"
         routerLink="/users/{{ user.id }}"
       >
         <i class="fas fa-pencil-alt"></i>
-      </button> -->
+      </button>
       </tr>
     </tbody>
   </table>
@@ -83,9 +190,9 @@
         [collectionSize]="totalElements"
         [maxSize]="3"
         [boundaryLinks]="true"
-        (pageChange)="listUsers()"
+        (pageChange)="handleUsersList()"
       >
       </ngb-pagination>
     </div>
   </div>
-</div>
+</div-->

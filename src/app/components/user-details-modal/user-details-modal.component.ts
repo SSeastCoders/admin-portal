@@ -43,6 +43,10 @@ export class UserDetailsModalComponent {
     this.activeModal.close();
   }
 
+  cancel(){
+    this.activeModal.dismiss();
+  }
+
   onSubmit() {
     this.activeModal.close();
   }

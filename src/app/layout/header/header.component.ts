@@ -23,8 +23,7 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  public createUserForm():void{
+  // public createUserForm():void{
 
-  }
-
+  // }
 }
