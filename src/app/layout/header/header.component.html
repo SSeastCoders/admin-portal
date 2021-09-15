@@ -33,7 +33,7 @@
             </a>
           </li>
         </div>
-
+        <!--ACCOUNTS-->
         <div
           class="collapse navbar-collapse"
           id="navbarNavDropdown"
@@ -50,13 +50,14 @@
           </li>
         </div>
 
+        <!--CARDS-->
         <li class="nav-item d-none d-sm-inline-block">
           <a
             class="nav-link"
-            routerLink="/"
+            routerLink="/cards"
             [ngClass]="{ hidden: !authService.isLoggedIn() }"
           >
-            Branches... <span class="sr-only">(current)</span>
+            Cards <span class="sr-only">(current)</span>
           </a>
         </li>
       </ul>
@@ -65,91 +66,40 @@
         class="form-inline ml-3"
         [ngClass]="{ hidden: !authService.isLoggedIn() }"
       >
-        <div class="input-group input-group-sm">
-          <input
-            class="form-control form-control-navbar"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <div class="input-group-append">
-            <button class="btn btn-navbar" type="submit">
-              <i class="fa fa-search"></i>
-            </button>
-          </div>
-          <ul>
-            <div
-              class="nav nav-pills flex-column flex-sm-row"
-              id="navbarNavDropdown"
-              [ngClass]="{ hidden: !authService.isLoggedIn() }"
-            >
-              <li class="nav-item d-none d-sm-inline-block">
-                <a
-                  class="flex-sm-fill text-sm-center nav-link"
-                  routerLink="/accounts"
-                  [ngClass]="{ hidden: !authService.isLoggedIn() }"
-                >
-                  Accounts <span class="sr-only">(current)</span>
-                </a>
-              </li>
-
-              <li class="nav-item d-none d-sm-inline-block">
-                <a
-                  class="flex-sm-fill text-sm-center nav-link"
-                  routerLink="/cards"
-                  [ngClass]="{ hidden: !authService.isLoggedIn() }"
-                >
-                  Cards <span class="sr-only">(current)</span>
-                </a>
-              </li>
-              <!--li class="nav-item dropdown" [ngClass]="{'hidden': !authService.isLoggedIn() }">
-          <a class="nav-link dropdown-toggle"
-          id="Users" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-
-          > Accounts <span class="sr-only">(current)</span> </a>
-          <div class="dropdown-menu" aria-labelledby="Users">
-            <a class="dropdown-item" routerLink="/accounts">View Accounts</a>
-            <a class="dropdown-item" routerLink="/account-registration">New Account</a>
-          </div>
-        </li-->
-            </div>
-          </ul>
-          <!-- SEARCH FORM -->
-          <!-- <form class="form-inline ml-3">
-      <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+        <input
+          class="form-control form-control-navbar"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+        />
         <div class="input-group-append">
           <button class="btn btn-navbar" type="submit">
             <i class="fa fa-search"></i>
           </button>
         </div>
-      </form> -->
-          <!-- Right navbar links -->
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item d-none d-sm-inline-block">
-              <a
-                class="nav-link"
-                routerLink="/logout"
-                [ngClass]="{ hidden: !authService.isLoggedIn() }"
-                (click)="logout()"
-              >
-                Logout <span class="sr-only">(current)</span>
-              </a>
-            </li>
-            <li class="nav-item d-none d-sm-inline-block">
-              <a
-                class="nav-link"
-                routerLink="/login"
-                [ngClass]="{ hidden: authService.isLoggedIn() }"
-                routerLinkActive="active"
-                >Login</a
-              >
-            </li>
-          </ul>
-        </div>
-        <!-- </nav> -->
-        <!-- </div> -->
       </form>
+      <!-- Right navbar links -->
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item d-none d-sm-inline-block">
+          <a
+            class="nav-link"
+            routerLink="/logout"
+            [ngClass]="{ hidden: !authService.isLoggedIn() }"
+            (click)="logout()"
+          >
+            Logout <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+          <a
+            class="nav-link"
+            routerLink="/login"
+            [ngClass]="{ hidden: authService.isLoggedIn() }"
+            routerLinkActive="active"
+            >Login</a
+          >
+        </li>
+      </ul>
     </div>
   </nav>
 </div>

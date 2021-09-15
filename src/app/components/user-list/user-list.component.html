@@ -1,11 +1,10 @@
-<div>
-  <div class="pull-right">
+<div id="spacer">
+  <div class="pull-right" id="new-user-button">
     <button type="submit" class="btn btn-success" routerLink="/registration">
       + New User
     </button>
   </div>
-
-  <span class="row">
+  <span id="user-filters">
     <div>
       <label>Filter by role: </label>
       <select (change)="filterByRole($event)">

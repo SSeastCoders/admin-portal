@@ -14,15 +14,12 @@ import {
   NoopAnimationsModule,
 } from '@angular/platform-browser/animations';
 
-import { AppButtonComponent } from './layout/app-button/app-button.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { PhoneMaskDirective } from './services/validation/phone-mask.directive';
 import { CreateAccountComponent } from './account/create-account/create-account.component';
-import { UserDetailsComponent } from './components/user-details/user-details.component';
-import { UserDetailsModalComponent } from './components/user-details-modal/user-details-modal.component';
 import { RegisterComponent } from './register/register.component';
 import { AccountModule } from './account/account.module';
 import { AuthService } from './services/auth/auth.service';
@@ -36,7 +33,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { CardListComponent } from './components/card-list/card-list.component';
 import { MaterialModule } from './services/material/material.module';
 import { UserModule } from './user/user.module';
-import { UserSearchModalComponent } from './account/user-search-modal/user-search-modal.component';
+import { AppButtonComponent } from './layout/app-button/app-button.component';
 
 @NgModule({
   declarations: [
@@ -47,14 +44,11 @@ import { UserSearchModalComponent } from './account/user-search-modal/user-searc
     HeaderComponent,
     FooterComponent,
     PhoneMaskDirective,
-    AppButtonComponent,
     AccountsComponent,
     CreateAccountComponent,
     RegisterComponent,
     CardListComponent,
-    UserSearchModalComponent,
-    UserDetailsModalComponent,
-    UserDetailsComponent,
+    AppButtonComponent,
   ],
   imports: [
     BrowserModule,
