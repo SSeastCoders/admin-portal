@@ -1,26 +1,28 @@
-<div id="spacer">
-  <div class="pull-right" id="new-user-button">
-    <button type="submit" class="btn btn-success" routerLink="/registration">
-      + New User
-    </button>
-  </div>
-  <span id="user-filters">
-    <div>
-      <label>Filter by role: </label>
-      <select (change)="filterByRole($event)">
-        <option value="undefined">--All--</option>
-        <option *ngFor="let role of roles" value="{{ role.name }}">
-          {{ role.displayName }}
-        </option>
-      </select>
+<div class="mt-5">
+  <span>
+    <div class="pull-left">
+      <div>
+        <label>Filter by role: </label>
+        <select (change)="filterByRole($event)">
+          <option value="undefined">--All--</option>
+          <option *ngFor="let role of roles" value="{{ role.name }}">
+            {{ role.displayName }}
+          </option>
+        </select>
+      </div>
+      <div>
+        <label>Filter by status: </label>
+        <select (change)="filterByStatus($event)">
+          <option value="undefined">--All--</option>
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+        </select>
+      </div>
     </div>
-    <div>
-      <label>Filter by status: </label>
-      <select (change)="filterByStatus($event)">
-        <option value="undefined">--All--</option>
-        <option value="active">Active</option>
-        <option value="inactive">Inactive</option>
-      </select>
+    <div class="text-end me-2">
+      <button type="submit" class="btn btn-success" routerLink="/registration">
+        + New User
+      </button>
     </div>
   </span>
 </div>

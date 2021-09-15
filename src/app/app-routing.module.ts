@@ -19,6 +19,7 @@ const routes: Routes = [
     path: '',
     component: LayoutComponent,
     children: [
+      { path: '', component: HomeComponent },
       { path: 'home', component: HomeComponent },
       { path: 'login', component: LoginComponent },
       //{ path: 'users/:id/edit', component: EditUserComponent },
@@ -26,17 +27,12 @@ const routes: Routes = [
 
       { path: 'users', component: UserListComponent },
 
-      // { path: 'logout', component: HeaderComponent },
-      // { path: 'login', component: HeaderComponent },
-      // { path: 'home', component: HeaderComponent },
-      //{path: 'registration', component: HeaderComponent},
       { path: 'registration', component: RegisterComponent },
-      //{path: 'users', component: UserFormComponent},
+
       { path: 'users', component: UserService },
-      //{path: 'accounts', component: AccountListComponent},
-      //{path: 'accounts', component: ViewAccountComponent},
+
       { path: 'account-registration', component: CreateAccountComponent },
-      //{path: 'accounts/detail-view', component: ViewAccountComponent}
+
       { path: 'accounts', component: AccountsComponent },
       { path: 'cards', component: CardListComponent },
 
