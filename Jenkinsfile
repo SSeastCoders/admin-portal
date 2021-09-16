@@ -9,6 +9,7 @@ pipeline {
         stage('install Dependencies and Test') {
             steps {
                 sh 'npm install'
+                sh 'ng test --code-coverage'
                 sh 'echo "Testing..."' 
             }
         }
