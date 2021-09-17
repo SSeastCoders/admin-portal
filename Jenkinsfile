@@ -6,13 +6,13 @@ pipeline {
         commitIDShort = sh(returnStdout: true, script: "git rev-parse --short HEAD")
     }
     stages {
-        // stage('install Dependencies and Test') {
-        //     steps {
-        //         sh 'npm install'
-        //         sh 'ng test --code-coverage'
-        //         sh 'echo "Testing..."' 
-        //     }
-        // }
+        stage('Install Dependencies and Test') {
+            steps {
+                sh 'npm install'
+                sh 'ng test --code-coverage'
+                sh 'echo "Testing..."' 
+            }
+        }
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQubeServer') {
