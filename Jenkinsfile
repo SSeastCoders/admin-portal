@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    tools {nodejs "nodejs"}
+    //tools {nodejs "nodejs"}
     environment {
         serviceName = 'admin-portal'
         //awsRegion = 'us-east-1'
