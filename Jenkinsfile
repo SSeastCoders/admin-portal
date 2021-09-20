@@ -10,7 +10,7 @@ pipeline {
         stage('Install Dependencies and Test') {
             steps {
                 sh 'npm install'
-                sh 'ng test'
+                sh 'npx ng test'
                 sh 'echo "Testing..."' 
             }
         }
