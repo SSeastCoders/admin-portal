@@ -10,7 +10,7 @@ pipeline {
         stage('Install Dependencies and Test') {
             steps {
                 sh 'npm install'
-                sh 'npx ng test'
+                sh 'ng test --no-watch --code-coverage'
                 sh 'echo "Testing..."' 
             }
         }
