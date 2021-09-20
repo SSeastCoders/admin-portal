@@ -10,7 +10,7 @@ pipeline {
         stage('Install Dependencies and Test') {
             steps {
                 sh 'npm install'
-                sh 'npx ng test-karma'
+                sh 'ng test'
                 sh 'echo "Testing..."' 
             }
         }
@@ -23,6 +23,7 @@ pipeline {
         }
         stage('Quality Gate') {
             steps {
+                sh 'echo "Waiting for Quality Gate..."'
                 timeout(time: 10, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true
                 }
