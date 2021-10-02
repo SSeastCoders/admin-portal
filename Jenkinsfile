@@ -32,7 +32,7 @@ pipeline {
         // }
         stage('Docker Image Build and ECR Image Push') {
             steps {
-                withCredentials([string(credentialsId: 'awsAccountNumber', variable: 'awsID')]) {
+                withCredentials([string(credentialsId: 'awsAccount', variable: 'awsID')]) {
                     sh '''
                         # authenticate aws account
                         aws ecr get-login-password --region ${awsRegion} | docker login --username AWS --password-stdin ${awsID}.dkr.ecr.${awsRegion}.amazonaws.com
