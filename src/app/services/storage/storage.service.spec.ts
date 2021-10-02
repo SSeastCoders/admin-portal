@@ -1,8 +1,8 @@
-import { StorageService } from "./storage.service";
+import { StorageService } from './storage.service';
 import { TestBed } from '@angular/core/testing';
-import { HttpService } from "../http/http.service";
-import { HttpClientTestingModule } from "@angular/common/http/testing";
-import { HttpClient, HttpHandler } from "@angular/common/http";
+import { HttpService } from '../http/http.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HttpClient, HttpHandler } from '@angular/common/http';
 
 describe('StorageService', () => {
   let service: StorageService;
@@ -10,9 +10,9 @@ describe('StorageService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [HttpService, StorageService,]
+      providers: [HttpService, StorageService],
     });
-    service = TestBed.get(StorageService);
+    service = TestBed.inject(StorageService);
     let store = {};
     const mockLocalStorage = {
       getItem: (key: string): string => {
@@ -26,16 +26,12 @@ describe('StorageService', () => {
       },
       clear: () => {
         store = {};
-      }
+      },
     };
-    spyOn(localStorage, 'getItem')
-      .and.callFake(mockLocalStorage.getItem);
-    spyOn(localStorage, 'setItem')
-      .and.callFake(mockLocalStorage.setItem);
-    spyOn(localStorage, 'removeItem')
-      .and.callFake(mockLocalStorage.removeItem);
-    spyOn(localStorage, 'clear')
-      .and.callFake(mockLocalStorage.clear);
+    spyOn(localStorage, 'getItem').and.callFake(mockLocalStorage.getItem);
+    spyOn(localStorage, 'setItem').and.callFake(mockLocalStorage.setItem);
+    spyOn(localStorage, 'removeItem').and.callFake(mockLocalStorage.removeItem);
+    spyOn(localStorage, 'clear').and.callFake(mockLocalStorage.clear);
   });
 
   it('should be created', () => {
@@ -43,36 +39,11 @@ describe('StorageService', () => {
     expect(service).toBeTruthy();
   });
 
-  describe('setLocalObject', () => {
-    it('should store the item in localStorage',
-      () => {
-        service.setLocalObject('somekey','sometoken');
-        expect(localStorage.getItem('somekey')).toEqual('sometoken');
-    });
+  it('should store the item in localStorage', () => {
+    service.setLocalObject('somekey', 'sometoken');
+    expect(localStorage.getItem('somekey')).toEqual('sometoken');
   });
-
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';

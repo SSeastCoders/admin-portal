@@ -73,14 +73,14 @@ describe('AuthService', () => {
     expect(resHeaders).toBeTruthy();
   });
 
-  it('should login', () => {
-    service.login(login);
+  // it('should login', () => {
+  //   service.login(login);
 
-    const req = httpMock.expectOne({
-      method: 'POST',
-      url: environment.userUrl + AuthEndPoints.LOGIN,
-    });
+  //   const req = httpMock.expectOne({
+  //     method: 'POST',
+  //     url: environment.userUrl + AuthEndPoints.LOGIN,
+  //   });
 
-    req.flush([login]);
-  });
+  //   req.flush([login]);
+  // });
 });
