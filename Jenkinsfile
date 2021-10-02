@@ -11,7 +11,7 @@ pipeline {
             steps {
                 sh 'npm install'
                 sh 'echo "Testing..."' 
-                sh 'npx ng test:headless'
+                sh 'npm run test:headless'
                 
             }
         }
