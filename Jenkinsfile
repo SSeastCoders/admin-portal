@@ -10,8 +10,9 @@ pipeline {
         stage('Install Dependencies and Test') {
             steps {
                 sh 'npm install'
-                sh 'npx ng test'
                 sh 'echo "Testing..."' 
+                sh 'npx ng test:headless'
+                
             }
         }
         // stage('SonarQube Analysis') {
