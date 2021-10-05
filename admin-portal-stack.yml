@@ -1,0 +1,42 @@
+AWSTemplateFormatVersion: 2010-09-09
+Resources:
+  AdminPortalDistribution:
+    Type: 'AWS::CloudFront::Distribution'
+    Properties: 
+      DistributionConfig:
+        DefaultRootObject: 'index.html'
+        Enabled: true 
+        DefaultCacheBehavior:
+          AllowedMethods: 
+            - GET 
+            - HEAD
+          ForwardedValues:
+            QueryString: false
+          TargetOriginId: 'AdminPortalCache'
+          ViewerProtocolPolicy: allow-all # change to redirect-to-https when have cert
+        PriceClass: PriceClass_100
+        # depends on how s3 is set up...
+        Origins: 
+          - DomainName: 'eastcodersbank.com'
+            Id: 'dev-admin-portal'
+            S3OriginConfig:
+              OriginAccessIdentity: ''  
+        Aliases:   
+          - 'admin.eastcodersbank.com'
+          - 'www.admin.eastcodersbank.com' 
+        ViewerCertificate:
+                                   # '{{resolve:secretsmanger:twilio/sid_token:SecretString:TWILIO_TOKEN}}'
+          AcmCertificateArn: !Sub '{{resolve:secretsmanger:Certificate:SecretString}}'
+          SslSupportMethod: #sni-only
+          MinimumProtocolVersion: #TLSv1.2_2021
+
+  AdminPortalDns:
+    Type: AWS::Route53::RecordSetGroup
+    Properties:
+      HostedZone: !Ref DevHostedZone
+        RecordSet:
+            Name: !Sub 'admin.eastcodersbank.com'
+            Type: #A
+            AliasTarget:
+              DNSName: #!GetAtt AdminPortalDistribution.DomainName
+              HostedZoneId: 
