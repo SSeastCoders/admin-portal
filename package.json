@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "test:headless": "ng test --nowatch --browsers ChromeHeadlessNoSandbox"
+    "test:headless": "ng test --nowatch --browsers ChromeHeadlessNoSandbox",
+    "sonar": "sonar-scanner"
   },
   "private": true,
   "dependencies": {
