@@ -35,8 +35,8 @@ pipeline {
               sh "echo 'deploy'"
               sh "aws s3 sync build/ s3://admin.eastcodersbank.com"
 
+            }
         }
-     }
 
     }
 
