@@ -1,42 +1,55 @@
-AWSTemplateFormatVersion: 2010-09-09
+AWSTemplateFormatVersion: "2010-09-09"
+  
+Parameters:
+  Domain:
+    Type: String
+    Description: 'The root domain name'
+    Default: 'eastcodersbank.com'
+  
 Resources:
-  AdminPortalDistribution:
-    Type: 'AWS::CloudFront::Distribution'
-    Properties: 
+  PortalDistribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
       DistributionConfig:
         DefaultRootObject: 'index.html'
-        Enabled: true 
+        Comment: 'Portal distribution for admin portal environment.'
+        Enabled: true
         DefaultCacheBehavior:
-          AllowedMethods: 
-            - GET 
+          TargetOriginId: '{{resolve:secretsmanager:AdminBucket:SecretString}}'
+          ViewerProtocolPolicy: redirect-to-https
+          AllowedMethods:
+            - GET
             - HEAD
           ForwardedValues:
-            QueryString: false
-          TargetOriginId: 'AdminPortalCache'
-          ViewerProtocolPolicy: allow-all # change to redirect-to-https when have cert
+            QueryString: 'false'
+            Cookies:
+              Forward: none
+    
+        CustomErrorResponses:
+          - ErrorCode: 403
+            ResponseCode: 200
+            ResponsePagePath: '/index.html'
+            ErrorCachingMinTTL: 300
         PriceClass: PriceClass_100
-        # depends on how s3 is set up...
-        Origins: 
-          - DomainName: 'eastcodersbank.com'
-            Id: 'dev-admin-portal'
-            S3OriginConfig:
-              OriginAccessIdentity: ''  
-        Aliases:   
-          - 'admin.eastcodersbank.com'
-          - 'www.admin.eastcodersbank.com' 
+        Aliases:
+          - !Sub 'admin.${Domain}'
         ViewerCertificate:
-                                   # '{{resolve:secretsmanger:twilio/sid_token:SecretString:TWILIO_TOKEN}}'
-          AcmCertificateArn: !Sub '{{resolve:secretsmanger:Certificate:SecretString}}'
-          SslSupportMethod: #sni-only
-          MinimumProtocolVersion: #TLSv1.2_2021
-
-  AdminPortalDns:
+          AcmCertificateArn: '{{resolve:secretsmanager:Certificate:SecretString}}'
+          SslSupportMethod: sni-only
+          MinimumProtocolVersion: TLSv1.2_2021
+        Origins:
+          - DomainName: '{{resolve:secretsmanager:AdminBucketDomain:SecretString}}'
+            Id: '{{resolve:secretsmanager:AdminBucket:SecretString}}'
+            S3OriginConfig:
+              OriginAccessIdentity: ''
+  PortalDNS:
     Type: AWS::Route53::RecordSetGroup
     Properties:
-      HostedZone: !Ref DevHostedZone
-        RecordSet:
-            Name: !Sub 'admin.eastcodersbank.com'
-            Type: #A
-            AliasTarget:
-              DNSName: #!GetAtt AdminPortalDistribution.DomainName
-              HostedZoneId: 
+      HostedZoneId: '{{resolve:secretsmanager:HostedZone:SecretString}}'
+      Comment: 'Public admin portal DNS for angular app'
+      RecordSets:
+        - Name: !Sub 'admin.${Domain}'
+          Type: A
+          AliasTarget:
+            DNSName: !GetAtt PortalDistribution.DomainName
+            HostedZoneId: '{{resolve:secretmanager:HostedZone:SecretString}}'
