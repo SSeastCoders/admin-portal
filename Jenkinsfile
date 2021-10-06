@@ -15,21 +15,21 @@ pipeline {
                 
             }
         }
-        stage('SonarQube Analysis') {
-            steps {
-                withSonarQubeEnv('sonarScanner') {
-                    sh 'npm run sonar'
-                }
-            }
-        }
-        stage('Quality Gate') {
-            steps {
-                sh 'echo "Waiting for Quality Gate..."'
-                timeout(time: 10, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
-                }
-            }
-        }
+        // stage('SonarQube Analysis') {
+        //     steps {
+        //         withSonarQubeEnv('sonarScanner') {
+        //             sh 'npm run sonar'
+        //         }
+        //     }
+        // }
+        // stage('Quality Gate') {
+        //     steps {
+        //         sh 'echo "Waiting for Quality Gate..."'
+        //         timeout(time: 10, unit: 'MINUTES') {
+        //             waitForQualityGate abortPipeline: true
+        //         }
+        //     }
+        // }
         stage('deploy to s3') {
             steps {
               sh "echo 'deploying...'"
