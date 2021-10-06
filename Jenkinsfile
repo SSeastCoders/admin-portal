@@ -2,9 +2,10 @@ pipeline {
     agent any
     tools {nodejs "nodejs"}
     environment {
-        serviceName = 'admin-portal'
+        portalName = 'admin'
         awsRegion = 'us-east-2'
-        commitIDShort = sh(returnStdout: true, script: "git rev-parse --short HEAD")
+        domain = 'eastcodersbank.com'
+
     }
     stages {
         stage('Install Dependencies and Test') {
@@ -30,9 +31,25 @@ pipeline {
         //         }
         //     }
         // }
+        stage("Setup Portal Stack") {
+            steps {
+                sh '''
+                    aws cloudformation deploy \
+                    --stack-name ${portalName}-portal-stack \
+                    --template-file admin-portal-stack.yml \
+                    --parameter-overrides \
+                        Domain=${domain} \
+                    --capabilities CAPABILITY_NAMED_IAM \
+                    --no-fail-on-empty-changeset \
+                    --region ${awsRegion}
+                '''
+            }
+        }
+
+
+
         stage("Build") {
             steps {
-                
                 sh "npm run build --prod"
             }
         }
