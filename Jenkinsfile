@@ -30,10 +30,16 @@ pipeline {
         //         }
         //     }
         // }
-        stage('deploy to s3') {
+        stage("Build") {
+            steps {
+                
+                sh "ng build"
+            }
+        }
+        stage('Deploy to s3') {
             steps {
               sh "echo 'deploying...'"
-              sh "aws s3 sync build/ s3://admin.eastcodersbank.com"
+              sh "aws s3 sync dist/ s3://admin.eastcodersbank.com"
 
             }
         }
@@ -44,7 +50,11 @@ pipeline {
         success {
             sh 'echo "Finished."'
         }
+        always {
+            sh "rm -rf node_modules"
+        }
     }
     
 
 }
+
