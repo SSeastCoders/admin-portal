@@ -32,7 +32,7 @@ pipeline {
         }
         stage('deploy to s3') {
             steps {
-              sh "echo 'deploy'"
+              sh "echo 'deploying...'"
               sh "aws s3 sync build/ s3://admin.eastcodersbank.com"
 
             }
