@@ -21,6 +21,8 @@ pipeline {
                 
             }
         }
+
+        // NOT WORKING YET
         // stage('SonarQube Analysis') {
         //     steps {
         //         withSonarQubeEnv('sonarScanner') {
@@ -37,21 +39,21 @@ pipeline {
         //     }
         // }
 
-        // THIS IS WORKING BUT COMMENTED OUT FOR TESTING
-        // stage("Setup Portal Stack") {
-        //     steps {
-        //         sh '''
-        //             aws cloudformation deploy \
-        //             --stack-name ${PORTAL_NAME}-portal-stack \
-        //             --template-file admin-portal-stack.yml \
-        //             --parameter-overrides \
-        //                 Domain=${DOMAIN} \
-        //             --capabilities CAPABILITY_NAMED_IAM \
-        //             --no-fail-on-empty-changeset \
-        //             --region ${REGION}
-        //         '''
-        //     }
-        // }
+        
+        stage("Setup Portal Stack") {
+            steps {
+                sh '''
+                    aws cloudformation deploy \
+                    --stack-name ${PORTAL_NAME}-portal-stack \
+                    --template-file admin-portal-stack.yml \
+                    --parameter-overrides \
+                        Domain=${DOMAIN} \
+                    --capabilities CAPABILITY_NAMED_IAM \
+                    --no-fail-on-empty-changeset \
+                    --region ${REGION}
+                '''
+            }
+        }
 
 
 
