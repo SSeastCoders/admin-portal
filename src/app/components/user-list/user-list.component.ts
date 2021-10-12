@@ -66,15 +66,22 @@ export class UserListComponent implements OnInit {
 
   ngOnInit() {
     this.handleUsersList();
+    console.log(this.dataSource);
+
+    console.log('before get users');
     this.getUsers();
     this.dataSource = new MatTableDataSource(this.users);
+    console.log(this.dataSource);
+    console.log('ngOnInit');
     this.dataSource.paginator = this.paginator;
   }
 
   handleUsersList() {
+    console.log(this.dataSource);
+    console.log('handle users list');
     this.userService
       .getUsersPage(
-        this.pageNumber,
+        this.pageNumber - 1,
         this.pageSize,
         this.sorter,
         this.asc,
@@ -85,10 +92,16 @@ export class UserListComponent implements OnInit {
   }
 
   processResult() {
+    console.log(this.dataSource);
+    console.log('process result');
     return (data) => {
+      console.log(data);
+      console.log('here');
       this.users = data.content;
+      console.log(this.users);
       this.dataSource = new MatTableDataSource(this.users);
-      this.pageNumber = data.pageable.pageNumber;
+      console.log(this.dataSource);
+      this.pageNumber = data.pageable.pageNumber + 1;
       this.pageSize = data.pageable.pageSize;
       this.totalElements = data.totalElements;
     };
@@ -131,13 +144,16 @@ export class UserListComponent implements OnInit {
   }
 
   getUsers() {
+    console.log(this.dataSource);
+    console.log('get users');
     this.userService
       .getUsersPage(this.pageNumber, this.pageSize, this.sorter, this.asc)
+
       .subscribe((data) => {
         console.log(data);
         this.users = data.content;
-        this.dataSource = new MatTableDataSource(this.users);
-        console.log(this.dataSource);
+        //this.dataSource = new MatTableDataSource(this.users);
+        console.log(this.dataSource.data);
         this.pageNumber = data.pageable?.pageNumber;
         this.pageSize = data.pageable?.pageSize;
         this.totalElements = data?.totalElements;
@@ -145,12 +161,14 @@ export class UserListComponent implements OnInit {
   }
 
   public getUsersPageEvent(event?: PageEvent) {
+    console.log(this.dataSource);
+    console.log('get users page event');
     this.userService
       .getUsersPage(event.pageIndex, event.pageSize, this.sorter, this.asc)
       .subscribe((data) => {
         console.log(data);
         this.dataSource = data.content;
-        this.pageNumber = data.pageable.pageNumber;
+        this.pageNumber = data.pageable.pageNumber + 1;
         this.pageSize = data.size;
         this.totalElements = data.totalElements;
       });

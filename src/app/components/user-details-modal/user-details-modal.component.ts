@@ -1,26 +1,35 @@
-import { Input, Output, Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Input, Output, Component, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserDetailsDto } from 'src/app/dto/user-details-dto';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user/user.service';
+import { ValidationService } from 'src/app/services/validation/validation.service';
 
 @Component({
   selector: 'app-user-details-modal',
   templateUrl: './user-details-modal.component.html',
   styleUrls: ['./user-details-modal.component.css'],
 })
-export class UserDetailsModalComponent {
+export class UserDetailsModalComponent implements OnInit {
   @Output() editUser: UserDetailsDto;
   @Input() currentUser: User;
+  userDetailsForm!: FormGroup;
   constructor(
     private userService: UserService,
-    private activeModal: NgbActiveModal
+    private activeModal: NgbActiveModal,
+    private formBuilder: FormBuilder
   ) {}
 
-  onUpdateUser(editUserForm: NgForm): any {
-    console.dir(editUserForm);
-    this.editUser = editUserForm.value;
+  //onUpdateUser(editUserForm: NgForm): any {
+  onUpdateUser(): any {
+    console.dir(this.userDetailsForm);
+    //this.editUser = editUserForm.value;
     console.log(this.editUser);
     this.editUser.id = this.currentUser.id;
     return this.userService
@@ -43,11 +52,65 @@ export class UserDetailsModalComponent {
     this.activeModal.close();
   }
 
-  cancel(){
+  cancel() {
     this.activeModal.dismiss();
   }
 
   onSubmit() {
     this.activeModal.close();
+  }
+
+  ngOnInit(): void {
+    console.log('onInit');
+    console.log(this.currentUser);
+    this.userService.clear();
+
+    this.userDetailsForm = this.formBuilder.group({
+      firstName: new FormControl(this.currentUser.firstName, [
+        Validators.required,
+        ValidationService.notOnlyWhitespace,
+      ]),
+      lastName: new FormControl(this.currentUser.lastName, [
+        Validators.required,
+        ValidationService.notOnlyWhitespace,
+      ]),
+      email: new FormControl(this.currentUser.email, [
+        Validators.required,
+        ValidationService.emailValidator,
+        ValidationService.notOnlyWhitespace,
+      ]),
+      username: new FormControl(this.currentUser.username, [
+        Validators.required,
+        ValidationService.usernameValidator,
+        ValidationService.notOnlyWhitespace,
+      ]),
+
+      phone: ['', [Validators.pattern, ValidationService.notOnlyWhitespace]],
+      activeStatus: ['', Validators.required],
+    });
+  }
+
+  get firstName() {
+    return this.userDetailsForm.get('firstName');
+  }
+
+  get lastName() {
+    return this.userDetailsForm.get('lastName');
+  }
+
+  get email() {
+    return this.userDetailsForm.get('email');
+  }
+
+  get username() {
+    return this.userDetailsForm.get('username');
+  }
+
+  get phone() {
+    return this.userDetailsForm.get('phone');
+  }
+
+  get activeStatus() {
+    return this.userDetailsForm.get('activeStatus');
   }
 }

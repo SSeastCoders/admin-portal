@@ -12,13 +12,137 @@
   <h5 class="modal-title" id="updateUserModalLabel">
     Edit {{ currentUser?.firstName }}
   </h5>
-  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+  <button
+    type="button"
+    class="close"
+    data-dismiss="modal"
+    aria-label="Close"
+    (click)="onCloseModal()"
+  >
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
 
 <div class="modal-body">
-  <form #editUserForm="ngForm">
+  <form [formGroup]="userDetailsForm" (ngSubmit)="onUpdateUser()">
+    <!-- FIRST NAME -->
+    <label for="firstName">First Name</label>
+    <div class="input-space">
+      <input formControlName="firstName" type="text" />
+      <div
+        *ngIf="firstName?.invalid && (firstName?.dirty || firstName?.touched)"
+        class="alert alert-danger mt-1"
+      >
+        <div
+          *ngIf="
+            firstName?.errors?.required || firstName?.errors?.notOnlyWhitespace
+          "
+        >
+          First Name is required!
+        </div>
+      </div>
+    </div>
+    <!-- LAST NAME -->
+    <label for="lastName">Last Name</label>
+    <div class="input-space">
+      <input formControlName="lastName" type="text" />
+      <div
+        *ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)"
+        class="alert alert-danger mt-1"
+      >
+        <div
+          *ngIf="
+            lastName?.errors?.required || lastName?.errors?.notOnlyWhitespace
+          "
+        >
+          Last Name is required!
+        </div>
+      </div>
+    </div>
+
+    <!-- EMAIL -->
+    <label for="email">Email</label>
+    <div class="input-space">
+      <input formControlName="email" type="email" />
+      <div
+        *ngIf="email?.invalid && (email?.dirty || email?.touched)"
+        class="alert alert-danger mt-1"
+      >
+        <div
+          *ngIf="email?.errors?.required || email?.errors?.notOnlyWhitespace"
+        >
+          A valid email is required!
+        </div>
+      </div>
+    </div>
+    <!-- USERNAME -->
+    <label for="username">Username</label>
+    <div class="input-space">
+      <input formControlName="username" type="text" />
+      <div
+        *ngIf="username?.invalid && (username?.dirty || username?.touched)"
+        class="alert alert-danger mt-1"
+      >
+        <div
+          *ngIf="
+            username?.errors?.required ||
+            username?.errors?.usernameValidator ||
+            username?.errors?.notOnlyWhitespace
+          "
+        >
+          A valid username is required!
+        </div>
+      </div>
+    </div>
+    <!-- PHONE -->
+    <label for="phone">Phone</label>
+    <div class="input-space">
+      <input formControlName="phone" type="text" />
+      <div
+        *ngIf="phone?.invalid && (phone?.dirty || phone?.touched)"
+        class="alert alert-danger mt-1"
+      >
+        <div *ngIf="phone?.errors?.pattern || phone?.errors?.notOnlyWhitespace">
+          Please enter a valid phone number!
+        </div>
+      </div>
+    </div>
+    <!-- ACTIVE STATUS -->
+    <div>
+      <label>
+        <input type="radio" [value]="true" formControlname="activeStatus" />
+        <span>Active</span>
+      </label>
+      <label>
+        <input type="radio" [value]="false" formControlname="activeStatus" />
+        <span>Inactive</span>
+      </label>
+    </div>
+
+    <!-- MODAL FOOTER -->
+    <div class="modal-footer">
+      <button
+        type="button"
+        data-dismiss="modal"
+        class="btn btn-secondary"
+        (click)="onCloseModal()"
+      >
+        Cancel
+      </button>
+      <button
+        (click)="onUpdateUser()"
+        data-dismiss="modal"
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="!userDetailsForm.valid"
+      >
+        Save changes
+      </button>
+    </div>
+  </form>
+</div>
+
+<!-- <form #editUserForm="ngForm">
     <input
       type="hidden"
       ngModel="{{ currentUser?.id }}"
@@ -130,8 +254,4 @@
         Save changes
       </button>
     </div>
-  </form>
-</div>
-<!-- </div>
-  </div>
-</div> -->
+  </form> -->

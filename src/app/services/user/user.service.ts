@@ -68,7 +68,9 @@ export class UserService {
   public searchUsers(keyword: string, pageNumber: number) {
     console.log(keyword);
     console.log(api + `?keyword=${keyword}&page=${pageNumber}&size=5`);
-    return this.https.get<any>(api + `?keyword=${keyword}&page=${pageNumber}&size=5`);
+    return this.https.get<any>(
+      api + `?keyword=${keyword}&page=${pageNumber}&size=5`
+    );
   }
 
   public updateUser(editUser: UserDetailsDto): any {
@@ -95,7 +97,7 @@ export class UserService {
     let predicateCount = 0;
 
     let delimeter = '?';
-
+    console.log(page + ' ' + size);
     if (statusFilter == 'active' || statusFilter == 'inactive') {
       req += '/' + `${encodeURIComponent(statusFilter)}`;
     }
@@ -117,7 +119,7 @@ export class UserService {
         !!asc
       )}`;
     }
-
+    console.log(req);
     return this.http.requestCall(
       UserEndPoints.MAIN,
       ApiMethod.GET,
