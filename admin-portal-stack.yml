@@ -33,7 +33,6 @@ Resources:
         PriceClass: PriceClass_100
         Aliases:
           - !Sub 'admin.${Domain}'
-          - 'dev-admin-portal-bucket-10052021.s3-website.us-east-2.amazonaws.com'
         ViewerCertificate:
           AcmCertificateArn: arn:aws:acm:us-east-1:326848027964:certificate/bf561d2a-f4ae-45fe-93af-8acf5829d3ec
           SslSupportMethod: sni-only
