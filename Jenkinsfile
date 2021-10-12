@@ -9,7 +9,7 @@ pipeline {
         USER_ENDPOINT= 'http://DevApplicationLoadBalancer-270186758.us-east-2.elb.amazonaws.com:8222'
         ACCOUNT_ENDPOINT='http://DevApplicationLoadBalancer-270186758.us-east-2.elb.amazonaws.com:8223/api/v1/accounts'
         TRANSACTION_ENDPOINT='http://DevApplicationLoadBalancer-270186758.us-east-2.elb.amazonaws.com:8224/api/v1/transaction'
-
+          
     }
     stages {
         stage('Install Dependencies and Test') {
@@ -42,7 +42,7 @@ pipeline {
                     --stack-name ${PORTAL_NAME}-portal-stack \
                     --template-file admin-portal-stack.yml \
                     --parameter-overrides \
-                        Domain=${domain} \
+                        Domain=${DOMAIN} \
                     --capabilities CAPABILITY_NAMED_IAM \
                     --no-fail-on-empty-changeset \
                     --region ${REGION}
