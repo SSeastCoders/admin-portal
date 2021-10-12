@@ -34,7 +34,7 @@ Resources:
         Aliases:
           - !Sub 'admin.${Domain}'
         ViewerCertificate:
-          AcmCertificateArn: arn:aws:acm:us-east-2:326848027964:certificate/4215e5dc-ac62-40a8-be74-ca7fdbee2309
+          AcmCertificateArn: arn:aws:acm:us-east-1:326848027964:certificate/bf561d2a-f4ae-45fe-93af-8acf5829d3ec
           SslSupportMethod: sni-only
           MinimumProtocolVersion: TLSv1.2_2021
         Origins:
