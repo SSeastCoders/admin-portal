@@ -32,7 +32,7 @@ Resources:
             ErrorCachingMinTTL: 300
         PriceClass: PriceClass_100
         Aliases:
-          - !Sub 'admin.${Domain}'
+          - !Sub 'www.admin.${Domain}'
         ViewerCertificate:
           AcmCertificateArn: arn:aws:acm:us-east-1:326848027964:certificate/bf561d2a-f4ae-45fe-93af-8acf5829d3ec
           SslSupportMethod: sni-only
