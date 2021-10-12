@@ -32,7 +32,7 @@ Resources:
             ErrorCachingMinTTL: 300
         PriceClass: PriceClass_100
         Aliases:
-          - !Sub 'www.admin.${Domain}'
+          - !Sub 'admin.${Domain}'
         ViewerCertificate:
           AcmCertificateArn: arn:aws:acm:us-east-1:326848027964:certificate/bf561d2a-f4ae-45fe-93af-8acf5829d3ec
           SslSupportMethod: sni-only
@@ -48,7 +48,7 @@ Resources:
       HostedZoneId: '{{resolve:secretsmanager:HostedZone:SecretString}}'
       Comment: 'Public admin portal DNS for angular app'
       RecordSets:
-        - Name: !Sub 'admin.${Domain}'
+        - Name: 'admin.eastcodersbank.com'
           Type: A
           AliasTarget:
             DNSName: !GetAtt PortalDistribution.DomainName
