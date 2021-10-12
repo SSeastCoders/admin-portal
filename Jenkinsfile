@@ -2,9 +2,13 @@ pipeline {
     agent any
     tools {nodejs "nodejs"}
     environment {
-        portalName = 'admin'
-        awsRegion = 'us-east-2'
-        domain = 'eastcodersbank.com'
+        PORTAL_NAME = 'admin'
+        REGION = 'us-east-2'
+        DOMAIN = 'eastcodersbank.com'
+        S3_NAME = 'dev-admin-portal-bucket-10052021'
+        USER_ENDPOINT= 'http://DevApplicationLoadBalancer-270186758.us-east-2.elb.amazonaws.com:8222'
+        ACCOUNT_ENDPOINT='http://DevApplicationLoadBalancer-270186758.us-east-2.elb.amazonaws.com:8223/api/v1/accounts'
+        TRANSACTION_ENDPOINT='http://DevApplicationLoadBalancer-270186758.us-east-2.elb.amazonaws.com:8224/api/v1/transaction'
 
     }
     stages {
@@ -35,13 +39,13 @@ pipeline {
             steps {
                 sh '''
                     aws cloudformation deploy \
-                    --stack-name ${portalName}-portal-stack \
+                    --stack-name ${PORTAL_NAME}-portal-stack \
                     --template-file admin-portal-stack.yml \
                     --parameter-overrides \
                         Domain=${domain} \
                     --capabilities CAPABILITY_NAMED_IAM \
                     --no-fail-on-empty-changeset \
-                    --region ${awsRegion}
+                    --region ${REGION}
                 '''
             }
         }
@@ -56,7 +60,7 @@ pipeline {
         stage('Deploy to s3') {
             steps {
               sh "echo 'deploying...'"
-              sh "aws s3 sync dist/ s3://admin.eastcodersbank.com"
+              sh "aws s3 sync dist/ s3://${S3_NAME}"
 
             }
         }
