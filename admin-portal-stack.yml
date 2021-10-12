@@ -52,4 +52,4 @@ Resources:
           Type: A
           AliasTarget:
             DNSName: !GetAtt PortalDistribution.DomainName
-            HostedZoneId: '{{resolve:secretmanager:HostedZone:SecretString}}'
+            HostedZoneId: Z2FDTNDATAQYW2
