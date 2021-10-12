@@ -9,6 +9,7 @@ pipeline {
         USER_ENDPOINT= 'http://DevApplicationLoadBalancer-270186758.us-east-2.elb.amazonaws.com:8222'
         ACCOUNT_ENDPOINT='http://DevApplicationLoadBalancer-270186758.us-east-2.elb.amazonaws.com:8223/api/v1/accounts'
         TRANSACTION_ENDPOINT='http://DevApplicationLoadBalancer-270186758.us-east-2.elb.amazonaws.com:8224/api/v1/transaction'
+        CARDS_ENDPOINT='http://DevApplicationLoadBalancer-270186758.us-east-2.elb.amazonaws.com:8225/api/v1/cards'
           
     }
     stages {
