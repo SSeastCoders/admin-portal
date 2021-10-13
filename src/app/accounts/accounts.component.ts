@@ -49,7 +49,7 @@ export class AccountsComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.handleAccountsList();
     //this.getAccounts();
     this.getAccountsPageEvent();
@@ -92,6 +92,7 @@ export class AccountsComponent implements OnInit {
   }
 
   getAccounts() {
+    console.log(this.dataSource);
     this.accountService
       .getAccountsPage(this.pageNumber, this.pageSize, this.sorter, this.asc)
       .subscribe((data) => {
@@ -106,6 +107,8 @@ export class AccountsComponent implements OnInit {
   }
 
   public getAccountsPageEvent(event?: PageEvent) {
+    console.log(event);
+    console.log('event');
     this.accountService
       .getAccountsPage(event?.pageIndex, event?.pageSize, this.sorter, this.asc)
       .subscribe((data) => {

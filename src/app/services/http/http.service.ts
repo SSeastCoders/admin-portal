@@ -46,24 +46,18 @@ export class HttpService {
     let response = new Observable<typeof type>();
     switch (method) {
       case ApiMethod.GET:
-        console.log('from requestCall');
-        console.log(data);
-        response = this.http.get<typeof type[]>(
-          `${environment.userUrl}${api}${data}`
-        ); //.pipe(catchError(async (err) => this.handleError(err)));
-        console.log('from requestCall');
-        console.log(response);
+        response = this.http
+          .get<typeof type[]>(`${environment.userUrl}${api}${data}`)
+          .pipe(catchError(async (err) => this.handleError(err)));
         break;
       case ApiMethod.POST:
         response = this.http.post<typeof type>(
           `${environment.userUrl}${api}`,
           data,
           httpOptions
-        ); //.pipe(catchError(async (err) => this.handleError(err)));
+        );
         break;
       case ApiMethod.PUT:
-        console.log('in PUT case');
-        console.log(data);
         response = this.http
           .put<typeof type>(`${environment.userUrl}${api}/${id}`, data)
           .pipe(catchError(async (err) => this.handleError(err)));
@@ -101,13 +95,13 @@ export class HttpService {
         // console.log('from requestCall');
         // console.log(response);
         console.log('from requestCall');
-        console.log(data);
+        console.log(response);
 
         response = this.http.get<typeof type[]>(
           `${environment.accountUrl}${api}${data}`
         );
 
-        console.log('from requestCall');
+        console.log('after requestCall');
         console.log(response);
         break;
       case ApiMethod.POST:

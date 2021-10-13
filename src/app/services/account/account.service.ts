@@ -113,7 +113,11 @@ export class AccountService {
     sort?: string,
     asc?: boolean
   ): Observable<any> {
-    let req = `/accountsPage?page=${page}&size=${size}`;
+    console.log(page);
+    console.log('inservice');
+    let req = `/accountsPage?page=${encodeURIComponent(
+      page
+    )}&size=${encodeURIComponent(size)}`;
 
     if (sort !== undefined) {
       req += `&sort=${encodeURIComponent(sort)}&asc=${encodeURIComponent(
