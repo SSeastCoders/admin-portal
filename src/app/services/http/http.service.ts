@@ -58,6 +58,9 @@ export class HttpService {
         );
         break;
       case ApiMethod.PUT:
+        console.log('in request call');
+        console.log(id);
+        console.log(data);
         response = this.http
           .put<typeof type>(`${environment.userUrl}${api}/${id}`, data)
           .pipe(catchError(async (err) => this.handleError(err)));

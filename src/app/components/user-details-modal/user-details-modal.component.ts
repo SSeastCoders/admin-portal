@@ -28,17 +28,15 @@ export class UserDetailsModalComponent implements OnInit {
 
   //onUpdateUser(editUserForm: NgForm): any {
   onUpdateUser(): any {
-    console.dir(this.userDetailsForm);
-    //this.editUser = editUserForm.value;
-    console.log(this.editUser);
-    this.editUser.id = this.currentUser.id;
+    console.log(this.currentUser.id);
+    console.log(this.userDetailsForm);
     return this.userService
-      .updateUser(this.editUser)
+      .updateUser(this.editUser, this.currentUser.id)
 
       .subscribe(
         (res) => {
           this.onSubmit();
-          console.log('User updated');
+          //console.log('User updated');
           alert('User Updated');
         },
         (err) => {
@@ -48,9 +46,9 @@ export class UserDetailsModalComponent implements OnInit {
       );
   }
 
-  onCloseModal() {
-    this.activeModal.close();
-  }
+  // onCloseModal() {
+  //   this.activeModal.close();
+  // }
 
   cancel() {
     this.activeModal.dismiss();
@@ -85,8 +83,11 @@ export class UserDetailsModalComponent implements OnInit {
         ValidationService.notOnlyWhitespace,
       ]),
 
-      phone: ['', [Validators.pattern, ValidationService.notOnlyWhitespace]],
-      activeStatus: ['', Validators.required],
+      phone: [
+        this.currentUser.phone,
+        [Validators.pattern, ValidationService.notOnlyWhitespace],
+      ],
+      activeStatus: [this.currentUser.activeStatus, Validators.required],
     });
   }
 

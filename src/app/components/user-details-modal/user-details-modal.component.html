@@ -17,14 +17,14 @@
     class="close"
     data-dismiss="modal"
     aria-label="Close"
-    (click)="onCloseModal()"
+    (click)="cancel()"
   >
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
 
 <div class="modal-body">
-  <form [formGroup]="userDetailsForm" (ngSubmit)="onUpdateUser()">
+  <form [formGroup]="userDetailsForm">
     <!-- FIRST NAME -->
     <label for="firstName">First Name</label>
     <div class="input-space">
@@ -109,15 +109,33 @@
     </div>
     <!-- ACTIVE STATUS -->
     <div>
+      <label>Active Status: </label>
+      <select formControlName="activeStatus">
+        <option value="true">Active</option>
+        <option value="false">Inactive</option>
+      </select>
+      <!-- <div
+      *ngIf="
+        
+        (acti?.dirty || creditCardType?.touched)
+      "
+      class="alert alert-danger mt-1"
+    >
+      <div *ngIf="creditCardType?.errors?.required">
+        Credit card type is required!
+      </div> -->
+    </div>
+
+    <!-- <div>
       <label>
-        <input type="radio" [value]="true" formControlname="activeStatus" />
+        <input type="radio" [value]="active" formControlname="activeStatus" />
         <span>Active</span>
       </label>
       <label>
         <input type="radio" [value]="false" formControlname="activeStatus" />
         <span>Inactive</span>
       </label>
-    </div>
+    </div> -->
 
     <!-- MODAL FOOTER -->
     <div class="modal-footer">
@@ -125,14 +143,14 @@
         type="button"
         data-dismiss="modal"
         class="btn btn-secondary"
-        (click)="onCloseModal()"
+        (click)="cancel()"
       >
         Cancel
       </button>
       <button
         (click)="onUpdateUser()"
         data-dismiss="modal"
-        type="submit"
+        type="button"
         class="btn btn-primary"
         [disabled]="!userDetailsForm.valid"
       >

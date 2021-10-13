@@ -73,14 +73,15 @@ export class UserService {
     );
   }
 
-  public updateUser(editUser: UserDetailsDto): any {
+  public updateUser(editUser: UserDetailsDto, id: number): any {
     console.dir(editUser);
+    console.dir(id);
     return this.http.requestCall(
       UserEndPoints.MAIN,
       ApiMethod.PUT,
       UserDetailsDto,
       editUser,
-      editUser.id
+      id
     );
   }
 
