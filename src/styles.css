@@ -13,6 +13,10 @@ body {
 
 /* Sortable table demo */
 
+.mat-table {
+  margin: 1em;
+}
+
 th[sortable] {
   cursor: pointer;
   user-select: none;
