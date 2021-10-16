@@ -1,3 +1,4 @@
+import { animation } from '@angular/animations';
 import { Container } from '@angular/compiler/src/i18n/i18n_ast';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
@@ -23,12 +24,12 @@ export class UserDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log("PARAM")
     console.log(this.route.parent?.params['value'].id);
-    this.userService.getUser(this.route.parent?.params['value'].id).subscribe((user => {
-      this.currentUser = user;
-    }));
-
+    this.userService
+      .getUser(this.route.parent?.params['value'].id)
+      .subscribe((user) => {
+        this.currentUser = user;
+      });
   }
 
   getUser(): void {
@@ -39,7 +40,9 @@ export class UserDetailsComponent implements OnInit {
   }
 
   onOpenModal(currentUser: User): void {
-    const editModal = this.modal.open(UserDetailsModalComponent);
+    const editModal = this.modal.open(UserDetailsModalComponent, {
+      animation: true,
+    });
     editModal.componentInstance.currentUser = this.currentUser;
     editModal.result.then(() => this.getUser());
   }

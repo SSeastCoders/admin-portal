@@ -36,7 +36,7 @@ export class UserDetailsModalComponent implements OnInit {
       .subscribe(
         (res) => {
           this.onSubmit();
-          //console.log('User updated');
+          console.log('User updated');
           alert('User Updated');
         },
         (err) => {
