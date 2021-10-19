@@ -1,0 +1,115 @@
+<testExecutions version="1">
+  <file path="Chrome_Headless_94_0_4606_81_(Mac_OS_10_15_7).AuthGuard">
+    <testCase name="AuthGuard should allow the authenticated user to access app" duration="20"/>
+    <testCase name="AuthGuard should be created" duration="3"/>
+  </file>
+  <file path="Chrome_Headless_94_0_4606_81_(Mac_OS_10_15_7).UserListComponent">
+    <testCase name="UserListComponent should create" duration="74"/>
+    <testCase name="UserListComponent sets sort direction" duration="11"/>
+    <testCase name="UserListComponent should update page size" duration="11"/>
+    <testCase name="UserListComponent should set a filter for role and status" duration="9"/>
+    <testCase name="UserListComponent should return to pageNumber 1 when pageSize is updated" duration="11"/>
+    <testCase name="UserListComponent should set a filter for role" duration="8"/>
+  </file>
+  <file path="Chrome_Headless_94_0_4606_81_(Mac_OS_10_15_7).HeaderComponent">
+    <testCase name="HeaderComponent should create" duration="33"/>
+  </file>
+  <file path="Chrome_Headless_94_0_4606_81_(Mac_OS_10_15_7).AuthService">
+    <testCase name="AuthService should be created" duration="2"/>
+    <testCase name="AuthService should get role" duration="3"/>
+    <testCase name="AuthService should save token" duration="1"/>
+    <testCase name="AuthService should remove token on logout" duration="2"/>
+    <testCase name="AuthService should get res headers" duration="2"/>
+  </file>
+  <file path="Chrome_Headless_94_0_4606_81_(Mac_OS_10_15_7).UserDetailsComponent">
+    <testCase name="UserDetailsComponent should create" duration="16"/>
+  </file>
+  <file path="Chrome_Headless_94_0_4606_81_(Mac_OS_10_15_7).LoggerService">
+    <testCase name="LoggerService should be created" duration="2"/>
+  </file>
+  <file path="Chrome_Headless_94_0_4606_81_(Mac_OS_10_15_7).UserDetailsModalComponent">
+    <testCase name="UserDetailsModalComponent should create" duration="31"/>
+  </file>
+  <file path="Chrome_Headless_94_0_4606_81_(Mac_OS_10_15_7).HomeComponent">
+    <testCase name="HomeComponent should create" duration="8"/>
+  </file>
+  <file path="Chrome_Headless_94_0_4606_81_(Mac_OS_10_15_7).UserDetailsDto">
+    <testCase name="UserDetailsDto should create an instance" duration="3"/>
+  </file>
+  <file path="Chrome_Headless_94_0_4606_81_(Mac_OS_10_15_7).HttpService">
+    <testCase name="HttpService should create" duration="2"/>
+    <testCase name="HttpService should call endpoints, account" duration="4"/>
+    <testCase name="HttpService should call endpoints" duration="2"/>
+  </file>
+  <file path="Chrome_Headless_94_0_4606_81_(Mac_OS_10_15_7).UserComponent">
+    <testCase name="UserComponent should create" duration="7"/>
+  </file>
+  <file path="Chrome_Headless_94_0_4606_81_(Mac_OS_10_15_7).ValidationService">
+    <testCase name="ValidationService not validate password" duration="3"/>
+    <testCase name="ValidationService should be created" duration="1"/>
+    <testCase name="ValidationService validate email" duration="1"/>
+    <testCase name="ValidationService not validate bad email" duration="3"/>
+    <testCase name="ValidationService validate admin email" duration="2"/>
+    <testCase name="ValidationService validate password" duration="2"/>
+    <testCase name="ValidationService not validate bad admin email" duration="1"/>
+    <testCase name="ValidationService appropriate age" duration="2"/>
+    <testCase name="ValidationService not validate email, as admin" duration="1"/>
+  </file>
+  <file path="Chrome_Headless_94_0_4606_81_(Mac_OS_10_15_7).AccountEditComponent">
+    <testCase name="AccountEditComponent should remove users" duration="12"/>
+    <testCase name="AccountEditComponent should build form" duration="4"/>
+    <testCase name="AccountEditComponent should add users" duration="3"/>
+    <testCase name="AccountEditComponent should remove duplicates" duration="4"/>
+    <testCase name="AccountEditComponent control deactivation" duration="2"/>
+    <testCase name="AccountEditComponent should create" duration="3"/>
+    <testCase name="AccountEditComponent should get properties" duration="7"/>
+    <testCase name="AccountEditComponent should generate an account" duration="3"/>
+  </file>
+  <file path="Chrome_Headless_94_0_4606_81_(Mac_OS_10_15_7).RegisterComponent">
+    <testCase name="RegisterComponent should generate user fields" duration="35"/>
+    <testCase name="RegisterComponent should submit" duration="9"/>
+    <testCase name="RegisterComponent should create" duration="7"/>
+  </file>
+  <file path="Chrome_Headless_94_0_4606_81_(Mac_OS_10_15_7).DeleteModalComponent">
+    <testCase name="DeleteModalComponent should create" duration="24"/>
+  </file>
+  <file path="Chrome_Headless_94_0_4606_81_(Mac_OS_10_15_7).LayoutComponent">
+    <testCase name="LayoutComponent should create" duration="9"/>
+  </file>
+  <file path="Chrome_Headless_94_0_4606_81_(Mac_OS_10_15_7).AccountService">
+    <testCase name="AccountService should create account" duration="8"/>
+    <testCase name="AccountService should be created" duration="3"/>
+    <testCase name="AccountService should return data, specific" duration="3"/>
+    <testCase name="AccountService should get a page of accounts" duration="2"/>
+    <testCase name="AccountService should return data, all" duration="2"/>
+  </file>
+  <file path="Chrome_Headless_94_0_4606_81_(Mac_OS_10_15_7).StorageService">
+    <testCase name="StorageService should store the item in localStorage" duration="4"/>
+    <testCase name="StorageService should be created" duration="3"/>
+  </file>
+  <file path="Chrome_Headless_94_0_4606_81_(Mac_OS_10_15_7).AppComponent">
+    <testCase name="AppComponent should have as title 'admin-portal'" duration="14"/>
+    <testCase name="AppComponent should create the app" duration="11"/>
+  </file>
+  <file path="Chrome_Headless_94_0_4606_81_(Mac_OS_10_15_7).CardService">
+    <testCase name="CardService should be created" duration="9"/>
+  </file>
+  <file path="Chrome_Headless_94_0_4606_81_(Mac_OS_10_15_7).AppButtonComponent">
+    <testCase name="AppButtonComponent should create" duration="8"/>
+  </file>
+  <file path="Chrome_Headless_94_0_4606_81_(Mac_OS_10_15_7).AuthHttpInterceptor">
+    <testCase name="AuthHttpInterceptor should add an Authorization header" duration="3"/>
+  </file>
+  <file path="Chrome_Headless_94_0_4606_81_(Mac_OS_10_15_7).UserService">
+    <testCase name="UserService should be created" duration="2"/>
+    <testCase name="UserService should create user" duration="4"/>
+    <testCase name="UserService should clear errors" duration="1"/>
+    <testCase name="UserService should get a page of users" duration="1"/>
+  </file>
+  <file path="Chrome_Headless_94_0_4606_81_(Mac_OS_10_15_7).LoginComponent">
+    <testCase name="LoginComponent should create" duration="9"/>
+  </file>
+  <file path="Chrome_Headless_94_0_4606_81_(Mac_OS_10_15_7).CardListComponent">
+    <testCase name="CardListComponent should create" duration="68"/>
+  </file>
+</testExecutions>

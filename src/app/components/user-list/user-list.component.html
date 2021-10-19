@@ -107,7 +107,8 @@
         *matCellDef="let user"
         routerLink="/users/{{ user.id }}/details"
       >
-        {{ user.activeStatus }}
+        <td *ngIf="user.activeStatus === true">active</td>
+        <td *ngIf="user.activeStatus === false">inactive</td>
       </mat-cell>
     </ng-container>
 

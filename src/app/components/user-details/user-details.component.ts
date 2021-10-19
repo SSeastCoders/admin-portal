@@ -1,9 +1,9 @@
 import { animation } from '@angular/animations';
 import { Container } from '@angular/compiler/src/i18n/i18n_ast';
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormGroup, NgForm } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { UserDetailsDto } from 'src/app/dto/user-details-dto';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user/user.service';
@@ -24,7 +24,7 @@ export class UserDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.route.parent?.params['value'].id);
+    //console.log(this.route.parent?.params['value'].id);
     this.userService
       .getUser(this.route.parent?.params['value'].id)
       .subscribe((user) => {
@@ -39,11 +39,20 @@ export class UserDetailsComponent implements OnInit {
     });
   }
 
+  //edit item
   onOpenModal(currentUser: User): void {
     const editModal = this.modal.open(UserDetailsModalComponent, {
       animation: true,
     });
     editModal.componentInstance.currentUser = this.currentUser;
-    editModal.result.then(() => this.getUser());
+    editModal.result.then(
+      (yes) => {
+        console.log('ok click');
+        //this.getUser();
+      },
+      (cancel) => {
+        console.log('cancel!');
+      }
+    );
   }
 }

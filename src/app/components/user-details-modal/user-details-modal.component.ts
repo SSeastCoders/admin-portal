@@ -5,11 +5,15 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbActiveModal,
+  ModalDismissReasons,
+} from '@ng-bootstrap/ng-bootstrap';
 import { UserDetailsDto } from 'src/app/dto/user-details-dto';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user/user.service';
 import { ValidationService } from 'src/app/services/validation/validation.service';
+import { UserDetailsComponent } from '../user-details/user-details.component';
 
 @Component({
   selector: 'app-user-details-modal',
@@ -27,17 +31,20 @@ export class UserDetailsModalComponent implements OnInit {
   ) {}
 
   //onUpdateUser(editUserForm: NgForm): any {
-  onUpdateUser(): any {
+  onSubmit() {
     console.log(this.currentUser.id);
-    console.log(this.userDetailsForm);
+    console.log(this.userDetailsForm.value);
+    console.log(this.editUser);
+    //this.editUser = this.userDetailsForm;
     return this.userService
-      .updateUser(this.editUser, this.currentUser.id)
+      .updateUser(this.userDetailsForm.value, this.currentUser.id)
 
       .subscribe(
         (res) => {
-          this.onSubmit();
-          console.log('User updated');
+          //this.onSubmit();
+          console.log(res);
           alert('User Updated');
+          this.activeModal.close();
         },
         (err) => {
           console.log(err);
@@ -54,12 +61,17 @@ export class UserDetailsModalComponent implements OnInit {
     this.activeModal.dismiss();
   }
 
-  onSubmit() {
-    this.activeModal.close();
-  }
+  //onSubmit() {
+  //this.onUpdateUser();
+  //this.activeModal.close();
+  // console.log('User updated');
+  // alert('User Updated');
+  //this.userService.clear();
+  //}
 
   ngOnInit(): void {
     console.log('onInit');
+    console.log(this.activeModal);
     console.log(this.currentUser);
     this.userService.clear();
 
