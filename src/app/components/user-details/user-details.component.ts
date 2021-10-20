@@ -48,6 +48,7 @@ export class UserDetailsComponent implements OnInit {
     editModal.result.then(
       (yes) => {
         console.log('ok click');
+        window.location.reload();
         //this.getUser();
       },
       (cancel) => {
