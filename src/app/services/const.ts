@@ -1,4 +1,5 @@
 import { environment } from 'src/environments/environment';
+import { Credit } from '../models/credit';
 import { Account } from '../models/account';
 import { User } from '../models/user';
 
@@ -19,6 +20,10 @@ export enum UserEndPoints {
   MAIN = '/users',
 }
 
+export enum CardEndPoints {
+  CREDIT = '/credit-cards',
+}
+
 export class SpecificUser {
   fullUrl: string;
   constructor(private userNumber: string) {
@@ -37,6 +42,13 @@ export class SpecificAccount {
   }
 }
 
+export class SpecificCard {
+  fullUrl: string;
+  constructor(private cardNum: string) {
+    this.fullUrl = environment.cardUrl.concat('/').concat(cardNum);
+  }
+}
+
 export class IUserPagination {
   content: User[];
 
@@ -49,6 +61,17 @@ export class IUserPagination {
 }
 export class IAccountPagination {
   content: Account[];
+
+  page: {
+    size: number;
+    totalElements: number;
+    totalPages: number;
+    number: number;
+  };
+}
+
+export class ICreditPagination {
+  content: Credit[];
 
   page: {
     size: number;

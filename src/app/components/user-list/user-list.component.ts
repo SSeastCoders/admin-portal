@@ -25,18 +25,15 @@ export class UserListComponent implements OnInit {
   pageEvent: PageEvent;
   sorter: string;
 
-  displayedColumns : string[] = ['role','name', 'credential.username', 'email', 'activeStatus'];
+  displayedColumns: string[] = [
+    'role',
+    'name',
+    'credential.username',
+    'email',
+    'activeStatus',
+  ];
 
   dataSource: MatTableDataSource<User>;
-
-  fields = [
-    { name: 'role', displayName: 'Role', class: 'col-1' },
-    { name: 'name', displayName: 'Name', class: 'col-1' },
-    { name: 'credential.username', displayName: 'Username', class: 'col-3' },
-    { name: 'email', displayName: 'Email', class: 'col-3' },
-
-    { name: 'activeStatus', displayName: 'Status', class: 'col-3' },
-  ];
 
   roles = [
     { name: 'Admin', displayName: 'Administrator' },
@@ -77,7 +74,7 @@ export class UserListComponent implements OnInit {
   handleUsersList() {
     this.userService
       .getUsersPage(
-        this.pageNumber - 1,
+        this.pageNumber,
         this.pageSize,
         this.sorter,
         this.asc,
@@ -90,7 +87,8 @@ export class UserListComponent implements OnInit {
   processResult() {
     return (data) => {
       this.users = data.content;
-      this.pageNumber = data.pageable.pageNumber + 1;
+      this.dataSource = new MatTableDataSource(this.users);
+      this.pageNumber = data.pageable.pageNumber;
       this.pageSize = data.pageable.pageSize;
       this.totalElements = data.totalElements;
     };
@@ -103,14 +101,14 @@ export class UserListComponent implements OnInit {
   }
 
   setSort(sort: string) {
-    console.log("clicked");
+    console.log('clicked');
     if (this.asc && this.sorter === sort) {
       this.asc = false;
     } else {
       this.sorter = sort;
       this.asc = true;
     }
-    this.getUsers();
+    this.handleUsersList();
   }
 
   setFilters(roleFilter?: string, statusFilter?: string) {
@@ -124,32 +122,32 @@ export class UserListComponent implements OnInit {
 
   filterByRole($event: Event) {
     const filteredRole = $event.target['value'];
-
     this.setFilters(filteredRole, this.statusFilter);
   }
 
   filterByStatus($event: Event) {
     let filteredStatus = $event.target['value'];
-
     this.setFilters(this.roleFilter, filteredStatus);
   }
 
   getUsers() {
-    this.userService.getUsersPage(this.pageNumber-1, this.pageSize, this.sorter, this.asc)
-    .subscribe((data) => {
-      console.log(data);
-      this.users = data.content;
-      this.dataSource = new MatTableDataSource(this.users);
-      console.log(this.dataSource);
-     this.pageNumber = data.pageable?.pageNumber + 1;
-     this.pageSize = data.pageable?.pageSize;
-     this.totalElements = data?.totalElements;
-    });
+    this.userService
+      .getUsersPage(this.pageNumber, this.pageSize, this.sorter, this.asc)
+      .subscribe((data) => {
+        console.log(data);
+        this.users = data.content;
+        this.dataSource = new MatTableDataSource(this.users);
+        console.log(this.dataSource);
+        this.pageNumber = data.pageable?.pageNumber;
+        this.pageSize = data.pageable?.pageSize;
+        this.totalElements = data?.totalElements;
+      });
   }
 
-  public getUsersPageEvent(event?:PageEvent){
-    this.userService.getUsersPage(event.pageIndex, event.pageSize, this.sorter, this.asc).subscribe(
-      (data) => {
+  public getUsersPageEvent(event?: PageEvent) {
+    this.userService
+      .getUsersPage(event.pageIndex, event.pageSize, this.sorter, this.asc)
+      .subscribe((data) => {
         console.log(data);
         this.dataSource = data.content;
         this.pageNumber = data.pageable.pageNumber;

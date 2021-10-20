@@ -16,15 +16,18 @@ describe('LoginComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports:[HttpClientTestingModule, RouterTestingModule],
-      providers: [FormBuilder, HttpService, UserService,
-        {provide: HttpClient, userClass: HttpClientTestingModule},
-        {provide: HttpHandler, userClass: HttpClientTestingModule},],
-      declarations: [ LoginComponent ]
-    })
-    .compileComponents();
-    service = TestBed.get(UserService);
-    serviceDependency = TestBed.get(HttpService)
+      imports: [HttpClientTestingModule, RouterTestingModule],
+      providers: [
+        FormBuilder,
+        HttpService,
+        UserService,
+        { provide: HttpClient, userClass: HttpClientTestingModule },
+        { provide: HttpHandler, userClass: HttpClientTestingModule },
+      ],
+      declarations: [LoginComponent],
+    }).compileComponents();
+    service = TestBed.inject(UserService);
+    serviceDependency = TestBed.inject(HttpService);
   });
 
   beforeEach(() => {

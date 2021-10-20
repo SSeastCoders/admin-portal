@@ -35,37 +35,6 @@ export class UserService {
     this.creationError = false;
   }
 
-  //CURRENTLY NOT BEING USED
-  /*public save(user: CreateUser) {
-    return this.http.requestCall(UserEndPoints.MAIN, ApiMethod.POST, CreateUser, user).subscribe(
-      (res: HttpResponse<any>) => {
-        if (res.status == 201){
-          console.log("User created");console.log(res.status); console.log(res.statusText);
-          this.creationError = false;
-          return res;
-        }
-        else if (res.status == 409) {
-          console.log("Duplicate user");
-          this.creationError = true;
-          this.creationErrorMessage = res.statusText;
-          console.log(res);console.log(res.status); console.log(res.statusText);
-          return res.body;
-        }
-        else {
-          console.log("Could not create user");
-          this.creationError = true;
-          this.creationErrorMessage = res.statusText;
-          console.log(res); console.log(res.status); console.log(res.statusText);
-          return res.body;
-        }
-      }, (err: HttpErrorResponse) => {
-        console.log("Could not create user");
-        this.creationError = true;
-        this.creationErrorMessage = err.error.message;
-        return err;
-      });
-  }*/
-
   public createUser(user: CreateUser) {
     return this.https.post(api, user).subscribe(
       (res) => {
@@ -94,6 +63,12 @@ export class UserService {
       User,
       '/' + id
     );
+  }
+
+  public searchUsers(keyword: string, pageNumber: number) {
+    console.log(keyword);
+    console.log(api + `?keyword=${keyword}&page=${pageNumber}&size=5`);
+    return this.https.get<any>(api + `?keyword=${keyword}&page=${pageNumber}&size=5`);
   }
 
   public updateUser(editUser: UserDetailsDto): any {

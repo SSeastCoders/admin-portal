@@ -1,54 +1,63 @@
-
 <!DOCTYPE html>
 <head>
-    <meta charset="UTF-8">
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <!-- Bootstrap 3.3.7 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/cerulean/bootstrap.min.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta
+    content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    name="viewport"
+  />
+  <link
+    rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"
+  />
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta
+    content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    name="viewport"
+  />
+  <!-- Bootstrap 3.3.7 -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/cerulean/bootstrap.min.css"
+  />
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css"
+  />
 </head>
-
 
 <div class="accounts view">
   <div class="container">
-      <header>
-          <h3><span class="fa fa-money-bill-alt"></span>&nbsp;&nbsp;Account Information</h3>
-      </header>
-      <br />
-      <div class="navbar navbar-expand">
-        <div class="navbar-inner">
-          <div class="container">
+    <div class="nav nav-tabs">
+      <div class="navbar-inner">
+        <div class="container">
           <ul class="nav">
-              <li class="toolbar-item">
-                  <a class="nav-link" routerLink="details" routerLinkActive="active">
-                     <span class="fa fa-list"></span>&nbsp;&nbsp;Account Details
-                  </a>
-              </li>
-              <li class="toolbar-item">
-                  <a class="nav-link" ><!--routerLink="transactions" routerLinkActive="inactive"-->
-                      <span class="fa fa-dollar"></span>&nbsp;&nbsp;Account Transactions
-                  </a>
-              </li>
-              <li class="toolbar-item">
-                  <a class="nav-link" routerLink="edit" routerLinkActive="inactive">
-                      <span class="fa fa-edit"></span>&nbsp;&nbsp;Edit Account
-                  </a>
-              </li>
+            <li class="toolbar-item">
+              <a
+                class="nav-link active"
+                routerLink="edit"
+                routerLinkActive="active"
+              >
+                <span class="fa fa-list"></span>&nbsp;&nbsp;Account Details
+              </a>
+            </li>
+            <li class="toolbar-item">
+              <a class="nav-link"
+                ><!--routerLink="transactions" routerLinkActive="inactive"-->
+                <span class="fa fa-dollar"></span>&nbsp;&nbsp;Account
+                Transactions
+              </a>
+            </li>
           </ul>
-          </div>
         </div>
       </div>
-      <div class="container">
-          <router-outlet></router-outlet>
-          <br />
-          <br />
-          <a routerLink="/accounts">View all accounts</a>
-      </div>
+    </div>
+    <div class="container">
+      <router-outlet></router-outlet>
+      <br />
+      <br />
+      <a routerLink="/accounts">View all accounts</a>
+    </div>
   </div>
 </div>
-

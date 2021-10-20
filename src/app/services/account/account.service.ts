@@ -107,16 +107,19 @@ export class AccountService {
     );
   }
 
-  public getAccountsPage(page: number, size: number, sort?: string, asc?: boolean): Observable<any> {
+  public getAccountsPage(
+    page: number,
+    size: number,
+    sort?: string,
+    asc?: boolean
+  ): Observable<any> {
     let req = `/accountsPage?page=${page}&size=${size}`;
-
 
     if (sort !== undefined) {
       req += `&sort=${encodeURIComponent(sort)}&asc=${encodeURIComponent(
         !!asc
       )}`;
     }
-
 
     console.log(req);
     return this.http.requestCallAccount(

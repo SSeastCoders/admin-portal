@@ -1,7 +1,31 @@
 .hidden {
-    display: none;
-  }
-.navbar-nav > li{
-  padding-left:30px;
-  padding-right:30px;
+  display: none;
+}
+.navbar {
+  padding-left: 40px;
+  padding-right: 40px;
+  border-bottom: 2px solid green;
+  background-color: lightgreen;
+}
+#links a:hover {
+  border-bottom: 3px solid red;
+}
+#header {
+  margin-top: 0em;
+  margin-bottom: 0em;
+  padding-right: 3;
+  padding-bottom: 2em;
+}
+
+#logo {
+  margin-top: 0em;
+}
+
+#logo-text {
+  padding: 0.5em;
+  /* margin-top: 1em; */
+}
+
+#links a.active {
+  border-bottom: 3px solid red;
 }

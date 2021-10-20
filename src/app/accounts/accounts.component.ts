@@ -22,7 +22,7 @@ export class AccountsComponent implements OnInit {
   pageNumber: number = 1;
   sorter: string;
 
-  displayedColumns : string[] = ['accountType','nickName','balance'];
+  displayedColumns: string[] = ['accountType', 'nickName', 'balance'];
 
   dataSource: MatTableDataSource<Account>;
 
@@ -49,15 +49,10 @@ export class AccountsComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  fields = [
-    { name: 'accountType', displayName: 'Type', class: 'col-3' },
-    { name: 'nickName', displayName: 'Account Nickname', class: 'col-3' },
-    { name: 'balance', displayName: 'Balance', class: 'col-4' },
-  ];
-
   ngOnInit(): void {
     this.handleAccountsList();
-    this.getAccounts();
+    //this.getAccounts();
+    this.getAccountsPageEvent();
     this.dataSource = new MatTableDataSource(this.accounts);
     this.dataSource.paginator = this.paginator;
   }
@@ -72,6 +67,7 @@ export class AccountsComponent implements OnInit {
     return (data) => {
       console.dir(data);
       this.accounts = data.content;
+      this.dataSource = new MatTableDataSource(this.accounts);
       this.pageNumber = data.pageable.pageNumber + 1;
       this.pageSize = data.pageable.pageSize;
       this.totalElements = data.totalElements;
@@ -85,7 +81,7 @@ export class AccountsComponent implements OnInit {
   }
 
   setSort(sort: string) {
-    console.log("clicked");
+    console.log('clicked');
     if (this.asc && this.sorter === sort) {
       this.asc = false;
     } else {
@@ -96,21 +92,23 @@ export class AccountsComponent implements OnInit {
   }
 
   getAccounts() {
-    this.accountService.getAccountsPage(this.pageNumber-1, this.pageSize, this.sorter, this.asc)
-    .subscribe((data) => {
-      console.log(data);
-      this.accounts = data.content;
-      this.dataSource = new MatTableDataSource(this.accounts);
-      console.log(this.dataSource);
-     this.pageNumber = data.pageable?.pageNumber + 1;
-     this.pageSize = data.pageable?.pageSize;
-     this.totalElements = data?.totalElements;
-    });
+    this.accountService
+      .getAccountsPage(this.pageNumber, this.pageSize, this.sorter, this.asc)
+      .subscribe((data) => {
+        console.log(data);
+        this.accounts = data.content;
+        this.dataSource = new MatTableDataSource(this.accounts);
+        console.log(this.dataSource);
+        this.pageNumber = data.pageable?.pageNumber;
+        this.pageSize = data.pageable?.pageSize;
+        this.totalElements = data?.totalElements;
+      });
   }
 
-  public getAccountsPageEvent(event?:PageEvent){
-    this.accountService.getAccountsPage(event.pageIndex, event.pageSize, this.sorter, this.asc).subscribe(
-      (data) => {
+  public getAccountsPageEvent(event?: PageEvent) {
+    this.accountService
+      .getAccountsPage(event?.pageIndex, event?.pageSize, this.sorter, this.asc)
+      .subscribe((data) => {
         console.log(data);
         this.dataSource = data.content;
         this.pageNumber = data.pageable.pageNumber;

@@ -1,0 +1,38 @@
+<div class="modal-body" style="overflow-y:auto;">
+<div class="mat-elevation-z8">
+  <mat-table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header (click)="setSort('lastName')"> Name </mat-header-cell>
+      <mat-cell *matCellDef="let user" (click)="addUserNew(user)"> {{user.firstName + ' ' + user.lastName}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="credential.username">
+      <mat-header-cell *matHeaderCellDef mat-sort-header (click)="setSort('credential.username')"> Username </mat-header-cell>
+      <mat-cell *matCellDef="let user" (click)="addUserNew(user)"> {{user.username}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef mat-sort-header (click)="setSort('email')"> Email </mat-header-cell>
+      <mat-cell *matCellDef="let user" (click)="addUserNew(user)"> {{user.email}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <mat-paginator
+    #paginator
+    showFirstLastButtons
+    [length]="totalElements"
+    [pageIndex]="pageNumber"
+    [pageSize]="pageSize"
+    (page)="pageEvent = getUsersPageEvent($event)">
+  </mat-paginator>
+
+  </div>
+
+      <!--(page)="pageEvent = getUsersPageEvent($event)"-->
+
+
+
