@@ -1,13 +1,3 @@
-<!-- <div
-  class="modal fade"
-  id="editUserModal"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="userEditModalLabel"
-  aria-hidden="true"
-> -->
-<!-- <div class="modal-dialog" role="document">
-    <div class="modal-content"> -->
 <div class="modal-header">
   <h5 class="modal-title" id="updateUserModalLabel">
     Edit {{ currentUser?.firstName }}
@@ -22,7 +12,7 @@
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
-
+<!-- MODAL BODY -->
 <div class="modal-body">
   <form [formGroup]="userDetailsForm">
     <!-- FIRST NAME -->
@@ -114,28 +104,7 @@
         <option value="true">Active</option>
         <option value="false">Inactive</option>
       </select>
-      <!-- <div
-      *ngIf="
-        
-        (acti?.dirty || creditCardType?.touched)
-      "
-      class="alert alert-danger mt-1"
-    >
-      <div *ngIf="creditCardType?.errors?.required">
-        Credit card type is required!
-      </div> -->
     </div>
-
-    <!-- <div>
-      <label>
-        <input type="radio" [value]="active" formControlname="activeStatus" />
-        <span>Active</span>
-      </label>
-      <label>
-        <input type="radio" [value]="false" formControlname="activeStatus" />
-        <span>Inactive</span>
-      </label>
-    </div> -->
 
     <!-- MODAL FOOTER -->
     <div class="modal-footer">
@@ -159,117 +128,3 @@
     </div>
   </form>
 </div>
-
-<!-- <form #editUserForm="ngForm">
-    <input
-      type="hidden"
-      ngModel="{{ currentUser?.id }}"
-      name="id"
-      id="id"
-      placeholder="userId"
-    />
-
-    <input
-      type="hidden"
-      ngModel="{{ currentUser?.role['title'] }}"
-      name="role"
-      class="form-control"
-      id="role"
-      placeholder="role"
-    />
-    <div class="form-group">
-      <label for="firstName">First Name</label>
-      <input
-        ngModel="{{ currentUser?.firstName }}"
-        type="text"
-        name="firstName"
-        class="form-control"
-        id="firstName"
-        required
-      />
-    </div>
-    <div class="form-group">
-      <label for="lastName">Last Name</label>
-      <input
-        ngModel="{{ currentUser?.lastName }}"
-        type="text"
-        name="lastName"
-        class="form-control"
-        id="lastName"
-        required
-      />
-    </div>
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input
-        ngModel="{{ currentUser?.email }}"
-        type="email"
-        name="email"
-        class="form-control"
-        id="email"
-        required
-      />
-    </div>
-    <div class="form-group">
-      <label for="username">Username</label>
-      <input
-        ngModel="{{ currentUser?.username }}"
-        type="text"
-        name="username"
-        class="form-control"
-        id="username"
-        required
-      />
-    </div>
-    <div class="form-group">
-      <label for="phone">Phone</label>
-      <input
-        ngModel="{{ currentUser?.phone }}"
-        type="text"
-        name="phone"
-        class="form-control"
-        id="phone"
-        required
-      />
-    </div>
-    <div class="form-group">
-      <label>
-        <input
-          type="radio"
-          [value]="true"
-          name="activeStatus"
-          ngModel="{{ currentUser?.activeStatus }}"
-        />
-        <span>Active</span>
-      </label>
-      <label>
-        <input
-          type="radio"
-          [value]="false"
-          name="activeStatus"
-          ngModel="{{ currentUser?.activeStatus }}"
-        />
-        <span>Inactive</span>
-      </label>
-    </div>
-
-    <div class="modal-footer">
-      <button
-        type="button"
-        data-dismiss="modal"
-        class="btn btn-secondary"
-        (click)="onCloseModal()"
-      >
-        Cancel
-      </button>
-      <button
-        (click)="onUpdateUser(editUserForm)"
-        data-dismiss="modal"
-        type="submit"
-        class="btn btn-primary"
-        [disabled]="!editUserForm.valid"
-      >
-        Save changes
-      </button>
-    </div>
-  </form> -->
