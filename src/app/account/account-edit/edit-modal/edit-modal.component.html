@@ -19,7 +19,6 @@
       </select>
     </div>
 
-    <input type="text" id="userSearch" >
     <button type="button" class="btn btn-primary btn-sm" (click)="searchUsers()" >Find Users</button>
 
     <small *ngIf="acctService.deletionError" class="text-danger">{{acctService.deletionErrorMessage}}</small>

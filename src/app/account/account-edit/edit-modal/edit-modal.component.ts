@@ -44,9 +44,6 @@ export class EditModalComponent implements OnInit {
     this.accountEdit = this.account;
     this.buildForm(this.account);
     this.accountEdit.users = this.account.users;
-    //this.account.users.forEach(user => {
-   //   this.userService.getUser(user);
-    //});
   }
 
   removeUserNew(user: number) {
@@ -105,7 +102,6 @@ export class EditModalComponent implements OnInit {
     this.updateAccount.id = this.account.id;
     let tempNumArray = [];
     for (let i = 0; i <  this.accountEdit.users.length; i++) {
-      //console.log(tempArray.at(i).user);
       tempNumArray.push((this.accountEdit.users[i].id));
     }
     this.updateAccount.usersIds = this.removeDuplicate(tempNumArray);
@@ -114,7 +110,6 @@ export class EditModalComponent implements OnInit {
 
   searchUsers() {
     const modalRef = this.modalService.open(UserSearchModalComponent);
-    (<UserSearchModalComponent>modalRef.componentInstance).keyword = (<HTMLInputElement>(document.getElementById("userSearch"))).value;
     modalRef.result.then((result) => {
       if (result) {
         this.addUserNew(result);

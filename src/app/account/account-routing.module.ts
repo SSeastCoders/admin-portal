@@ -7,10 +7,9 @@ import { AccountEditComponent } from './account-edit/account-edit.component';
 
 const routes: Routes = [
   {
-    path: '', //NEED TO CHANGE THIS
+    path: '',
     component: AccountComponent,
     children: [
-      //{ path: 'transactions', component: AccountTransactionComponents },
       { path: 'edit', component: AccountEditComponent },
     ],
   },
@@ -19,7 +18,7 @@ const routes: Routes = [
 @NgModule({
   imports: [CommonModule, RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers: [AuthGuard], //, CanDeactivateGuard],
+  providers: [AuthGuard],
 })
 export class AccountRoutingModule {
   static components = [AccountComponent, AccountEditComponent];

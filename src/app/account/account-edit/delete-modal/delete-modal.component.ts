@@ -52,7 +52,6 @@ export class DeleteModalComponent implements OnInit {
     if (this.passwordForm.valid){
       this.error = false;
       this.authService.clear();
-      //this.authService.login(this.credentials);
       this.http.post(`${environment.userUrl}${AuthEndPoints.LOGIN}`, this.credentials).subscribe((res) =>{
         this.activeModal.close(true);
       }, (err) =>{
@@ -60,10 +59,7 @@ export class DeleteModalComponent implements OnInit {
         this.error = true;
       });
     }
-    //if (!this.authService.loginError){
-    //  //this.acctService.
-    //  this.activeModal.close(true);
-    //}
+
   }
 
 

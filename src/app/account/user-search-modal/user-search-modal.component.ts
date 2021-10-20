@@ -71,9 +71,9 @@ export class UserSearchModalComponent implements OnInit {
 
   handleUsersList() {
     this.userService
-      .searchUsers(
-        this.keyword,
-        this.pageNumber
+      .getUsersPage(
+        this.pageNumber,
+        5
       )
       .subscribe(this.processResult());
   }
@@ -97,7 +97,7 @@ export class UserSearchModalComponent implements OnInit {
 
 
   getUsers() {
-    this.userService.searchUsers( this.keyword, this.pageNumber)
+    this.userService.getUsersPage(this.pageNumber, 5)
     .subscribe((data) => {
       console.log(data);
       this.users = data.content;
@@ -110,7 +110,7 @@ export class UserSearchModalComponent implements OnInit {
   }
 
   public getUsersPageEvent(event?:PageEvent){
-    this.userService.searchUsers(this.keyword, event.pageIndex).subscribe(
+    this.userService.getUsersPage(event.pageIndex, 5).subscribe(
       (data) => {
         console.log(data);
         this.dataSource = data.content;
@@ -126,7 +126,7 @@ export class UserSearchModalComponent implements OnInit {
   }
 
   submit() {
-    }
+  }
 
   addUserNew(user: User) {
     this.activeModal.close(user);

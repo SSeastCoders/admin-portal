@@ -69,15 +69,10 @@ export class CreateAccountComponent implements OnInit {
 
   searchUsers() {
     const modalRef = this.modalService.open(UserSearchModalComponent);
-    (<UserSearchModalComponent>modalRef.componentInstance).keyword = (<HTMLInputElement>(document.getElementById("userSearch"))).value;
     modalRef.result.then((result) => {
       if (result) {
         this.addUserNew(result);
-      }});
-    this.userService.searchUsers((<HTMLInputElement>(document.getElementById("userSearch"))).value, 1).subscribe((res) => {
-      this.userSearch = res;
-      console.log(res);
-      console.log()
+      }
     });
   }
 
