@@ -9,7 +9,9 @@ export const environment = {
   baseUrl: 'https://localhost:8443',
   userUrl: 'http://localhost:8222',
   accountUrl: 'http://localhost:8223/api/v1',
+  transactionUrl: 'http://localhost:8224/api/v1',
   cardUrl: 'http://localhost:8225',
+
 
   production: false,
   //NODE_TLS_REJECT_UNAUTHORIZED=0
