@@ -13,26 +13,27 @@ export class Transaction {
   id: number;
   amount: number;
   description: string;
-  type: TransactionType;
+  type: String;
   date: string;
   succeeded: boolean;
   pending: boolean;
 
   public nameType(): string {
-    switch (this.type) {
-      case TransactionType.TRANSACTION_DEPOSIT:
+    const nameType = this.type;
+    switch (nameType) {
+      case "TRANSACTION_DEPOSIT":
         return "deposit";
-      case TransactionType.TRANSACTION_WITHDRAW:
+      case "TRANSACTION_WITHDRAW":
         return "withdraw";
-      case TransactionType.TRANSACTION_TRANSFER:
+      case "TRANSACTION_TRANSFER":
         return "transfer";
-      case TransactionType.TRANSACTION_PAYMENT:
+      case "TRANSACTION_PAYMENT":
         return "payment";
-      case TransactionType.TRANSACTION_CHECK:
+      case "TRANSACTION_CHECK":
         return "check";
-      case TransactionType.TRANSACTION_CHARGE:
+      case "TRANSACTION_CHARGE":
         return "charge";
-      case TransactionType.TRANSACTION_ATM:
+      case "TRANSACTION_ATM":
         return "atm";
       default:
         return "";
