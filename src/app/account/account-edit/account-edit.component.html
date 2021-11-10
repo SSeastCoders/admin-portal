@@ -15,3 +15,17 @@
   </div>
   <br>
 
+    <div *ngIf="account">
+      <div class="alert alert-warning" *ngIf="account.id && deleteMessageEnabled">
+        Delete account?&nbsp;&nbsp;<button class="btn btn-danger" (click)="delete($event)">Yes</button>&nbsp;&nbsp;
+        <button class="btn btn-default" (click)="deleteMessageEnabled = false">No</button>
+      </div>
+      <button class="btn btn-danger"
+        *ngIf="(account.id && !deleteMessageEnabled) && (account.activeStatus == true) && (account.balance==0)"
+        (click)="deleteMessageEnabled = true">Delete Account</button>&nbsp;&nbsp;
+      <small *ngIf="(account.activeStatus == true) && (account.balance!=0)">Accounts with existing balances cannot be
+        deleted</small>
+      <small *ngIf="(account.activeStatus == false)">Account is inactive</small>
+
+  <br />
+</div>

@@ -35,6 +35,7 @@ export class AuthService {
             console.log(res);
           }
           else {
+            this.storage.removeToken();
             this.loginError = true;
             console.log("Customer Login, Invalid");
           }

@@ -115,8 +115,6 @@ describe('AccountService', () => {
 
     req.flush([account]);
 
-    // these look the same to my eyes, but they say they are not the same...
-    //expect(result).toEqual(account);
   });
 
   it('should create account', () => {
@@ -129,26 +127,7 @@ describe('AccountService', () => {
 
     req.flush([account]);
 
-    // these look the same to my eyes, but they say they are not the same...
-    //expect(result).toEqual(account);
   });
-
-  /// WRITING TESTS
-  // it('should send a request to http service', () => {
-  //   service.
-  // })
-
-  // public getAccountsPage(page: number, size: number): Observable<any> {
-  //   let req = `?page=${page}&size=${size}`;
-
-  //   console.log(req);
-  //   return this.http.requestCallAccount(
-  //     AccountEndPoints.MAIN,
-  //     ApiMethod.GET,
-  //     IAccountPagination,
-  //     req
-  //   );
-  // }
 
   it('should get a page of accounts', () => {
     expect(service.getAccountsPage).toBeTruthy();

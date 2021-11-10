@@ -87,11 +87,9 @@ export class AccountService {
     return this.https.put(api + '/' + account.id, account).subscribe(
       (res) => {
         console.log(res);
-        //expect(res?.status == 206);
         this.creationError = false;
         console.log('Account updated');
         alert('Account updated');
-        //this.router.navigate([UserEndPoints.MAIN]);
       },
       (err) => {
         console.log(err);

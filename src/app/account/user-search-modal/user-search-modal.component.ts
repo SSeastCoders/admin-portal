@@ -1,16 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { LoginUser } from 'src/app/models/loginUser';
 import { User } from 'src/app/models/user';
-import { AuthService } from 'src/app/services/auth/auth.service';
-import { AccountEndPoints, AuthEndPoints } from 'src/app/services/const';
 import { UserService } from 'src/app/services/user/user.service';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-user-search-modal',
