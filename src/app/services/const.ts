@@ -2,6 +2,7 @@ import { environment } from 'src/environments/environment';
 import { Credit } from '../models/credit';
 import { Account } from '../models/account';
 import { User } from '../models/user';
+import { Transaction } from '../models/transaction';
 
 export enum ApiMethod {
   GET = 'GET',
@@ -35,6 +36,10 @@ export enum AccountEndPoints {
   MAIN = '/accounts',
 }
 
+export enum TransactionEndPoints {
+  MAIN = '/transactions'
+}
+
 export class SpecificAccount {
   fullUrl: string;
   constructor(private acctNumber: string) {
@@ -47,6 +52,12 @@ export class SpecificCard {
   constructor(private cardNum: string) {
     this.fullUrl = environment.cardUrl.concat('/').concat(cardNum);
   }
+}
+
+export class PageResponse<T> {
+  content: T[];
+  totalPages: number;
+  totalElements: number;
 }
 
 export class IUserPagination {

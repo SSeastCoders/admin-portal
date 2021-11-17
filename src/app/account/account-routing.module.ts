@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AccountComponent } from './account.component';
 import { AuthGuard } from '../services/guard/guard.guard';
 import { AccountEditComponent } from './account-edit/account-edit.component';
+import { TransactionTableComponent } from '../components/transaction-table/transaction-table.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,7 @@ const routes: Routes = [
     children: [
       //{ path: 'transactions', component: AccountTransactionComponents },
       { path: 'edit', component: AccountEditComponent },
+      { path: 'transactions', component: TransactionTableComponent}
     ],
   },
 ];

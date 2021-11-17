@@ -34,6 +34,7 @@ import { CardListComponent } from './components/card-list/card-list.component';
 import { MaterialModule } from './services/material/material.module';
 import { UserModule } from './user/user.module';
 import { AppButtonComponent } from './layout/app-button/app-button.component';
+import { TransactionTableComponent } from './components/transaction-table/transaction-table.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { AppButtonComponent } from './layout/app-button/app-button.component';
     RegisterComponent,
     CardListComponent,
     AppButtonComponent,
+    TransactionTableComponent,
   ],
   imports: [
     BrowserModule,
