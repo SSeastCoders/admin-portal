@@ -1,12 +1,13 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { CreateAccount } from 'src/app/models/createAccount';
 import { UpdateAccount } from 'src/app/models/updateAccount';
 import { environment } from 'src/environments/environment';
 import { Account } from '../../models/account';
-import { AccountEndPoints, ApiMethod, IAccountPagination } from '../const';
+import { AccountEndPoints, ApiMethod, IAccountPagination, PageResponse } from '../const';
 import { HttpService } from '../http/http.service';
 
 const API_URL = environment.accountUrl;
@@ -107,27 +108,73 @@ export class AccountService {
     );
   }
 
-  public getAccountsPage(
+  /**
+   * 
+   * @param page page number
+   * @param pageSize page size
+   * @param search account nickname to searc
+   * @param fromAmount starting amount of balance to filter
+   * @param toAmount ending amount of balance to filter
+   * @param fromDate starting date to filter
+   * @param toDate ending date to filter
+   * @param type account type to search
+   * @param status account status to search
+   * @param sort the sorting to search
+   * @param asc asc or descedning when sorting
+   * @returns 
+   */
+  public getAccountByPage(
     page: number,
-    size: number,
+    pageSize: number,
+    search?: string,
+    fromAmount?: number,
+    toAmount?: number,
+    fromDate?: string,
+    toDate?: string,
+    type?: string,
+    status?: boolean,
     sort?: string,
     asc?: boolean
-  ): Observable<any> {
-    let req = `/accountsPage?page=${page}&size=${size}`;
+  ): Observable<PageResponse<Account>> {
+    let req = `${api}`;
+    let queryParams = new HttpParams();
+    queryParams = queryParams.appendAll({
+      page: page,
+      size: pageSize,
+      nickname: search,
+      fromAmount: fromAmount,
+      toAmount: toAmount,
+      fromDate: fromDate,
+      toDate: toDate,
+      type: type,
+      status: status,
+      sort: sort,
+      asc: asc,
+    });
+    return this.https
+      .get<PageResponse<Account>>(req, {
+        params: this.removeNullValuesFromQueryParams(queryParams),
+      })
+      .pipe(
+        map((result) => {
+          let transform = result.content.map((transaction) =>
+            Object.assign(new Account(), transaction)
+          );
+          result.content = transform;
+          return result;
+        })
+      );
+  }
+  private removeNullValuesFromQueryParams(params: HttpParams) {
+    const paramsKeysAux = params.keys();
+    paramsKeysAux.forEach((key) => {
+      const value = params.get(key); // returns a string
+      if (value == 'null' || value == 'undefined' || value === '') {
+        params['map'].delete(key);
+      }
+    });
 
-    if (sort !== undefined) {
-      req += `&sort=${encodeURIComponent(sort)}&asc=${encodeURIComponent(
-        !!asc
-      )}`;
-    }
-
-    console.log(req);
-    return this.http.requestCallAccount(
-      AccountEndPoints.MAIN,
-      ApiMethod.GET,
-      IAccountPagination,
-      req
-    );
+    return params;
   }
 
   clear() {

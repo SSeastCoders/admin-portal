@@ -27,7 +27,6 @@ export class TransactionTableComponent implements OnInit {
   totalElements!: number;
   // asc: boolean = false;
   pageEvent: PageEvent;
-  totalAccounts!: number;
   pageSize: number = 5;
   pageNumber: number = 0;
   accountId: number;
