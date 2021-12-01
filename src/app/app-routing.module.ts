@@ -13,6 +13,7 @@ import { AccountsComponent } from './accounts/accounts.component';
 import { LayoutComponent } from './layout/layout.component';
 console.log('app-routing');
 import { CardListComponent } from './components/card-list/card-list.component';
+import { CreateCardComponent } from './card/create-card/create-card/create-card.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,8 @@ const routes: Routes = [
       { path: 'users', component: UserService },
 
       { path: 'account-registration', component: CreateAccountComponent },
+
+      { path: 'card-registration', component: CreateCardComponent },
 
       { path: 'accounts', component: AccountsComponent },
       { path: 'cards', component: CardListComponent },
