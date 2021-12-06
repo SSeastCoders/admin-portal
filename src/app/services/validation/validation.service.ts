@@ -16,6 +16,7 @@ export class ValidationService {
             'invalidUser': 'Invalid user id number',
             'invalidUsers': 'Invalid users, user list must be unique',
             'invalidNickName': 'Invalid nickname, must 5 - 20 alphanumeric characters',
+            'invalidNumber': 'The input must be a number',
 
         };
         return config[code];
@@ -103,5 +104,13 @@ export class ValidationService {
       } else {
           return { 'invalidUsers': true };
       }
+    }
+
+    static numberValidator(control: AbstractControl) {
+        if (!isNaN(control.value)) {
+            return null;
+        } else {
+            return { 'invalidNumber': true };
+        }
     }
 }
