@@ -1,0 +1,93 @@
+
+<div class="card">
+  <div class="card-body">
+    <div class="card card-primary">
+      <form [formGroup]="cardForm" (ngSubmit)="submit()">
+        <div class="card-body">
+          <div class="form-group">
+            <label for="firstName">Loan Nickname</label>
+            <input
+              [class.is-invalid]="
+              cardForm.get('nickName')?.invalid &&
+              cardForm.get('nickName')?.touched
+              "
+              id="nickName"
+              class="form-control"
+              type="text"
+              placeholder="Loan nickname"
+              name="nickName"
+              formControlName="nickName"
+            />
+            <small
+              *ngIf="nickName?.errors && nickName.touched"
+              class="text-danger"
+              >Nickname needs to be 4-20 alphanumeric characters</small
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <small *ngIf="cardService.creationError" class="text-danger">
+            Please verify User account numbers</small
+          >
+          <label for="users">Add Users</label>
+
+          <br />
+          <button
+            type="button"
+            class="btn btn-primary btn-sm"
+            (click)="searchUsers()"
+          >
+            Find Users
+          </button>
+
+          <ul class="list-group list-group-flush">
+            <div *ngIf="userSearch?.length == 0">No users found</div>
+          </ul>
+
+          <br />
+          <section *ngFor="let user of usersOnCard; let i = index">
+            <div *ngIf="i < 5">
+              <ul>
+              <li class="list-group-item">
+                {{ user.firstName }} {{ user.lastName }} - {{ user.username }} -
+                {{ user.email }} - {{ user.id }}
+                <span class="pull-right"
+                  ><em
+                    center="right"
+                    class="fa fa-minus"
+                    (click)="removeUserNew(i)"
+                  ></em
+                ></span>
+              </li>
+            </ul>
+            </div>
+          </section>
+        </div>
+        <div class="input-group-append">
+          <span class="input-group-text">Upload</span>
+        </div>
+
+        <div class="card-footer">
+          <button
+            type="button"
+            class="btn btn-primary"
+            [disabled]="usersOnCard.length < 1 || !cardForm.valid"
+            [type]="'submit'"
+          >
+            New Loan
+          </button>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- WHY IS NOT BLUE? -->
+    <div class="left">
+      <router-outlet></router-outlet>
+      <br />
+      <br />
+      <a routerLink="/loans">View all loans</a>
+    </div>
+  </div>
+</div>

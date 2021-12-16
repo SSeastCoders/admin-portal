@@ -36,6 +36,8 @@ import { UserModule } from './user/user.module';
 import { AppButtonComponent } from './layout/app-button/app-button.component';
 import { TransactionTableComponent } from './components/transaction-table/transaction-table.component';
 import { CreateCardComponent } from './card/create-card/create-card/create-card.component';
+import { LoanListComponent } from './components/loan-list/loan-list.component';
+import { CreateLoanComponent } from './loan/create-loan/create-loan.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +55,8 @@ import { CreateCardComponent } from './card/create-card/create-card/create-card.
     AppButtonComponent,
     TransactionTableComponent,
     CreateCardComponent,
+    LoanListComponent,
+    CreateLoanComponent,
   ],
   imports: [
     BrowserModule,

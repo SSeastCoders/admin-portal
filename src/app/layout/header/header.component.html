@@ -60,6 +60,18 @@
             Cards <span class="sr-only">(current)</span>
           </a>
         </li>
+
+        <!--LOANS-->
+        <li class="nav-item d-none d-sm-inline-block">
+          <a
+            class="nav-link"
+            routerLink="/loans"
+            [ngClass]="{ hidden: !authService.isLoggedIn() }"
+          >
+            Loans <span class="sr-only">(current)</span>
+          </a>
+        </li>
+
       </ul>
       <!-- SEARCH FORM -->
       <form

@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    localStorage.setItem('token', 'dlkrgnoetngoe');
     //localStorage.clear();
   }
 }

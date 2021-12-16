@@ -14,6 +14,8 @@ import { LayoutComponent } from './layout/layout.component';
 console.log('app-routing');
 import { CardListComponent } from './components/card-list/card-list.component';
 import { CreateCardComponent } from './card/create-card/create-card/create-card.component';
+import { LoanListComponent } from './components/loan-list/loan-list.component';
+import { CreateLoanComponent } from './loan/create-loan/create-loan.component';
 
 const routes: Routes = [
   {
@@ -30,11 +32,13 @@ const routes: Routes = [
 
       { path: 'registration', component: RegisterComponent },
 
-      { path: 'users', component: UserService },
+      { path: 'loans', component: LoanListComponent },
 
       { path: 'account-registration', component: CreateAccountComponent },
 
       { path: 'card-registration', component: CreateCardComponent },
+
+     { path: 'loan-registration', component: CreateLoanComponent },
 
       { path: 'accounts', component: AccountsComponent },
       { path: 'cards', component: CardListComponent },
