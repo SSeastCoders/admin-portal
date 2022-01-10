@@ -1,4 +1,4 @@
-import {  AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import {  Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -62,9 +62,6 @@ export class CardListComponent implements OnInit {
       this.cards = data.content;
       this.dataSource = new MatTableDataSource(this.cards);
       console.log(this.dataSource);
-      //this.paginator.pageIndex = data.pageable?.pageNumber;
-     // this.paginator.pageSize = data.pageable?.pageSize;
-     // this.paginator.length = data?.totalElements;
      this.pageNumber = data.pageable?.pageNumber;
      this.pageSize = data.pageable?.pageSize;
      this.totalElements = data?.totalElements;

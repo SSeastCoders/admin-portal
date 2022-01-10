@@ -53,13 +53,11 @@ describe('AuthService', () => {
   });
 
   it('should save token', () => {
-    let token = 'token';
     service.saveToken(token);
     expect(tokenService.getToken()).toEqual(token);
   });
 
   it('should remove token on logout', () => {
-    let token = 'token';
     service.saveToken(token);
     if (tokenService.getToken() == token) {
       expect(tokenService.getToken()).toEqual(token);

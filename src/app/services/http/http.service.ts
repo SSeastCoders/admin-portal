@@ -6,9 +6,6 @@ import {
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { UserDetailsDto } from 'src/app/dto/user-details-dto';
-import { Account } from 'src/app/models/account';
-import { User } from 'src/app/models/user';
 import { environment } from 'src/environments/environment';
 import {
   AccountEndPoints,
@@ -33,7 +30,7 @@ export class HttpService {
   methods!: ApiMethod;
 
   constructor(
-    private http: HttpClient //private _error: ErrorService;
+    private http: HttpClient
   ) {}
 
   requestCall(
@@ -50,7 +47,7 @@ export class HttpService {
         console.log(data);
         response = this.http.get<typeof type[]>(
           `${environment.userUrl}${api}${data}`
-        ); //.pipe(catchError(async (err) => this.handleError(err)));
+        );
         console.log('from requestCall');
         console.log(response);
         break;
@@ -59,7 +56,7 @@ export class HttpService {
           `${environment.userUrl}${api}`,
           data,
           httpOptions
-        ); //.pipe(catchError(async (err) => this.handleError(err)));
+        );
         break;
       case ApiMethod.PUT:
         console.log('in PUT case');
@@ -93,13 +90,6 @@ export class HttpService {
         response = this.http
           .get<typeof type[]>(`${environment.accountUrl}${api}`, data)
           .pipe(catchError(async (err) => this.handleError(err)));
-        // console.log('from requestCall');
-        // console.log(data);
-        // response = this.http.get<typeof type[]>(
-        //   `${environment.userUrl}${api}${data}`
-        // ); //.pipe(catchError(async (err) => this.handleError(err)));
-        // console.log('from requestCall');
-        // console.log(response);
         console.log('from requestCall');
         console.log(data);
 
@@ -146,7 +136,7 @@ export class HttpService {
       case ApiMethod.GET:
         response = this.http.get<typeof type[]>(
           `${environment.cardUrl}${api}${data}`
-        ); //.pipe(catchError(async (err) => this.handleError(err)));
+        );
         break;
       case ApiMethod.POST:
         response = this.http
@@ -174,29 +164,7 @@ export class HttpService {
       console.error('Error: ', error.error.message);
       return error;
     } else {
-      //this._error.whichError(error.status, error.message);
       return throwError({ error: error.message, statis: error.status });
     }
   }
 }
-
-// interface GetResponseUsers {
-//   content: User[];
-
-//   page: {
-//     size: number;
-//     totalElements: number;
-//     totalPages: number;
-//     number: number;
-//   };
-
-// interface GetResponseAccounts {
-//   content: Account[];
-
-//   page: {
-//     size: number;
-//     totalElements: number;
-//     totalPages: number;
-//     number: number;
-//   };
-//}

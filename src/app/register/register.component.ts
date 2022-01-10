@@ -15,7 +15,7 @@ import { Role } from '../models/role';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
 })
-export class RegisterComponent implements OnInit, OnChanges, OnDestroy {
+export class RegisterComponent implements OnInit, OnDestroy {
   register: CreateUser = new CreateUser();
   registerForm!: FormGroup;
   errorMessage?: string;
@@ -70,10 +70,8 @@ export class RegisterComponent implements OnInit, OnChanges, OnDestroy {
       .subscribe();
   }
 
-  ngOnChanges() {}
-
   ngOnDestroy() {
-    this.roleSubscription.unsubscribe;
+    this.roleSubscription.unsubscribe();
   }
 
   buildForm() {

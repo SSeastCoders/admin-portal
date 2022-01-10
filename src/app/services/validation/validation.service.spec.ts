@@ -1,6 +1,5 @@
-import { getTreeControlFunctionsMissingError } from '@angular/cdk/tree';
 import { TestBed } from '@angular/core/testing';
-import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { ValidationService } from './validation.service';
 
@@ -18,7 +17,7 @@ describe('ValidationService', () => {
     service = TestBed.inject(ValidationService);
     fb = new FormBuilder();
     form = fb.group({
-      control: [,],
+      control: ['',],
     });
   });
 

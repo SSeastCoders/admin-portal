@@ -9,21 +9,17 @@ import { AuthService } from 'src/app/services/auth/auth.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   constructor(
     public authService: AuthService,
     private router: Router,
     public userService: UserService
   ) {}
 
-  ngOnInit() {}
 
   public logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
 
-  // public createUserForm():void{
-
-  // }
 }

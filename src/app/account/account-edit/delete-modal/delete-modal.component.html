@@ -1,5 +1,6 @@
 
 <head>
+  <title>Delete Modal</title>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 </head>
@@ -23,7 +24,7 @@
     />
     <div class="input-group-append">
       <div class="input-group-text">
-        <i (click) = "togglePass()" class="{{show ? 'fa fa-eye' : 'fa fa-eye-slash'}}" id="togglePassword"></i>
+        <em (click) = "togglePass()" class="{{show ? 'fa fa-eye' : 'fa fa-eye-slash'}}" id="togglePassword"></em>
       </div>
     </div>
     <div class="input-group-append">
@@ -34,9 +35,6 @@
   </div>
     <small *ngIf="(password?.errors?.required) && password.touched"
       class="text-danger">Password is required</small>
-      <!--small [hidden]="passwordForm.get('password')?.valid || passwordForm.get('password')?.pristine"
-    class="text-danger">Password is required2</small-->
-
 <div class=modal-footer>
   <div class="pull-right">
     <button id="cancel" class="btn btn-default" (click)="cancel()">Cancel</button>&nbsp;&nbsp;

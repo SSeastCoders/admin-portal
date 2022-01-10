@@ -1,4 +1,4 @@
-import { Component, ContentChild, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Account } from 'src/app/models/account';
@@ -25,8 +25,6 @@ export class AccountEditComponent implements OnInit {
   accounts = [AccountType.CHECKING, AccountType.SAVING];
   hasBeenTouched = false;
   edit: boolean = false;
-  //defaultState : FormGroup;
-  //defaultState: FormGroup;
   @ViewChild('accountForm2', { static: true }) accountForm: FormGroup;
 
   constructor(private router: Router,
@@ -70,12 +68,9 @@ export class AccountEditComponent implements OnInit {
     this.accountForm.patchValue(
       {'accountType' : account.accountType,
       'nickName' : account.nickName});
-    //console.log(account.users);
     account.users.forEach((user) => {
-      //console.log(user.id);
       this.users().push(this.newUserWithValue(user.id));
     });
-    //this.defaultState = this.accountForm;
   }
 
   users() {
@@ -85,7 +80,7 @@ export class AccountEditComponent implements OnInit {
   newUser() {
     return this.formBuilder.group({
       //why cant user validationservice?
-      user: ['', [Validators.required, Validators.pattern(/^[0-9]{1,15}$/)]]
+      user: ['', [Validators.required, Validators.pattern(/^[\d]{1,15}$/)]]
     })
   }
 
@@ -125,7 +120,6 @@ export class AccountEditComponent implements OnInit {
   getAccount(id: number) {
     this.acctService.find(id).subscribe((account: Account) => {
       this.account = account;
-      //console.log("acct" + account);
       this.buildForm(account);
     });
   }
@@ -139,7 +133,6 @@ export class AccountEditComponent implements OnInit {
 
   cancel(event: Event) {
     event.preventDefault();
-    //this.setDefaultValues();
     this.buildForm(this.account);
   }
 
@@ -151,8 +144,6 @@ export class AccountEditComponent implements OnInit {
         console.log(result);
         this.acctService.delete(this.account.id);
       }});
-   // this.acctService.delete(this.account.id)
-   //   .subscribe();
   }
 
   canDeactivate(): Promise<boolean> | boolean {
@@ -174,23 +165,10 @@ export class AccountEditComponent implements OnInit {
     let tempArray = this.accountForm.get('users').value;
     let tempNumArray = [];
     for (let i = 0; i <  tempArray.length; i++) {
-      //console.log(tempArray.at(i).user);
       tempNumArray.push(Number(tempArray.at(i).user));
     }
     this.updateAccount.usersIds = this.removeDuplicate(tempNumArray);
     return this.updateAccount;
   }
-
-
-
-/*     // Dirty show display modal dialog to user to confirm leaving
-    const modalContent: ModalContent = {
-      header: 'Lose Unsaved Changes?',
-      body: 'You have unsaved changes! Would you like to leave the page and lose them?',
-      cancelButtonText: 'Cancel',
-      OKButtonText: 'Leave'
-    };
-    return this.modalService.show(modalContent);
-  } */
 
 }

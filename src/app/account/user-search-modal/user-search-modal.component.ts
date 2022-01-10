@@ -120,9 +120,6 @@ export class UserSearchModalComponent implements OnInit {
     this.activeModal.dismiss();
   }
 
-  submit() {
-  }
-
   addUserNew(user: User) {
     this.activeModal.close(user);
   }

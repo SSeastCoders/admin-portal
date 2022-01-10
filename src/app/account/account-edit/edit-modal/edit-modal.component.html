@@ -25,10 +25,12 @@
     <br>
     <section *ngFor="let user of accountEdit.users; let i = index;">
       <div *ngIf="i<5">
+      <ul>
       <li class="list-group-item">
         {{user.firstName}} {{user.lastName}} - {{user.username}} - {{user.email}} - {{user.id}}
-        <span class="pull-right"><i center="right" class ='fa fa-minus' *ngIf='i>0' (click)="removeUserNew(i)"></i></span>
+        <span class="pull-right"><em center="right" class ='fa fa-minus' *ngIf='i>0' (click)="removeUserNew(i)"></em></span>
       </li>
+      </ul>
       </div>
     </section>
 

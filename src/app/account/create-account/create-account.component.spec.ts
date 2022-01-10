@@ -1,6 +1,5 @@
 import {
   HttpClient,
-  HttpClientModule,
   HttpHandler,
 } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -9,7 +8,6 @@ import { FormBuilder } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AccountService } from 'src/app/services/account/account.service';
 import { HttpService } from 'src/app/services/http/http.service';
-import { isPropertyAssignment } from 'typescript';
 
 import { CreateAccountComponent } from './create-account.component';
 
@@ -68,24 +66,4 @@ describe('CreateAccountComponent', () => {
     ]);
   });
 
-  // it('should create', () => {
-  //   expect(component).toBeTruthy();
-  // });
-
-  // THIS TEST IS NOT PASSING
-  // it('should generate account', () => {
-  //   component.account = component.generateAccount();
-  //   expect(component.account.interestRate).toEqual(0.01);
-  //   expect(component.account.openDate).toEqual(
-  //     Date.parse(
-  //       new Date().getFullYear() +
-  //         '-' +
-  //         new Date().getMonth() +
-  //         '-' +
-  //         new Date().getDate()
-  //     )
-  //   );
-  //   expect(component.account.balance).toEqual(0);
-  //   expect(component.account.activeStatus).toEqual(true);
-  // });
 });

@@ -3,18 +3,16 @@ import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
-import { ErrorHandler, inject, Injectable } from '@angular/core';
+import { ErrorHandler, Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { User } from 'src/app/models/user';
 import { HttpService } from 'src/app/services/http/http.service';
-import { environment } from 'src/environments/environment';
 import { AccountEndPoints, ApiMethod, AuthEndPoints } from '../const';
 
 describe('HttpService', () => {
   let service: HttpService;
   let httpMock: HttpTestingController;
-  let httpError: HttpErrorResponse;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -26,8 +24,6 @@ describe('HttpService', () => {
     service = TestBed.inject(HttpService);
     httpMock = TestBed.inject(HttpTestingController);
   });
-
-  beforeEach(() => {});
 
   it('should create', () => {
     expect(service).toBeTruthy();
@@ -53,7 +49,9 @@ describe('HttpService', () => {
 
 @Injectable()
 export class ErrorHandlerService implements ErrorHandler {
-  constructor() {}
+  constructor() {
+    //this is intentional
+  }
 
   handleError(error: any): void {
     this.processError(error);

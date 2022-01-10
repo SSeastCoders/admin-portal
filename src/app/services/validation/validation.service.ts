@@ -38,7 +38,7 @@ export class ValidationService {
     }
 
     static adminEmailValidator(control: AbstractControl) {
-      if (control.value.match(/^[A-Za-z0-9](\.?|_?[A-Za-z0-9]){5,}@smoothstack\.com$/)) {
+      if (control.value.match(/^[a-zA-Z0-9._%+-]{5,}@smoothstack\.com$/)) {
           return null;
       } else {
           return { 'invalidAdminEmailAddress': true };
@@ -82,7 +82,7 @@ export class ValidationService {
     }
 
     static nickNameValidator(control: AbstractControl) {
-      if ((control?.value.match(/^[a-z0-9A-Z ]{6,20}$/))) {
+      if (control?.value.match(/^[a-z0-9A-Z ]{6,20}$/)) {
           return null;
       } else {
         return { 'invalidNickname': true };
@@ -90,7 +90,7 @@ export class ValidationService {
     }
 
     static userValidator(control: AbstractControl) {
-      if ((control?.value.match(/^[0-9]{1,15}$/)) || (!control?.touched)) {
+      if ((control?.value.match(/^[\d]{1,15}$/)) || (!control?.touched)) {
           return null;
       } else {
           return { 'invalidUser': true };

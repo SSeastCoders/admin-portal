@@ -4,7 +4,6 @@ import { UserService } from 'src/app/services/user/user.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-//import { fa-pencil } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-user-list',

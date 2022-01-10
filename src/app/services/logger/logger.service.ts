@@ -6,7 +6,9 @@ import { environment } from 'src/environments/environment';
 })
 export class LoggerService {
 
-    constructor() { }
+    constructor() {
+      //this is intentional
+     }
 
     log(msg: string) {
         if (!environment.production) {

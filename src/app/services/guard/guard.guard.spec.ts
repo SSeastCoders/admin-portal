@@ -27,11 +27,6 @@ describe('AuthGuard', () => {
     expect(guard).toBeTruthy();
   });
 
-  it('should redirect an unauthenticated user to the login route', () => {
-    //expect(guard.canActivate(routeMock, routeStateMock)).toEqual(false);
-    //expect(routerMock.navigate).toHaveBeenCalledWith(['/login']);
-  });
-
   it('should allow the authenticated user to access app', () => {
     spyOn(authService, 'isLoggedIn').and.returnValue(true);
     expect(guard.canActivate(routeMock, routeStateMock)).toEqual(true);

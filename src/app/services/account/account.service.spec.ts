@@ -10,12 +10,9 @@ import { Address } from 'src/app/models/address';
 import { AccountInterest, AccountType } from 'src/app/models/const';
 import { CreateAccount } from 'src/app/models/createAccount';
 import { Role } from 'src/app/models/role';
-import { UpdateAccount } from 'src/app/models/updateAccount';
 import { environment } from 'src/environments/environment';
 import { AccountEndPoints } from '../const';
-import { AccountsComponent } from 'src/app/accounts/accounts.component';
 import { AccountService } from './account.service';
-import { AccountComponent } from 'src/app/account/account.component';
 
 describe('AccountService', () => {
   let service: AccountService;
@@ -23,8 +20,6 @@ describe('AccountService', () => {
   let client: HttpClient;
   let account: Account;
   let accountNew: CreateAccount;
-  let accountUpdate: UpdateAccount;
-  let httpClientSpy: { get: jasmine.Spy };
 
   beforeEach(() => {
     TestBed.configureTestingModule({

@@ -51,7 +51,6 @@ export class AccountsComponent implements OnInit {
 
   ngOnInit(): void {
     this.handleAccountsList();
-    //this.getAccounts();
     this.getAccountsPageEvent();
     this.dataSource = new MatTableDataSource(this.accounts);
     this.dataSource.paginator = this.paginator;

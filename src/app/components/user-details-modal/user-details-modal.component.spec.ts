@@ -16,7 +16,6 @@ describe('UserDetailsModalComponent', () => {
   let fixture: ComponentFixture<UserDetailsModalComponent>;
   let service;
   let modal: NgbActiveModal;
-  //let mockModalRef: MockNgbModalRef = new MockNgbModalRef();
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
@@ -41,9 +40,4 @@ describe('UserDetailsModalComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // it('should close modal', () => {
-  //   spyOn(modal, 'onCloseModal');
-
-  //   expect(component.onCloseModal).toHaveBeenCalled();
-  // });
 });

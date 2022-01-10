@@ -19,5 +19,7 @@ export class AppButtonComponent {
         googlePlus: 'fab fa-google-plus'
     };
 
-    constructor() {}
+    constructor() {
+      //this is intentional
+    }
 }

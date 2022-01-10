@@ -6,11 +6,7 @@ import { Router } from '@angular/router';
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.css']
 })
-export class AccountComponent implements OnInit {
+export class AccountComponent {
 
   constructor(private router: Router) { }
-
-  ngOnInit() {
-  }
-
 }

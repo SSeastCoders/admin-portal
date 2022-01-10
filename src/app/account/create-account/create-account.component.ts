@@ -77,14 +77,13 @@ export class CreateAccountComponent implements OnInit {
   }
 
   generateAccount() {
-    this.account.interestRate =  AccountInterest.SAVING //? AccountInterest.SAVING : AccountInterest.CHECKING;
+    this.account.interestRate =  AccountInterest.SAVING;
     this.account.openDate = Date.parse((new Date().getFullYear())+'-'+(new Date().getMonth())+'-'+new Date().getDate()) ;
     this.account.balance = 0;
     this.account.activeStatus = true;
     this.account.nickName = this.accountForm.get('nickName').value;
     let tempNumArray = [];
     for (let i = 0; i <  this.usersOnAccount.length; i++) {
-      //console.log(tempArray.at(i).user);
       console.log(this.usersOnAccount.slice(i,i+1)[0].id);
       tempNumArray.push(this.usersOnAccount.slice(i,i+1)[0].id);
     }

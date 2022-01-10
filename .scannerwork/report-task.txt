@@ -1,0 +1,6 @@
+projectKey=AdminPortal1
+serverUrl=http://localhost:9000
+serverVersion=9.1.0.47736
+dashboardUrl=http://localhost:9000/dashboard?id=AdminPortal1
+ceTaskId=AX0tpa8_bkcWjLOPCEc-
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AX0tpa8_bkcWjLOPCEc-
